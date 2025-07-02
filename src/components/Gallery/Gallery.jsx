@@ -1,3 +1,166 @@
+// import React, { useState, useEffect, useRef } from "react";
+// import Slider from "react-slick";
+// import { motion, AnimatePresence } from "framer-motion";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+// const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+
+// const Gallery = () => {
+//   const sliderRef = useRef(null);
+//   const [activeTab, setActiveTab] = useState("all");
+//   const [allFetchedImages, setAllFetchedImages] = useState([]);
+//   const [images, setImages] = useState([]);
+//   const [selectedIndex, setSelectedIndex] = useState(0);
+//   const [fullScreenOpen, setFullScreenOpen] = useState(false);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchImages = async () => {
+//       try {
+//         setLoading(true);
+//         setError(null);
+//         const response = await fetch("http://localhost:5000/api/gallery-images");
+//         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+//         const data = await response.json();
+//         // Ensure data has necessary properties, or add fallbacks
+//         const processedData = data.map(item => ({
+//           ...item,
+//           image: item.image || fallbackImage, // Ensure image URL exists
+//           category: item.category || 'uncategorized', // Ensure category exists
+//           alt: item.alt || 'Gallery image', // Ensure alt text exists
+//         }));
+//         setAllFetchedImages(processedData);
+//         setImages(processedData);
+//       } catch (err) {
+//         setError(err.message || "Failed to load images.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchImages();
+//   }, []);
+
+//   useEffect(() => {
+//     const filtered =
+//       activeTab === "all"
+//         ? allFetchedImages
+//         : allFetchedImages.filter((img) => img.category?.toLowerCase() === activeTab.toLowerCase());
+
+//     setImages(filtered);
+//     setSelectedIndex(0);
+//     // Use setTimeout to ensure slickGoTo is called after images state potentially updates,
+//     // which can sometimes cause a flicker or incorrect slide if not synchronized.
+//     setTimeout(() => {
+//       sliderRef.current?.slickGoTo(0, true); // `true` for immediate jump without animation
+//     }, 50); // Small delay
+//   }, [activeTab, allFetchedImages]);
+
+//   const sliderSettings = {
+//     dots: false,
+//     infinite: true,
+//     speed: 600,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     arrows: true,
+//     fade: true,
+//     beforeChange: (_, next) => setSelectedIndex(next),
+//     // Custom arrow icons for a more polished look
+//     prevArrow: <SamplePrevArrow />,
+//     nextArrow: <SampleNextArrow />,
+//   };
+
+//   // Custom Arrows for Slick Carousel
+//   function SamplePrevArrow(props) {
+//     const { className, style, onClick } = props;
+//     return (
+//       <motion.div
+//         className={`${className} custom-arrow left-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
+//         style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
+//         onClick={onClick}
+//         whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
+//         whileTap={{ scale: 0.9 }}
+//         initial={{ opacity: 0, x: -20 }}
+//         animate={{ opacity: 1, x: 0 }}
+//         exit={{ opacity: 0, x: -20 }}
+//         transition={{ duration: 0.3 }}
+//       >
+//         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+//         </svg>
+//       </motion.div>
+//     );
+//   }
+
+//   function SampleNextArrow(props) {
+//     const { className, style, onClick } = props;
+//     return (
+//       <motion.div
+//         className={`${className} custom-arrow right-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
+//         style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
+//         onClick={onClick}
+//         whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
+//         whileTap={{ scale: 0.9 }}
+//         initial={{ opacity: 0, x: 20 }}
+//         animate={{ opacity: 1, x: 0 }}
+//         exit={{ opacity: 0, x: 20 }}
+//         transition={{ duration: 0.3 }}
+//       >
+//         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+//         </svg>
+//       </motion.div>
+//     );
+//   }
+
+//   const openFullScreen = () => setFullScreenOpen(true);
+//   const closeFullScreen = () => setFullScreenOpen(false);
+//   const handleImageError = (e) => {
+//     e.target.src = fallbackImage;
+//     e.target.onerror = null; // Prevent endless loop if fallback also fails
+//   };
+
+//   const staggerContainerVariants = {
+//     hidden: { opacity: 0 },
+//     visible: {
+//       opacity: 1,
+//       transition: {
+//         staggerChildren: 0.1,
+//       },
+//     },
+//   };
+
+//   const itemVariants = {
+//     hidden: { y: 20, opacity: 0 },
+//     visible: { y: 0, opacity: 1 },
+//   };
+
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-teal-300 text-2xl animate-pulse">
+//         <svg className="animate-spin h-10 w-10 mb-4 text-teal-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+//           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//         </svg>
+//         Fetching beautiful moments...
+//       </div>
+//     );
+//   }
+
+//   if (error) {
+//     return (
+//       <div className="min-h-screen flex flex-col items-center justify-center bg-red-800 text-white text-xl p-4 text-center">
+//         <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+//         </svg>
+//         <p className="font-bold mb-2">Oops! Couldn't load the gallery.</p>
+//         <p>Error: {error}</p>
+//         <p className="mt-4 text-lg">Please check your connection or try again later.</p>
+//       </div>
+//     );
+//   }
+
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,15 +184,14 @@ const Gallery = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://localhost:5000/api/gallery-images");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/gallery-images`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        // Ensure data has necessary properties, or add fallbacks
         const processedData = data.map(item => ({
           ...item,
-          image: item.image || fallbackImage, // Ensure image URL exists
-          category: item.category || 'uncategorized', // Ensure category exists
-          alt: item.alt || 'Gallery image', // Ensure alt text exists
+          image: item.image || fallbackImage,
+          category: item.category || 'uncategorized',
+          alt: item.alt || 'Gallery image',
         }));
         setAllFetchedImages(processedData);
         setImages(processedData);
@@ -50,11 +212,9 @@ const Gallery = () => {
 
     setImages(filtered);
     setSelectedIndex(0);
-    // Use setTimeout to ensure slickGoTo is called after images state potentially updates,
-    // which can sometimes cause a flicker or incorrect slide if not synchronized.
     setTimeout(() => {
-      sliderRef.current?.slickGoTo(0, true); // `true` for immediate jump without animation
-    }, 50); // Small delay
+      sliderRef.current?.slickGoTo(0, true);
+    }, 50);
   }, [activeTab, allFetchedImages]);
 
   const sliderSettings = {
@@ -66,20 +226,18 @@ const Gallery = () => {
     arrows: true,
     fade: true,
     beforeChange: (_, next) => setSelectedIndex(next),
-    // Custom arrow icons for a more polished look
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
   };
 
-  // Custom Arrows for Slick Carousel
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
       <motion.div
         className={`${className} custom-arrow left-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
-        style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
+        style={{ ...style, display: "flex", width: '40px', height: '40px' }}
         onClick={onClick}
-        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
+        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -98,9 +256,9 @@ const Gallery = () => {
     return (
       <motion.div
         className={`${className} custom-arrow right-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
-        style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
+        style={{ ...style, display: "flex", width: '40px', height: '40px' }}
         onClick={onClick}
-        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
+        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -118,7 +276,7 @@ const Gallery = () => {
   const closeFullScreen = () => setFullScreenOpen(false);
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
-    e.target.onerror = null; // Prevent endless loop if fallback also fails
+    e.target.onerror = null;
   };
 
   const staggerContainerVariants = {
@@ -160,7 +318,7 @@ const Gallery = () => {
       </div>
     );
   }
-
+  
   return (
     <motion.div
       className="min-h-screen overflow-hidden bg-gradient-to-br from-gray-950 to-gray-800 text-white font-sans"
