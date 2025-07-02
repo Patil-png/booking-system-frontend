@@ -16,6 +16,9 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 import Contacts from './admin/Contacts.jsx';
 import GalleryAdmin from './admin/GalleryAdmin';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 
 const isAdminAuthenticated = () => {
   return !!localStorage.getItem('adminToken');
