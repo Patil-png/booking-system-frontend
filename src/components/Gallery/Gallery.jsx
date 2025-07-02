@@ -9,7 +9,7 @@ const fallbackImage = "/fallback.jpg"; // ✅ local fallback
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
-  const BASE_URL = import.meta.env.VITE_API_URL;
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const sliderRef = useRef(null);
   const [activeTab, setActiveTab] = useState("all");
   const [allFetchedImages, setAllFetchedImages] = useState([]);
@@ -23,17 +23,16 @@ const Gallery = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/gallery`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gallery`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       const processedData = data.map(item => ({
   ...item,
   image: item.image?.startsWith("http")
     ? item.image
-    : `${import.meta.env.VITE_API_URL}${item.image}`,
-  category: item.category || 'uncategorized',
-  alt: item.alt || 'Gallery image',
+    : `${import.meta.env.VITE_API_BASE_URL}${item.image}`,
 }));
+
 
       setAllFetchedImages(processedData);
       setImages(processedData);
