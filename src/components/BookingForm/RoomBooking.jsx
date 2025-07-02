@@ -39,7 +39,7 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchBlockedDates = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/blocked-dates?type=Room');
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=Room`);
         const data = await res.json();
         const converted = data.map(item => new Date(item.date).toISOString().split('T')[0]);
         setBlockedDates(converted);
@@ -53,7 +53,7 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchRoomOptions = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/options');
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
         const data = await res.json();
         const rooms = Array.isArray(data) ? data.filter(item => item.type === 'Room') : data.rooms || [];
         setAvailableRooms(rooms);
@@ -169,7 +169,7 @@ const RoomBooking = () => {
     }
 
     try {
-      const orderRes = await fetch('http://localhost:5000/api/razorpay/create-order', {
+      const orderRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalAmount }),
