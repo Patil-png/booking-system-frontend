@@ -1,12 +1,21 @@
-// 📁 LawnBooking.jsx
-
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // Added AnimatePresence
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from '../components/Navbar'; // Adjust path if needed
 import { sendOTP, verifyOTP } from '../../utils/otpService';
 import { generateInvoice } from '../../utils/invoiceGenerator';
 import { createBooking } from '../../utils/api';
 
 const LawnBooking = () => {
+  const [selectedTab, setSelectedTab] = useState('lawn');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (selectedTab === 'room') {
+      navigate('/room-booking');
+    }
+  }, [selectedTab]);
+
   const [formData, setFormData] = useState({
     slot: '',
     checkIn: '',
@@ -20,31 +29,31 @@ const LawnBooking = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [blockedDates, setBlockedDates] = useState([]);
   const [lawnSlots, setLawnSlots] = useState([]);
-  const [statusMessage, setStatusMessage] = useState({ type: '', message: '' }); // Changed to object
+  const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
 
   const selectedSlot = lawnSlots.find(slot => slot.name === formData.slot);
-  const selectedSlotPrice = selectedSlot?.price || 0; // Consistent naming
+  const selectedSlotPrice = selectedSlot?.price || 0;
 
   const calculateDays = () => {
     const checkIn = new Date(formData.checkIn);
     const checkOut = new Date(formData.checkOut);
-    if (checkOut <= checkIn) return 1; // Ensure at least 1 day
+    if (checkOut <= checkIn) return 1;
     const diffTime = checkOut - checkIn;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 1;
   };
 
-  const totalAmount = selectedSlotPrice * calculateDays(); // Use selectedSlotPrice
+  const totalAmount = selectedSlotPrice * calculateDays();
 
   useEffect(() => {
     const fetchBlockedDates = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=Lawn`);
         const data = await res.json();
-        const converted = data.map(item => new Date(item.date).toISOString().split('T')[0]); // Standardize date format
+        const converted = data.map(item => new Date(item.date).toISOString().split('T')[0]);
         setBlockedDates(converted);
       } catch (err) {
-        setStatusMessage({ type: 'error', message: 'Failed to load blocked dates.' }); // Consistent status message
+        setStatusMessage({ type: 'error', message: 'Failed to load blocked dates.' });
       }
     };
     fetchBlockedDates();
@@ -61,11 +70,11 @@ const LawnBooking = () => {
           setFormData(prev => ({ ...prev, slot: lawns[0].name }));
         }
       } catch (err) {
-        setStatusMessage({ type: 'error', message: 'Failed to load lawn slot options.' }); // Consistent status message
+        setStatusMessage({ type: 'error', message: 'Failed to load lawn slot options.' });
       }
     };
     fetchLawnSlots();
-  }, [formData.slot]); // Dependency updated
+  }, [formData.slot]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,10 +88,10 @@ const LawnBooking = () => {
     if (name === "checkIn" || name === "checkOut") {
       if (blockedDates.includes(value)) {
         setStatusMessage({ type: 'error', message: `⚠️ ${value} is blocked.` });
-        setFormData({ ...formData, [name]: '' }); // Clear the invalid date
+        setFormData({ ...formData, [name]: '' });
       } else {
         setFormData({ ...formData, [name]: value });
-        setStatusMessage({ type: '', message: '' }); // Clear status on valid input
+        setStatusMessage({ type: '', message: '' });
       }
     } else {
       setFormData({ ...formData, [name]: value });
@@ -101,7 +110,6 @@ const LawnBooking = () => {
       setStatusMessage({ type: 'success', message: "✅ OTP sent to your email." });
       setOtpSent(true);
     } catch (err) {
-      console.error("Send OTP error:", err);
       setStatusMessage({ type: 'error', message: "❌ Failed to send OTP. Please try again." });
     }
   };
@@ -121,7 +129,6 @@ const LawnBooking = () => {
         setStatusMessage({ type: 'error', message: "❌ Invalid OTP. Please try again." });
       }
     } catch (err) {
-      console.error("Verify OTP error:", err);
       setStatusMessage({ type: 'error', message: "❌ OTP verification failed. Server error." });
     }
   };
@@ -145,12 +152,11 @@ const LawnBooking = () => {
       return;
     }
 
-    // Double-check blocked dates at the final step
     const normalizedCheckIn = new Date(formData.checkIn).toISOString().split('T')[0];
     const normalizedCheckOut = new Date(formData.checkOut).toISOString().split('T')[0];
 
     if (blockedDates.includes(normalizedCheckIn) || blockedDates.includes(normalizedCheckOut)) {
-      setStatusMessage({ type: 'error', message: "⚠️ One of the selected dates is blocked. Please choose different dates." });
+      setStatusMessage({ type: 'error', message: "⚠️ One of the selected dates is blocked." });
       return;
     }
 
@@ -177,7 +183,6 @@ const LawnBooking = () => {
         description: "Lawn Slot Reservation",
         order_id: order.id,
         handler: async (response) => {
-          // Generate invoice
           generateInvoice({
             bookingType: 'Lawn',
             formData: { ...formData, checkIn: normalizedCheckIn, checkOut: normalizedCheckOut },
@@ -185,7 +190,6 @@ const LawnBooking = () => {
             paymentId: response.razorpay_payment_id,
           });
 
-          // Create booking in backend
           await createBooking({
             ...formData,
             checkIn: normalizedCheckIn,
@@ -197,19 +201,11 @@ const LawnBooking = () => {
 
           setStatusMessage({ type: 'success', message: "✅ Booking successful! Invoice sent to your email." });
 
-          // Reset form and UI after successful booking
-          setFormData({
-            slot: '',
-            checkIn: '',
-            checkOut: '',
-            email: '',
-            phone: '',
-          });
+          setFormData({ slot: '', checkIn: '', checkOut: '', email: '', phone: '' });
           setOtpSent(false);
           setOtpInput('');
           setIsVerified(false);
 
-          // Reload blocked dates to reflect the new booking (or re-fetch)
           setTimeout(() => {
             window.location.reload();
           }, 2000);
@@ -220,18 +216,16 @@ const LawnBooking = () => {
           contact: formData.phone,
         },
         theme: {
-          color: "#22c55e", // Green color for LawnBooking
+          color: "#22c55e",
         },
       };
 
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      console.error("❌ Razorpay error:", err);
-      setStatusMessage({ type: 'error', message: "⚠️ Payment failed or booking could not be confirmed. Please contact support if payment was deducted." });
+      setStatusMessage({ type: 'error', message: "⚠️ Payment failed or booking not confirmed." });
     }
   };
-
 
   // Framer Motion Variants (Copied from RoomBooking with green adjustments)
   const formContainerVariants = {
