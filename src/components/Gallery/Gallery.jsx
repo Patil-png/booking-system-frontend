@@ -27,11 +27,14 @@ const Gallery = () => {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       const processedData = data.map(item => ({
-        ...item,
-        image: item.image || fallbackImage,
-        category: item.category || 'uncategorized',
-        alt: item.alt || 'Gallery image',
-      }));
+  ...item,
+  image: item.image?.startsWith("http")
+    ? item.image
+    : `${import.meta.env.VITE_API_URL}${item.image}`,
+  category: item.category || 'uncategorized',
+  alt: item.alt || 'Gallery image',
+}));
+
       setAllFetchedImages(processedData);
       setImages(processedData);
     } catch (err) {
