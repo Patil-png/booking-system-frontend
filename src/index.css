@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: sans-serif;
+  background-color: #f9fafb;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+input, button {
+  font-size: 1rem;
+}
+
+@keyframes pulse-bg {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-pulse {
+  background-size: 200% 200%;
+  animation: pulse-bg 10s ease infinite;
+}
+
+
+/* src/index.css */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  color: black;
+  /* background-color: white; */
+  /* bg-[#0f182e] */
+}
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.bg-300 {
+  background-size: 300% 300%;
+}
+
+/* Increase arrow button size and style */
+.slick-prev, .slick-next {
+  width: 50px !important;
+  height: 50px !important;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6); /* gold glow */
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 28px !important;
+  color: gold;
+  opacity: 1;
+}
+
+/* Optional: adjust position */
+.slick-prev {
+  left: -60px !important;
+}
+.slick-next {
+  right: -60px !important;
+}
+
+/* Smooth fade transition for images */
+.slick-slide img {
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.slick-slide.slick-active img {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* Increase size of slider arrows */
+.slick-prev,
+.slick-next {
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  font-size: 40px;
+  color: gold; /* optional color change */
+}
+
+/* Add soft shadow to current image */
+.slick-slide.slick-active {
+  box-shadow: 0 10px 40px rgba(255, 215, 0, 0.5);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Optional: Hover zoom effect */
+.slick-slide img:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s ease-in-out;
+}
