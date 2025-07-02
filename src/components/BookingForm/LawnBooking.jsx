@@ -6,6 +6,11 @@ import { sendOTP, verifyOTP } from '../../utils/otpService';
 import { generateInvoice } from '../../utils/invoiceGenerator';
 import { createBooking } from '../../utils/api';
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const LawnBooking = () => {
   const [selectedTab, setSelectedTab] = useState('lawn');
   const navigate = useNavigate();
