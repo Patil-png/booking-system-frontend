@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../components/Navbar'; // Adjust path if needed
+import BookingNavbar from "../Navbar/BookingNavbar";
 import { sendOTP, verifyOTP } from '../../utils/otpService';
 import { generateInvoice } from '../../utils/invoiceGenerator';
 import { createBooking } from '../../utils/api';
