@@ -39,11 +39,11 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchBlockedDates = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=Room`);
+        const res = await fetch('http://localhost:5000/api/blocked-dates?type=Room');
         const data = await res.json();
         const converted = data.map(item => new Date(item.date).toISOString().split('T')[0]);
         setBlockedDates(converted);
-      } catch {
+      } catch (err) {
         setStatusMessage({ type: 'error', message: 'Failed to load blocked dates.' });
       }
     };
@@ -53,14 +53,14 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchRoomOptions = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
+        const res = await fetch('http://localhost:5000/api/options');
         const data = await res.json();
         const rooms = Array.isArray(data) ? data.filter(item => item.type === 'Room') : data.rooms || [];
         setAvailableRooms(rooms);
         if (rooms.length > 0 && !formData.roomId) {
           setFormData(prev => ({ ...prev, roomId: rooms[0]._id }));
         }
-      } catch {
+      } catch (err) {
         setStatusMessage({ type: 'error', message: 'Failed to load room options.' });
       }
     };
@@ -114,7 +114,8 @@ const RoomBooking = () => {
       await sendOTP(formData.email, formData.phone);
       setStatusMessage({ type: 'success', message: "✅ OTP sent to your email." });
       setOtpSent(true);
-    } catch {
+    } catch (err) {
+      console.error("Send OTP error:", err);
       setStatusMessage({ type: 'error', message: "❌ Failed to send OTP. Please try again." });
     }
   };
@@ -131,10 +132,11 @@ const RoomBooking = () => {
         setStatusMessage({ type: 'success', message: "✅ OTP Verified!" });
         setIsVerified(true);
       } else {
-        setStatusMessage({ type: 'error', message: "❌ Invalid OTP." });
+        setStatusMessage({ type: 'error', message: "❌ Invalid OTP. Please try again." });
       }
-    } catch {
-      setStatusMessage({ type: 'error', message: "❌ OTP verification failed." });
+    } catch (err) {
+      console.error("Verify OTP error:", err);
+      setStatusMessage({ type: 'error', message: "❌ OTP verification failed. Server error." });
     }
   };
 
@@ -157,22 +159,24 @@ const RoomBooking = () => {
       return;
     }
 
+    // Double-check blocked dates at the final step
     const normalizedCheckIn = new Date(formData.checkIn).toISOString().split('T')[0];
     const normalizedCheckOut = new Date(formData.checkOut).toISOString().split('T')[0];
 
     if (blockedDates.includes(normalizedCheckIn) || blockedDates.includes(normalizedCheckOut)) {
-      setStatusMessage({ type: 'error', message: "⚠️ One of the selected dates is blocked." });
+      setStatusMessage({ type: 'error', message: "⚠️ One of the selected dates is blocked. Please choose different dates." });
       return;
     }
 
     try {
-      const orderRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
+      const orderRes = await fetch('http://localhost:5000/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalAmount }),
       });
 
-      const { order } = await orderRes.json();
+      const data = await orderRes.json();
+      const order = data.order;
 
       if (!order?.id) {
         setStatusMessage({ type: 'error', message: 'Failed to initiate payment.' });
@@ -187,6 +191,7 @@ const RoomBooking = () => {
         description: "Room Reservation",
         order_id: order.id,
         handler: async (response) => {
+          // Generate invoice
           generateInvoice({
             bookingType: 'Room',
             formData: { ...formData, checkIn: normalizedCheckIn, checkOut: normalizedCheckOut },
@@ -194,6 +199,7 @@ const RoomBooking = () => {
             paymentId: response.razorpay_payment_id,
           });
 
+          // Create booking in backend
           await createBooking({
             ...formData,
             checkIn: normalizedCheckIn,
@@ -205,6 +211,7 @@ const RoomBooking = () => {
 
           setStatusMessage({ type: 'success', message: "✅ Booking successful! Invoice sent to your email." });
 
+          // Reset form and UI after successful booking
           setFormData({
             roomId: '',
             adults: 1,
@@ -217,53 +224,74 @@ const RoomBooking = () => {
           setOtpSent(false);
           setOtpInput('');
           setIsVerified(false);
-          setTimeout(() => window.location.reload(), 2000);
+
+          // Reload blocked dates to reflect the new booking (or re-fetch)
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         prefill: {
           name: formData.email,
           email: formData.email,
           contact: formData.phone,
         },
-        theme: { color: "#2563eb" },
+        theme: {
+          color: "#2563eb",
+        },
       };
 
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      setStatusMessage({ type: 'error', message: "⚠️ Payment failed. Contact support if money deducted." });
+      console.error("❌ Razorpay error:", err);
+      // If backend fails, but invoice generated, inform user
+      setStatusMessage({ type: 'error', message: "⚠️ Payment failed or booking could not be confirmed. Please contact support if payment was deducted." });
     }
   };
 
+
+  // Framer Motion Variants
+  const formContainerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.03, boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)" },
+    tap: { scale: 0.97 },
+  };
+
+  const statusVariants = {
+    initial: { opacity: 0, y: -10 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 },
+  };
+
+  // Get current date for min attribute on date inputs
   const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans">
       <motion.div
         className="max-w-xl w-full mx-auto p-6 sm:p-8 bg-white border border-blue-300 rounded-3xl shadow-2xl overflow-hidden"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        variants={formContainerVariants}
+        initial="hidden"
+        animate="visible"
       >
-        {/* Top Booking Type Tabs */}
-        <div className="flex justify-center mb-4">
-          <div className="inline-flex bg-blue-100 rounded-full p-1 shadow-inner">
-            <a
-              href="/room-booking"
-              className="px-4 py-2 text-sm font-semibold rounded-full text-white bg-blue-700 shadow"
-            >
-              Room Booking
-            </a>
-            <a
-              href="/lawn-booking"
-              className="px-4 py-2 text-sm font-semibold rounded-full text-blue-700 hover:bg-blue-200"
-            >
-              Lawn Booking
-            </a>
-          </div>
-        </div>
-
-        {/* You can now paste the rest of the existing <form> and logic here — no changes below this point */}
-
         <h2 className="text-2xl sm:text-3xl font-extrabold mb-6 text-center text-blue-700 drop-shadow-md">
           Book Room
         </h2>
