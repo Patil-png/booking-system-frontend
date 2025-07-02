@@ -4,7 +4,7 @@ import { FaHotel, FaPagelines } from 'react-icons/fa';
 
 const Navbar = ({ selectedTab, setSelectedTab }) => {
   return (
-    <nav className="w-full bg-gradient-to-r from-green-600 to-teal-500 shadow-md">
+<nav className="w-full bg-gradient-to-r from-green-600 to-teal-500 shadow-md relative z-10">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 py-3 gap-2 sm:gap-0">
         <h1 className="text-white text-xl sm:text-2xl font-bold tracking-wide mb-1 sm:mb-0">
           Taj Style Booking
