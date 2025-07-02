@@ -14,7 +14,7 @@ const BookingsList = () => {
     if (!confirm) return;
 
     try {
-      await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, {
         method: 'DELETE',
       });
       // Refresh bookings list

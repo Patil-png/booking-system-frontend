@@ -7,9 +7,11 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   const fetchBlockedDates = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/blocked-dates?type=${type}`);
+      const res = await fetch(`${API}/api/blocked-dates?type=${type}`);
       if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
       const data = await res.json();
       setBlockedList(data);
@@ -23,7 +25,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
     if (!selectedDate) return;
     setLoading(true);
     try {
-      const res = await fetch('/api/blocked-dates', {
+      const res = await fetch(`${API}/api/blocked-dates`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type, date: selectedDate }),
@@ -43,7 +45,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
 
   const unblockDate = async (id) => {
     try {
-      const res = await fetch(`/api/blocked-dates/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API}/api/blocked-dates/${id}`, { method: 'DELETE' });
       if (res.ok) fetchBlockedDates();
       else alert('Failed to unblock date.');
     } catch (error) {
@@ -101,101 +103,3 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
 
 export default AdminBlockedDates;
 
-// import React, { useEffect, useState } from 'react';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
-
-// const AdminBlockedDates = ({ type = 'Room' }) => {
-//   const [blockedList, setBlockedList] = useState([]); // Full blocked date objects
-//   const [selectedDate, setSelectedDate] = useState(null);
-//   const [loading, setLoading] = useState(false);
-
-// const fetchBlockedDates = async () => {
-//   try {
-//     const res = await fetch(`http://localhost:5000/api/blocked-dates?type=${type}`);
-
-//     if (!res.ok) {
-//       throw new Error(`Server responded with status ${res.status}`);
-//     }
-
-//     const data = await res.json();
-//     setBlockedList(data);
-//   } catch (err) {
-//     console.error('Failed to fetch blocked dates:', err);
-//     alert('Failed to fetch blocked dates.');
-//   }
-// };
-
-
-//   const blockDate = async () => {
-//     if (!selectedDate) return;
-//     setLoading(true);
-
-//     try {
-//       const res = await fetch('/api/blocked-dates', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ type, date: selectedDate }),
-//       });
-
-//       if (res.ok) {
-//         setSelectedDate(null);
-//         await fetchBlockedDates();
-//       } else {
-//         const err = await res.json();
-//         alert(err.error || 'Failed to block date.');
-//       }
-//     } catch (error) {
-//       alert('Server error: ' + error.message);
-//     }
-
-//     setLoading(false);
-//   };
-
-//   const unblockDate = async (id) => {
-//     try {
-//       const res = await fetch(`/api/blocked-dates/${id}`, { method: 'DELETE' });
-//       if (res.ok) fetchBlockedDates();
-//       else alert('Failed to unblock date.');
-//     } catch (error) {
-//       alert('Error deleting date: ' + error.message);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchBlockedDates();
-//   }, [type]);
-
-//   return (
-//     <div style={{ padding: '20px', maxWidth: 500, margin: 'auto' }}>
-//       <h2>Manage Blocked Dates for {type}</h2>
-
-//       <div style={{ marginBottom: '1rem' }}>
-//         <DatePicker
-//   selected={selectedDate}
-//   onChange={(date) => setSelectedDate(date)}
-//   excludeDates={blockedList.map(item => new Date(item.date))} // ✅ correct
-//   placeholderText="Select booking date"
-//   minDate={new Date()}
-// />
-//         <button onClick={blockDate} disabled={loading || !selectedDate} style={{ marginLeft: 10 }}>
-//           {loading ? 'Blocking...' : 'Block Date'}
-//         </button>
-//       </div>
-
-//       <h4>Blocked Dates:</h4>
-//       <ul>
-//         {blockedList.map((item) => (
-//           <li key={item._id}>
-//             {new Date(item.date).toDateString()}
-//             <button onClick={() => unblockDate(item._id)} style={{ marginLeft: 8 }}>
-//               Unblock
-//             </button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default AdminBlockedDates;

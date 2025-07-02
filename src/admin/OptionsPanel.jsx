@@ -8,7 +8,7 @@ const OptionsPanel = () => {
 
   const fetchOptions = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/options');
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
       const data = await res.json();
       setOptions(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -19,8 +19,8 @@ const OptionsPanel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = editingId
-      ? `http://localhost:5000/api/options/${editingId}`
-      : 'http://localhost:5000/api/options';
+      ? `${import.meta.env.VITE_API_BASE_URL}/api/options/${editingId}`
+      : `${import.meta.env.VITE_API_BASE_URL}/api/options`;
     const method = editingId ? 'PUT' : 'POST';
 
     await fetch(url, {
@@ -35,7 +35,7 @@ const OptionsPanel = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/options/${id}`, { method: 'DELETE' });
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options/${id}`, { method: 'DELETE' });
     fetchOptions();
   };
 
@@ -134,101 +134,3 @@ const OptionsPanel = () => {
 };
 
 export default OptionsPanel;
-
-// import React, { useEffect, useState } from 'react';
-
-// const OptionsPanel = () => {
-//   const [options, setOptions] = useState([]);
-//   const [form, setForm] = useState({ type: 'Room', name: '', price: '' });
-
-// const fetchOptions = async () => {
-//   try {
-//     const res = await fetch('http://localhost:5000/api/options');
-//     const data = await res.json();
-//     const combined = Array.isArray(data) ? data : [...(data.rooms || []), ...(data.lawns || [])];
-//     setOptions(combined);
-//   } catch (err) {
-//     console.error('Failed to fetch options:', err);
-//   }
-// };
-
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     await fetch('http://localhost:5000/api/options', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(form),
-//     });
-//     setForm({ type: 'Room', name: '', price: '' });
-//     fetchOptions();
-//   };
-
-//   const handleDelete = async (id) => {
-//     await fetch(`http://localhost:5000/api/options/${id}`, { method: 'DELETE' });
-//     fetchOptions();
-//   };
-
-//   useEffect(() => {
-//     fetchOptions();
-//   }, []);
-
-//   return (
-//     <div className="bg-white p-6 rounded-xl shadow-md mb-10">
-//       <h2 className="text-2xl font-bold mb-4">Manage Room & Lawn Pricing</h2>
-
-//       <form onSubmit={handleSubmit} className="flex gap-4 mb-6 flex-wrap">
-//         <select
-//           value={form.type}
-//           onChange={(e) => setForm({ ...form, type: e.target.value })}
-//           className="border p-2 rounded"
-//         >
-//           <option value="Room">Room</option>
-//           <option value="Lawn">Lawn</option>
-//         </select>
-//         <input
-//           type="text"
-//           placeholder="Option Name"
-//           value={form.name}
-//           onChange={(e) => setForm({ ...form, name: e.target.value })}
-//           className="border p-2 rounded"
-//           required
-//         />
-//         <input
-//           type="number"
-//           placeholder="Price"
-//           value={form.price}
-//           onChange={(e) => setForm({ ...form, price: e.target.value })}
-//           className="border p-2 rounded"
-//           required
-//         />
-//         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Add</button>
-//       </form>
-
-//       <table className="w-full border border-gray-300 text-left">
-//         <thead className="bg-gray-100">
-//           <tr>
-//             <th className="p-2">Type</th>
-//             <th className="p-2">Name</th>
-//             <th className="p-2">Price</th>
-//             <th className="p-2">Action</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {options.map((opt) => (
-//             <tr key={opt._id}>
-//               <td className="p-2">{opt.type}</td>
-//               <td className="p-2">{opt.name}</td>
-//               <td className="p-2">₹{opt.price}</td>
-//               <td className="p-2">
-//                 <button onClick={() => handleDelete(opt._id)} className="text-red-500">Delete</button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default OptionsPanel;
