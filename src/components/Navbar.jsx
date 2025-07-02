@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FaHotel, FaPagelines } from 'react-icons/fa';
 
 const Navbar = ({ selectedTab, setSelectedTab }) => {
-  const [isVisible, setIsVisible] = useState(true);
-  let lastScroll = 0;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const current = window.scrollY;
-      setIsVisible(current < lastScroll || current < 10);
-      lastScroll = current;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <motion.nav
-      initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -100 }}
-      transition={{ duration: 0.3 }}
-      className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-green-600 to-teal-500 shadow-md"
-    >
+    <nav className="w-full bg-gradient-to-r from-green-600 to-teal-500 shadow-md">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 py-3 gap-2 sm:gap-0">
         <h1 className="text-white text-xl sm:text-2xl font-bold tracking-wide mb-1 sm:mb-0">
           Taj Style Booking
@@ -55,7 +36,7 @@ const Navbar = ({ selectedTab, setSelectedTab }) => {
           </motion.button>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 
