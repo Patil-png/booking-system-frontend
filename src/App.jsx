@@ -3,7 +3,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import Gallery from './components/Gallery/Gallery';
