@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+const fallbackImage = "/fallback.jpg"; // Add this image to your public folder
 
 const Gallery = () => {
   const sliderRef = useRef(null);
@@ -117,9 +117,9 @@ const Gallery = () => {
   const openFullScreen = () => setFullScreenOpen(true);
   const closeFullScreen = () => setFullScreenOpen(false);
   const handleImageError = (e) => {
-    e.target.src = fallbackImage;
-    e.target.onerror = null; // Prevent endless loop if fallback also fails
-  };
+  e.target.src = fallbackImage;
+  e.target.onerror = null;
+};
 
   const staggerContainerVariants = {
     hidden: { opacity: 0 },
