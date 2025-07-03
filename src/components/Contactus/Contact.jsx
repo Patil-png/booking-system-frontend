@@ -50,6 +50,8 @@ function Contact() {
     }
 
     try {
+      // You might want to include the captchaToken in your backend request
+      // axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/contact`, { ...formData, captchaToken });
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/contact`, formData);
       setStatus("✅ Message sent successfully! We'll get back to you soon.");
       setFormData({

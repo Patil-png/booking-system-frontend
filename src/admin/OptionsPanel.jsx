@@ -1,4 +1,3 @@
-// src/components/OptionsPanel.jsx
 import React, { useEffect, useState } from 'react';
 
 const OptionsPanel = () => {
@@ -54,82 +53,107 @@ const OptionsPanel = () => {
   }, []);
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md mb-10">
-      <h2 className="text-2xl font-bold mb-4">Manage Room & Lawn Pricing</h2>
+    <>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">
+        Manage Room & Lawn Pricing
+      </h2>
 
-      <form onSubmit={handleSubmit} className="flex gap-4 mb-6 flex-wrap items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap gap-3 mb-6 justify-center sm:justify-start"
+      >
         <select
           value={form.type}
           onChange={(e) => setForm({ ...form, type: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded min-w-[100px]"
         >
           <option value="Room">Room</option>
           <option value="Lawn">Lawn</option>
         </select>
+
         <input
           type="text"
           placeholder="Option Name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded min-w-[120px]"
           required
         />
+
         <input
           type="number"
           placeholder="Price"
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded min-w-[100px]"
           required
         />
-        <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
+
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
           {editingId ? 'Update' : 'Add'}
         </button>
+
         {editingId && (
           <button
             type="button"
             onClick={handleCancelEdit}
-            className="bg-gray-400 text-white px-4 py-2 rounded"
+            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
           >
             Cancel
           </button>
         )}
       </form>
 
-      <table className="w-full border border-gray-300 text-left">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="p-2">Type</th>
-            <th className="p-2">Name</th>
-            <th className="p-2">Price</th>
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {options.length === 0 ? (
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[400px] border border-gray-300 text-left text-sm sm:text-base">
+          <thead className="bg-gray-100">
             <tr>
-              <td colSpan="4" className="p-4 text-center text-gray-500">No data available</td>
+              <th className="p-2">Type</th>
+              <th className="p-2">Name</th>
+              <th className="p-2">Price</th>
+              <th className="p-2">Actions</th>
             </tr>
-          ) : (
-            options.map((opt) => (
-              <tr key={opt._id} className={editingId === opt._id ? 'bg-yellow-100' : ''}>
-                <td className="p-2">{opt.type}</td>
-                <td className="p-2">{opt.name}</td>
-                <td className="p-2">₹{opt.price}</td>
-                <td className="p-2 flex gap-2">
-                  <button onClick={() => handleEdit(opt)} className="text-blue-500 hover:underline">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(opt._id)} className="text-red-500 hover:underline">
-                    Delete
-                  </button>
+          </thead>
+          <tbody>
+            {options.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  No data available
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
+            ) : (
+              options.map((opt) => (
+                <tr
+                  key={opt._id}
+                  className={editingId === opt._id ? 'bg-yellow-100' : ''}
+                >
+                  <td className="p-2">{opt.type}</td>
+                  <td className="p-2">{opt.name}</td>
+                  <td className="p-2">₹{opt.price}</td>
+                  <td className="p-2 flex flex-wrap gap-2">
+                    <button
+                      onClick={() => handleEdit(opt)}
+                      className="text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(opt._id)}
+                      className="text-red-500 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

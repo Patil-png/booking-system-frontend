@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // ✅ for back button
+import { useNavigate } from "react-router-dom";
 
 const GalleryAdmin = () => {
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({ category: "room", alt: "", image: null });
-  const navigate = useNavigate(); // ✅
+  const navigate = useNavigate();
 
   const fetchImages = async () => {
     try {
@@ -65,8 +65,8 @@ const GalleryAdmin = () => {
   };
 
   return (
-    <div className="p-8 bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 min-h-screen text-white font-sans">
-      {/* ✅ Back Button */}
+    <div className="p-4 sm:p-8 bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 min-h-screen text-white font-sans">
+      {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
         className="mb-6 text-sm bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-300 transition"
@@ -74,13 +74,13 @@ const GalleryAdmin = () => {
         ← Back
       </button>
 
-      <h2 className="text-3xl font-extrabold mb-6 text-center drop-shadow-lg">
+      <h2 className="text-2xl sm:text-3xl font-extrabold mb-6 text-center drop-shadow-lg">
         Manage Gallery
       </h2>
 
       <form
         onSubmit={handleUpload}
-        className="mb-8 flex flex-wrap items-center justify-center gap-3"
+        className="mb-8 flex flex-col md:flex-row items-stretch md:items-center justify-center gap-4"
       >
         <select
           className="p-3 rounded text-black font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -94,7 +94,7 @@ const GalleryAdmin = () => {
         <input
           type="text"
           placeholder="Alt text"
-          className="p-3 rounded text-black flex-grow max-w-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="p-3 rounded text-black w-full md:max-w-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={formData.alt}
           onChange={(e) => setFormData({ ...formData, alt: e.target.value })}
         />
@@ -114,7 +114,7 @@ const GalleryAdmin = () => {
         </button>
       </form>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {images.map((img) => (
           <div
             key={img._id}

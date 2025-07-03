@@ -1,50 +1,46 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const fallbackImage = "/fallback.jpg"; // ✅ local fallback
+const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const sliderRef = useRef(null);
   const [activeTab, setActiveTab] = useState("all");
   const [allFetchedImages, setAllFetchedImages] = useState([]);
+  const [images, setImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [fullScreenOpen, setFullScreenOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  const fetchImages = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gallery`);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-      const processedData = data.map(item => ({
-  ...item,
-  image: item.image?.startsWith("http")
-    ? item.image
-    : `${import.meta.env.VITE_API_BASE_URL}${item.image}`,
-}));
-
-
-      setAllFetchedImages(processedData);
-      setImages(processedData);
-    } catch (err) {
-      setError(err.message || "Failed to load images.");
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchImages();
-}, []);
-
+    const fetchImages = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        // Ensure data has necessary properties, or add fallbacks
+        const processedData = data.map(item => ({
+          ...item,
+          image: item.image || fallbackImage, // Ensure image URL exists
+          category: item.category || 'uncategorized', // Ensure category exists
+          alt: item.alt || 'Gallery image', // Ensure alt text exists
+        }));
+        setAllFetchedImages(processedData);
+        setImages(processedData);
+      } catch (err) {
+        setError(err.message || "Failed to load images.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchImages();
+  }, []);
 
   useEffect(() => {
     const filtered =
@@ -54,9 +50,11 @@ const Gallery = () => {
 
     setImages(filtered);
     setSelectedIndex(0);
+    // Use setTimeout to ensure slickGoTo is called after images state potentially updates,
+    // which can sometimes cause a flicker or incorrect slide if not synchronized.
     setTimeout(() => {
-      sliderRef.current?.slickGoTo(0, true);
-    }, 50);
+      sliderRef.current?.slickGoTo(0, true); // `true` for immediate jump without animation
+    }, 50); // Small delay
   }, [activeTab, allFetchedImages]);
 
   const sliderSettings = {
@@ -68,18 +66,20 @@ const Gallery = () => {
     arrows: true,
     fade: true,
     beforeChange: (_, next) => setSelectedIndex(next),
+    // Custom arrow icons for a more polished look
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
   };
 
+  // Custom Arrows for Slick Carousel
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
       <motion.div
         className={`${className} custom-arrow left-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
-        style={{ ...style, display: "flex", width: '40px', height: '40px' }}
+        style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
         onClick={onClick}
-        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }}
+        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -98,9 +98,9 @@ const Gallery = () => {
     return (
       <motion.div
         className={`${className} custom-arrow right-4 z-10 !flex items-center justify-center bg-teal-500 text-white rounded-full p-2 cursor-pointer shadow-lg`}
-        style={{ ...style, display: "flex", width: '40px', height: '40px' }}
+        style={{ ...style, display: "flex", width: '40px', height: '40px' }} // Fixed size for consistent circle
         onClick={onClick}
-        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }}
+        whileHover={{ scale: 1.15, backgroundColor: '#2dd4bf', boxShadow: '0 8px 16px rgba(0,0,0,0.4)' }} // Enhanced hover
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -116,10 +116,10 @@ const Gallery = () => {
 
   const openFullScreen = () => setFullScreenOpen(true);
   const closeFullScreen = () => setFullScreenOpen(false);
-const handleImageError = (e) => {
-  e.target.src = fallbackImage;
-  e.target.onerror = null; // prevent infinite error loop
-};
+  const handleImageError = (e) => {
+    e.target.src = fallbackImage;
+    e.target.onerror = null; // Prevent endless loop if fallback also fails
+  };
 
   const staggerContainerVariants = {
     hidden: { opacity: 0 },

@@ -3,7 +3,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import Navbar from './components/Navbar/Navbar.jsx';
+import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import Gallery from './components/Gallery/Gallery';
@@ -16,9 +16,6 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 import Contacts from './admin/Contacts.jsx';
 import GalleryAdmin from './admin/GalleryAdmin';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-
 
 const isAdminAuthenticated = () => {
   return !!localStorage.getItem('adminToken');
@@ -61,6 +58,8 @@ export default function App() {
     </>
   );
 }
+
+
 
 // import { Routes, Route, Navigate } from 'react-router-dom';
 // import BookingPage from './pages/BookingPage';

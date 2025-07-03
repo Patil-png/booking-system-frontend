@@ -71,9 +71,13 @@ const DashboardHome = () => {
   }, []);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto animate-fade-in-down">
-      <div className="flex justify-between items-center mb-6">
-        <div className="relative cursor-pointer" onClick={() => setShowNotifications(!showNotifications)}>
+    <div className="p-1 sm:p-6 max-w-7xl mx-auto animate-fade-in-down">
+      {/* Top Bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+        <div
+          className="relative cursor-pointer"
+          onClick={() => setShowNotifications(!showNotifications)}
+        >
           <Bell className="w-6 h-6 text-gray-700" />
           {unseenCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
@@ -84,38 +88,44 @@ const DashboardHome = () => {
 
         <button
           onClick={handleLogout}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm sm:text-base"
         >
           Logout
         </button>
       </div>
 
+      {/* Notifications */}
       {showNotifications && (
-        <div className="mb-6 bg-white p-4 rounded shadow">
+        <div className="mb-6 bg-white p-4 rounded shadow max-h-72 overflow-y-auto">
           <Notifications />
         </div>
       )}
 
-      <div className="mb-10 bg-white p-6 rounded-xl shadow-md">
+      {/* Stats Charts */}
+      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
         <StatsCharts />
       </div>
 
-      <div className="mb-10 bg-white p-6 rounded-xl shadow-md">
-      <OptionsPanel />
+      {/* Options Panel */}
+      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
+        <OptionsPanel />
       </div>
 
-      <div className="mb-10 bg-white p-6 rounded-xl shadow-md">
+      {/* Calendar View */}
+      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
         <CalendarView />
       </div>
 
-      <div className="mb-10 bg-white p-6 rounded-xl shadow-md">
+      {/* Bookings List */}
+      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
         <BookingsList bookings={bookings} onDelete={handleDelete} />
       </div>
 
+      {/* Export Button */}
       <div className="flex justify-center">
         <button
           onClick={handleExportAll}
-          className="px-6 py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow hover:scale-105 transition-transform duration-300"
+          className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
         >
           Export All Bookings (Room + Lawn)
         </button>

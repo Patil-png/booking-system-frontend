@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // Import AnimatePresence for exit animations
 import { createBooking } from '../../src/utils/api';
 import { generateInvoice } from '../../src/utils/invoiceGenerator';
+import { useNavigate } from 'react-router-dom'; // ✅ CORRECT PLACE
 
 const AdminCustomLawnBooking = () => {
+    const navigate = useNavigate();
+  
   const [bookingType, setBookingType] = useState('slot');
   const [formData, setFormData] = useState({
     slot: '',
@@ -23,6 +26,7 @@ const AdminCustomLawnBooking = () => {
     const fetchLawnSlots = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
+        if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
         const data = await res.json();
         const lawns = Array.isArray(data) ? data.filter(item => item.type === 'Lawn') : data.lawns || [];
         setLawnSlots(lawns);
@@ -30,8 +34,8 @@ const AdminCustomLawnBooking = () => {
           setFormData(prev => ({ ...prev, slot: lawns[0].name }));
         }
       } catch (err) {
-        console.error('Failed to fetch slots', err); // Added error logging
-        setStatusMessage('Failed to load lawn slots. Please try again later.'); // User-friendly message
+        console.error('Failed to fetch slots', err);
+        setStatusMessage('Failed to load lawn slots. Please try again later.');
       }
     };
     fetchLawnSlots();
@@ -51,7 +55,6 @@ const AdminCustomLawnBooking = () => {
   const calculateDays = () => {
     const checkIn = new Date(formData.checkIn);
     const checkOut = new Date(formData.checkOut);
-    // Ensure check-out is after check-in, otherwise default to 1 day
     if (checkOut <= checkIn) return 1;
     const days = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
     return days > 0 ? days : 1;
@@ -67,7 +70,6 @@ const AdminCustomLawnBooking = () => {
   const calculatePlateTotal = () => {
     const plates = Number(formData.plates || 0);
     const price = Number(formData.pricePerPlate || 0);
-    // Ensure plates and price are positive before multiplying
     if (plates <= 0 || price <= 0) return 0;
     return plates * price * calculateDays();
   };
@@ -86,12 +88,10 @@ const AdminCustomLawnBooking = () => {
 
   const handleBooking = async () => {
     // --- Input Validation (Existing Functionality - Unchanged) ---
-    // Phone validation
     if (!/^\d{10}$/.test(formData.phone)) {
       setStatusMessage('❌ Enter a valid 10-digit phone number.');
       return;
     }
-    // Basic form field validation
     if (!formData.email || !formData.phone || !formData.checkIn || !formData.checkOut ||
         (bookingType === 'slot' && !formData.slot) ||
         (bookingType === 'perPlate' && (!formData.plates || !formData.pricePerPlate))) {
@@ -102,12 +102,15 @@ const AdminCustomLawnBooking = () => {
       setStatusMessage('❌ Check-out date cannot be before check-in date.');
       return;
     }
+     if (new Date(formData.checkIn) < new Date(new Date().setHours(0,0,0,0))) { // Check if check-in is in the past
+        setStatusMessage('❌ Check-in date cannot be in the past.');
+        return;
+    }
     if (totalAmount <= 0) {
       setStatusMessage('❌ Total amount must be greater than zero. Check your selections.');
       return;
     }
     // --- End Input Validation ---
-
 
     const bookingDetails = {
       type: 'Lawn',
@@ -157,7 +160,7 @@ const AdminCustomLawnBooking = () => {
         const orderRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: totalAmount }), // Removed * 100 as per user request
+          body: JSON.stringify({ amount: totalAmount }),
         });
 
         const { order } = await orderRes.json();
@@ -193,11 +196,11 @@ const AdminCustomLawnBooking = () => {
             }
           },
           prefill: {
-            name: formData.email, // Using email as name for prefill
+            name: formData.email,
             email: formData.email,
             contact: formData.phone,
           },
-          theme: { color: "#10b981" }, // Green theme for Razorpay
+          theme: { color: "#10b981" },
         };
 
         const rzp = new window.Razorpay(options);
@@ -211,7 +214,7 @@ const AdminCustomLawnBooking = () => {
 
   const resetForm = () => {
     setFormData({
-      slot: lawnSlots[0]?.name || '', // Reset to first slot if available
+      slot: lawnSlots[0]?.name || '',
       checkIn: '',
       checkOut: '',
       plates: '',
@@ -224,48 +227,59 @@ const AdminCustomLawnBooking = () => {
 
   // Framer Motion Variants
   const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring",
-        stiffness: 70,
-        damping: 15,
-        staggerChildren: 0.08,
-        delayChildren: 0.1
+        stiffness: 80,
+        damping: 18,
+        staggerChildren: 0.07, // Slightly faster stagger for children
+        delayChildren: 0.15 // Slight delay before children start animating
       }
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 12
+        stiffness: 120, // Slightly more springy
+        damping: 15,
+        duration: 0.4
       }
     },
   };
 
   const buttonVariants = {
-    hover: { scale: 1.03, boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)" },
-    tap: { scale: 0.97 },
+    hover: {
+      scale: 1.02,
+      boxShadow: "0px 12px 25px rgba(0, 0, 0, 0.3)", // More pronounced shadow
+      transition: { duration: 0.2, ease: "easeOut" }
+    },
+    tap: {
+      scale: 0.98,
+      boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.1)", // Smaller shadow on tap
+      transition: { duration: 0.1, ease: "easeIn" }
+    },
   };
 
   const statusMessageVariants = {
-    hidden: { opacity: 0, y: -20, scale: 0.8 },
+    hidden: { opacity: 0, y: -30, scale: 0.85 },
     visible: {
       opacity: 1, y: 0, scale: 1,
       transition: {
-        type: "spring", stiffness: 200, damping: 15
+        type: "spring", stiffness: 250, damping: 20 // More energetic bounce
       }
     },
     exit: {
-      opacity: 0, y: -20, scale: 0.8,
+      opacity: 0, y: -30, scale: 0.85,
       transition: { ease: "easeOut", duration: 0.3 }
     }
   };
@@ -273,19 +287,28 @@ const AdminCustomLawnBooking = () => {
 
   return (
     <motion.div
-      className="p-8 max-w-3xl mx-auto bg-white shadow-2xl rounded-xl border border-green-100 mt-10"
+      className="p-4 sm:p-6 md:p-8 max-w-xl mx-auto bg-white shadow-2xl rounded-xl border border-green-100 mt-8 mb-10 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <motion.h2 className="text-3xl font-extrabold text-center mb-8 text-green-800" variants={itemVariants}>
+      <motion.button
+  onClick={() => navigate(-1)}
+  className="mb-6 inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium text-sm sm:text-base transition duration-200"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  ← Back
+</motion.button>
+
+      <motion.h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 sm:mb-8 text-green-800" variants={itemVariants}>
         Admin Lawn Booking
       </motion.h2>
 
       <AnimatePresence>
         {statusMessage && (
           <motion.div
-            className={`p-4 mb-6 rounded-lg font-medium text-center shadow-md ${statusMessage.includes('✅') ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}
+            className={`p-3 sm:p-4 mb-5 rounded-lg font-medium text-center shadow-md text-sm sm:text-base ${statusMessage.includes('✅') ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}
             variants={statusMessageVariants}
             initial="hidden"
             animate="visible"
@@ -296,14 +319,14 @@ const AdminCustomLawnBooking = () => {
         )}
       </AnimatePresence>
 
-      <div className="space-y-6">
-        <motion.div variants={itemVariants} className="flex items-center gap-4">
-          <label htmlFor="bookingType" className="font-semibold text-gray-700 text-lg flex-shrink-0">Booking Type:</label>
+      <div className="space-y-4 sm:space-y-6">
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <label htmlFor="bookingType" className="font-semibold text-gray-700 text-base sm:text-lg flex-shrink-0 mb-1 sm:mb-0">Booking Type:</label>
           <select
             id="bookingType"
             value={bookingType}
             onChange={e => setBookingType(e.target.value)}
-            className="flex-grow border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-800 shadow-sm focus:border-green-500 focus:ring-green-500 transition duration-200 ease-in-out cursor-pointer"
+            className="flex-grow border border-gray-300 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 bg-white text-gray-800 shadow-sm focus:border-green-500 focus:ring-green-500 transition duration-200 ease-in-out cursor-pointer text-base sm:text-lg"
           >
             <option value="slot">Slot Booking (per day)</option>
             <option value="perPlate">Per Plate Booking (catering)</option>
@@ -311,14 +334,14 @@ const AdminCustomLawnBooking = () => {
         </motion.div>
 
         {bookingType === 'slot' ? (
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} key="slot-booking-fields"> {/* Added key for AnimatePresence */}
             <label htmlFor="slot" className="block text-gray-700 text-sm font-bold mb-2">Select Lawn Slot</label>
             <select
               id="slot"
               name="slot"
               value={formData.slot}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out bg-white"
+              className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out bg-white text-base sm:text-lg"
             >
               {lawnSlots.length > 0 ? (
                 lawnSlots.map(slot => (
@@ -332,38 +355,40 @@ const AdminCustomLawnBooking = () => {
             </select>
           </motion.div>
         ) : (
-          <>
-            <motion.div variants={itemVariants}>
-              <label htmlFor="plates" className="block text-gray-700 text-sm font-bold mb-2">Number of Plates</label>
-              <input
-                type="number"
-                id="plates"
-                name="plates"
-                value={formData.plates}
-                onChange={handleChange}
-                min="0"
-                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
-                placeholder="e.g., 100"
-              />
+          <AnimatePresence mode="wait"> {/* Use AnimatePresence for smooth transition between booking types */}
+            <motion.div variants={itemVariants} key="per-plate-booking-fields"> {/* Added key for AnimatePresence */}
+              <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
+                <label htmlFor="plates" className="block text-gray-700 text-sm font-bold mb-2">Number of Plates</label>
+                <input
+                  type="number"
+                  id="plates"
+                  name="plates"
+                  value={formData.plates}
+                  onChange={handleChange}
+                  min="0"
+                  className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
+                  placeholder="e.g., 100"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <label htmlFor="pricePerPlate" className="block text-gray-700 text-sm font-bold mb-2">Price per Plate (₹)</label>
+                <input
+                  type="number"
+                  id="pricePerPlate"
+                  name="pricePerPlate"
+                  value={formData.pricePerPlate}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
+                  placeholder="e.g., 500.00"
+                />
+              </motion.div>
             </motion.div>
-            <motion.div variants={itemVariants}>
-              <label htmlFor="pricePerPlate" className="block text-gray-700 text-sm font-bold mb-2">Price per Plate (₹)</label>
-              <input
-                type="number"
-                id="pricePerPlate"
-                name="pricePerPlate"
-                value={formData.pricePerPlate}
-                onChange={handleChange}
-                min="0"
-                step="0.01"
-                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
-                placeholder="e.g., 500.00"
-              />
-            </motion.div>
-          </>
+          </AnimatePresence>
         )}
 
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6" variants={itemVariants}>
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6" variants={itemVariants}>
           <div>
             <label htmlFor="checkIn" className="block text-gray-700 text-sm font-bold mb-2">Check-In Date</label>
             <input
@@ -372,7 +397,8 @@ const AdminCustomLawnBooking = () => {
               name="checkIn"
               value={formData.checkIn}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
+              min={new Date().toISOString().split('T')[0]} // Min date is today
+              className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
             />
           </div>
           <div>
@@ -383,8 +409,8 @@ const AdminCustomLawnBooking = () => {
               name="checkOut"
               value={formData.checkOut}
               onChange={handleChange}
-              min={formData.checkIn || new Date().toISOString().split('T')[0]} // Ensure check-out is not before today or check-in
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
+              min={formData.checkIn || new Date().toISOString().split('T')[0]}
+              className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
             />
           </div>
         </motion.div>
@@ -397,7 +423,7 @@ const AdminCustomLawnBooking = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
+            className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
             placeholder="e.g., guest@example.com"
           />
         </motion.div>
@@ -405,25 +431,25 @@ const AdminCustomLawnBooking = () => {
         <motion.div variants={itemVariants}>
           <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Guest Phone Number</label>
           <input
-            type="text" // Keep as text to allow flexible input but validate with regex
+            type="text"
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out"
+            className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out text-base sm:text-lg"
             placeholder="Enter 10-digit phone number"
             maxLength="10"
           />
         </motion.div>
 
-        <motion.div variants={itemVariants} className="flex items-center gap-4">
-          <label htmlFor="paymentMethod" className="font-semibold text-gray-700 text-lg flex-shrink-0">Payment Method:</label>
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <label htmlFor="paymentMethod" className="font-semibold text-gray-700 text-base sm:text-lg flex-shrink-0 mb-1 sm:mb-0">Payment Method:</label>
           <select
             id="paymentMethod"
             name="paymentMethod"
             value={formData.paymentMethod}
             onChange={handleChange}
-            className="flex-grow border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-800 shadow-sm focus:border-green-500 focus:ring-green-500 transition duration-200 ease-in-out cursor-pointer"
+            className="flex-grow border border-gray-300 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 bg-white text-gray-800 shadow-sm focus:border-green-500 focus:ring-green-500 transition duration-200 ease-in-out cursor-pointer text-base sm:text-lg"
           >
             <option value="online">Online (Razorpay)</option>
             <option value="offline">Offline (Cash/Other)</option>
@@ -431,14 +457,14 @@ const AdminCustomLawnBooking = () => {
         </motion.div>
 
         <motion.div variants={itemVariants} className="text-right pt-2">
-          <p className="text-2xl font-extrabold text-green-800">
+          <p className="text-xl sm:text-2xl font-extrabold text-green-800">
             Total Amount: <span className="text-green-600">₹{totalAmount.toFixed(2)}</span>
           </p>
         </motion.div>
 
         <motion.button
           onClick={handleBooking}
-          className="w-full bg-gradient-to-r from-green-600 to-green-800 text-white px-6 py-3 rounded-lg font-bold text-xl shadow-lg hover:from-green-700 hover:to-green-900 focus:outline-none focus:ring-4 focus:ring-green-300 active:bg-green-700 transition duration-300 ease-in-out transform origin-center"
+          className="w-full bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-3 sm:py-4 rounded-lg font-bold text-lg sm:text-xl shadow-lg hover:from-green-700 hover:to-green-900 focus:outline-none focus:ring-4 focus:ring-green-300 active:bg-green-700 transition duration-300 ease-in-out transform origin-center"
           variants={buttonVariants}
           whileHover="hover"
           whileTap="tap"

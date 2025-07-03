@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Make sure AnimatePresence is imported
+import { motion, AnimatePresence } from "framer-motion";
+import { FaWifi, FaParking, FaSpa, FaCoffee, FaMapMarkerAlt, FaBed, FaUtensils, FaQuoteRight, FaSearchPlus } from 'react-icons/fa'; // Importing icons
 
 export default function TajStyleHome() {
   const [scrolled, setScrolled] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     function onScroll() {
@@ -13,152 +15,191 @@ export default function TajStyleHome() {
   }, []);
 
   const services = [
-    { icon: "📶", title: "Free Wi-Fi", desc: "Stay connected with fast and reliable internet throughout the inn." },
-    { icon: "🅿️", title: "Free Parking", desc: "Secure parking space available for guests at no extra cost." },
-    { icon: "💆‍♀️", title: "Spa & Wellness", desc: "Relax and rejuvenate with our spa treatments and wellness programs." },
-    { icon: "☕", title: "24/7 Coffee Bar", desc: "Enjoy your favorite beverages any time at our cozy coffee corner." },
+    { icon: <FaWifi />, title: "Free Wi-Fi", desc: "Stay connected with high-speed internet across the property." },
+    { icon: <FaParking />, title: "Ample Parking", desc: "Convenient and secure parking available for all guests." },
+    { icon: <FaSpa />, title: "Relaxing Spa", desc: "Indulge in rejuvenating spa treatments for ultimate relaxation." },
+    { icon: <FaCoffee />, title: "Gourmet Coffee Bar", desc: "Enjoy premium coffee and snacks anytime at our cozy bar." },
   ];
 
   const highlights = [
     {
-      img: "https://images.unsplash.com/photo-1501183638714-2f2f9899c6f5?auto=format&fit=crop&w=400&q=80",
-      title: "Luxury Rooms",
-      desc: "Experience the comfort of our beautifully designed rooms with premium furnishings and stunning views.",
+      img: "https://images.unsplash.com/photo-1578683010236-d7168578d523?auto=format&fit=crop&w=600&q=80", // Modern room
+      title: "Elegant Suites",
+      desc: "Our meticulously designed suites offer a blend of traditional aesthetics and modern luxury.",
     },
     {
-      img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=400&q=80",
-      title: "Delicious Cuisine",
-      desc: "Enjoy gourmet meals prepared by our expert chefs, featuring local and international flavors.",
+      img: "https://images.unsplash.com/photo-1551632436-cbf8dd35ad77?auto=format&fit=crop&w=600&q=80", // Modern dining
+      title: "Exquisite Dining",
+      desc: "Savor a culinary journey with dishes crafted from fresh, local ingredients by our expert chefs.",
     },
     {
-      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
-      title: "Relaxing Lawn",
-      desc: "Spend peaceful moments in our lush green garden perfect for morning yoga, reading, or family gatherings.",
+      img: "https://images.unsplash.com/photo-1506477348981-d144ba90457b?auto=format&fit=crop&w=600&q=80", // Serene garden/outdoor
+      title: "Lush Gardens",
+      desc: "Find tranquility in our sprawling, beautifully manicured gardens, perfect for peaceful strolls.",
     },
   ];
 
   const testimonials = [
-    { text: "Gouri Inn made our trip unforgettable with their warm hospitality and beautiful rooms!", author: "Anjali M." },
-    { text: "Perfect getaway spot. Loved the garden and the food was amazing. Highly recommend!", author: "Rajesh K." },
-    { text: "Clean, cozy, and super friendly staff. Can't wait to come back again!", author: "Neha S." },
+    { text: "The attention to detail and personalized service were truly exceptional. A memorable stay!", author: "Aisha S." },
+    { text: "Beyond expectations! The blend of heritage and modern amenities made our vacation perfect.", author: "Vikram P." },
+    { text: "A serene oasis with delightful cuisine and the most welcoming staff. Already planning my return!", author: "Priya L." },
   ];
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const closeLightbox = () => setSelectedImage(null);
-
   const galleryImages = [
-    "/RoomImages/room1.jpg",
+    "/RoomImages/room1.jpg", // Ensure these paths are correct in your public folder
     "/RoomImages/room2.jpg",
     "/RoomImages/room3.jpg",
     "/LawnImages/lawn1.jpg",
     "/LawnImages/lawn2.jpg",
     "/LawnImages/lawn3.jpg",
+    "https://images.unsplash.com/photo-1549488349-f06b9703487c?auto=format&fit=crop&w=600&q=80", // Example: Pool or common area
+    "https://images.unsplash.com/photo-1521783988139-89394d761d71?auto=format&fit=crop&w=600&q=80", // Example: Interior detail
   ];
 
-  // Define variants for consistent animations with lower transition times
+  const closeLightbox = () => setSelectedImage(null);
+
+  // Framer Motion Variants - Updated for smoother, modern feel
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.1 } }, // Faster
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.9,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.2
+      }
+    },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }, // Faster
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: "easeOut" } },
   };
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }, // Faster
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  const headingLineVariants = {
+    hidden: { width: 0, opacity: 0 },
+    visible: { width: "6rem", opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  const lightboxImageVariants = {
+    hidden: { scale: 0.8, opacity: 0, rotateY: 10 },
+    visible: { scale: 1, opacity: 1, rotateY: 0, transition: { type: "spring", stiffness: 120, damping: 15, duration: 0.7 } },
+    exit: { scale: 0.8, opacity: 0, rotateY: -10, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   return (
-    <div className="font-serif text-primary bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 min-h-screen overflow-x-hidden scroll-smooth">
+    <div className="font-body text-text-light bg-primary-dark min-h-screen overflow-x-hidden scroll-smooth">
+
       {/* Hero Section */}
       <section
         id="home"
-        className="relative h-screen flex items-center justify-center text-center px-6 sm:px-12"
+        className="relative h-screen flex items-center justify-center text-center px-4 sm:px-6 lg:px-8"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1800&q=80')", // Used the specified URL
+            "url('https://images.unsplash.com/photo-1549488349-f06b9703487c?auto=format&fit=crop&w=1800&q=80')", // More modern, luxurious image
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-black to-black bg-opacity-75 backdrop-blur-sm z-10"></div>
+        {/* Dynamic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-overlay-gradient-start via-overlay-gradient-end to-transparent z-10 opacity-90"></div>
         <motion.div
-          initial={{ opacity: 0, y: 30 }} // Faster animation
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }} // Faster animation
-          className="relative z-20 max-w-3xl md:max-w-4xl p-4"
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          className="relative z-20 max-w-4xl lg:max-w-6xl p-8 sm:p-12 rounded-3xl bg-overlay-dark shadow-soft-xl border border-secondary-dark/60"
         >
           <motion.h1
-            className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-wide drop-shadow-lg mb-6 uppercase text-white leading-tight"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight drop-shadow-lg mb-6 uppercase text-accent-gold leading-tight"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.4, type: "spring", stiffness: 100 }} // Faster animation
+            transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 70, damping: 10 }}
           >
-            Experience Unrivaled Luxury
+            Refined Luxury, Timeless Charm
           </motion.h1>
           <motion.p
-            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md text-gray-200"
-            initial={{ opacity: 0, y: 15 }} // Faster animation
+            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-10 font-body font-light tracking-wide text-text-light/90 drop-shadow-md"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }} // Faster animation
+            transition={{ duration: 1, delay: 0.6 }}
           >
-            Where grandeur meets comfort, creating unforgettable memories.
+            Immerse yourself in an experience where every detail is crafted for your utmost comfort and delight.
           </motion.p>
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(251, 191, 36, 0.8)", y: -5 }}
+            whileHover={{ scale: 1.05, boxShadow: "var(--tw-shadow-button-gold)", y: -5 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => alert("Redirecting to booking")}
-            className="bg-yellow-500 text-gray-900 w-full sm:w-auto px-12 py-4 rounded-full font-bold text-lg shadow-2xl hover:bg-yellow-600 transition-all duration-300 transform"
-            initial={{ opacity: 0, y: 20 }} // Faster animation
+            onClick={() => alert("Redirecting to booking portal...")}
+            className="bg-accent-gold text-primary-dark w-full sm:w-auto px-12 py-4 rounded-full font-heading font-bold text-lg shadow-soft-lg hover:bg-orange-600 transition-all duration-300 transform border-2 border-accent-gold hover:border-text-light focus:outline-none focus:ring-4 focus:ring-accent-gold focus:ring-opacity-60"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }} // Faster animation
+            transition={{ duration: 1, delay: 0.8 }}
           >
-            Book Your Grand Stay
+            Secure Your Retreat
           </motion.button>
         </motion.div>
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+          <motion.div
+            className="w-9 h-14 border-2 border-text-light rounded-full flex justify-center pt-2"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <span className="w-1.5 h-3.5 bg-text-light rounded-full"></span>
+          </motion.div>
+        </div>
       </section>
 
       {/* Features Section */}
       <motion.section
-        className="py-24 bg-gray-900 px-4"
+        className="py-24 bg-secondary-dark px-4 sm:px-6 lg:px-8"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="max-w-7xl mx-auto text-center">
           <motion.h2
-            className="text-yellow-400 text-3xl sm:text-4xl font-bold mb-14 tracking-wide relative inline-block pb-3"
+            className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 tracking-tight relative inline-block pb-3"
             variants={textVariants}
           >
-            What Sets Us Apart
-            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-rose-500 rounded-full animate-pulse-line"></span>
+            Distinguishing Features
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-gray-300">
-            {["Prime Location", "Luxurious Rooms", "Fine Dining"].map((title, idx) => (
+          <motion.span
+            className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+            variants={headingLineVariants}
+          ></motion.span>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-text-light">
+            {["Prime Location", "Luxurious Rooms", "Gourmet Dining"].map((title, idx) => (
               <motion.div
                 key={idx}
                 variants={itemVariants}
-                className="bg-gray-800 bg-opacity-70 rounded-xl p-8 shadow-xl border border-gray-700 hover:border-yellow-400 transition-all duration-300 transform hover:-translate-y-4 hover:shadow-2xl"
-                whileHover={{ scale: 1.03, boxShadow: "0 10px 40px rgba(251, 191, 36, 0.3)" }}
+                className="bg-primary-dark rounded-xl p-8 shadow-soft-lg border border-secondary-dark hover:border-accent-gold transition-all duration-500 transform hover:-translate-y-4 hover:shadow-soft-xl relative overflow-hidden group flex flex-col items-center"
+                whileHover={{ scale: 1.02, boxShadow: "0 18px 45px rgba(255, 137, 6, 0.2)" }}
               >
-                <div className="mx-auto mb-6 h-20 w-20 text-yellow-400 text-5xl flex items-center justify-center rounded-full bg-gray-700 shadow-inner">
-                  {idx === 0 && <span className="drop-shadow">📍</span>}
-                  {idx === 1 && <span className="drop-shadow">🛏️</span>}
-                  {idx === 2 && <span className="drop-shadow">🍽️</span>}
+                <div className="relative z-10 text-center">
+                  <div className="mx-auto mb-6 h-28 w-28 text-accent-gold text-7xl flex items-center justify-center rounded-full bg-secondary-dark/70 shadow-inner border-2 border-primary-dark group-hover:border-danger-red transition-all duration-300 transform group-hover:scale-110">
+                    {idx === 0 && <FaMapMarkerAlt />}
+                    {idx === 1 && <FaBed />}
+                    {idx === 2 && <FaUtensils />}
+                  </div>
+                  <h3 className="text-3xl font-heading font-semibold mb-3 text-accent-gold group-hover:text-text-light transition-colors duration-300">{title}</h3>
+                  <p className="text-base leading-relaxed text-text-muted font-body">
+                    {title === "Prime Location"
+                      ? "Nestled amidst scenic beauty, offering tranquility and convenient access to local attractions."
+                      : title === "Luxurious Rooms"
+                      ? "Opulently furnished suites designed for utmost comfort, combining classic charm with contemporary amenities."
+                      : "An exquisite culinary experience awaits, with gourmet creations crafted by our celebrated chefs."}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-semibold mb-3 text-white">{title}</h3>
-                <p className="text-base leading-relaxed text-gray-400">
-                  {title === "Prime Location"
-                    ? "Strategically nestled with breathtaking views, offering serene escapes and easy access to local marvels."
-                    : title === "Luxurious Rooms"
-                    ? "Opulently appointed suites designed for supreme comfort, blending classic elegance with modern amenities."
-                    : "A culinary journey awaits, with gourmet creations by master chefs in an ambiance of refined taste."}
-                </p>
               </motion.div>
             ))}
           </div>
@@ -168,32 +209,37 @@ export default function TajStyleHome() {
       {/* Services Section */}
       <motion.section
         id="services"
-        className="max-w-6xl mx-auto px-4 sm:px-8 py-20 text-center bg-transparent"
+        className="max-w-7xl mx-auto px-4 sm:px-8 py-20 text-center"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h2
-          className="text-yellow-400 text-3xl sm:text-4xl font-bold mb-14 tracking-wide text-center relative inline-block pb-3"
+          className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 tracking-tight relative inline-block pb-3"
           variants={textVariants}
         >
-          Exclusive Amenities
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-rose-500 rounded-full animate-pulse-line"></span>
+          Premium Amenities
         </motion.h2>
+        <motion.span
+          className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+          variants={headingLineVariants}
+        ></motion.span>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map(({ icon, title, desc }) => (
             <motion.div
               key={title}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-xl p-7 text-center cursor-pointer transform transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-rose-300"
-              whileHover={{ rotateY: 5, rotateZ: 2 }}
+              className="bg-secondary-dark rounded-xl shadow-soft-lg p-7 text-center cursor-pointer transform transition-all duration-500 hover:shadow-soft-xl hover:scale-105 border border-primary-dark hover:border-accent-gold group relative overflow-hidden"
+              whileHover={{ rotateY: 3, rotateZ: 1, scale: 1.03 }}
             >
-              <div className="text-rose-600 text-5xl mb-5 flex items-center justify-center animate-bounce-slow">
-                {icon}
+              <div className="relative z-10">
+                <div className="text-danger-red text-6xl mb-5 flex items-center justify-center animate-subtle-pulse bg-primary-dark/70 rounded-full h-24 w-24 mx-auto shadow-inner border border-secondary-dark group-hover:border-accent-gold transition-colors duration-300">
+                  {icon}
+                </div>
+                <h3 className="text-2xl font-heading font-semibold mb-3 text-accent-gold group-hover:text-text-light transition-colors duration-300">{title}</h3>
+                <p className="text-text-muted text-base leading-relaxed font-body">{desc}</p>
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-gray-900">{title}</h3>
-              <p className="text-gray-700 text-base leading-relaxed">{desc}</p>
             </motion.div>
           ))}
         </div>
@@ -202,34 +248,37 @@ export default function TajStyleHome() {
       {/* Highlights Section */}
       <motion.section
         id="highlights"
-        className="max-w-6xl mx-auto bg-gray-900 px-4 py-20"
+        className="max-w-7xl mx-auto bg-primary-dark px-4 sm:px-6 lg:px-8 py-20"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h2
-          className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide relative inline-block pb-3"
+          className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 text-center tracking-tight relative inline-block pb-3"
           variants={textVariants}
         >
-          A Glimpse of Our Elegance
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-rose-500 rounded-full animate-pulse-line"></span>
+          Moments of Grandeur
         </motion.h2>
+        <motion.span
+          className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+          variants={headingLineVariants}
+        ></motion.span>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {highlights.map(({ img, title, desc }) => (
             <motion.div
               key={title}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col transform transition-all duration-300 hover:scale-103 hover:shadow-2xl border border-gray-100 hover:border-yellow-300"
-              whileHover={{ y: -10, boxShadow: "0 15px 40px rgba(0,0,0,0.3)" }}
+              className="bg-secondary-dark rounded-xl shadow-soft-lg overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-[1.02] hover:shadow-soft-xl border border-primary-dark hover:border-accent-gold group"
+              whileHover={{ y: -10, boxShadow: "0 15px 40px rgba(0,0,0,0.5)" }}
             >
-              <div className="relative overflow-hidden">
-                <img src={img} alt={title} className="h-56 w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-115" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative overflow-hidden h-60">
+                <img src={img} alt={title} className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-115" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-2xl font-semibold mb-3 text-gray-900">{title}</h3>
-                <p className="text-gray-700 flex-grow text-base leading-relaxed">{desc}</p>
+                <h3 className="text-2xl font-heading font-semibold mb-3 text-accent-gold group-hover:text-text-light transition-colors duration-300">{title}</h3>
+                <p className="text-text-muted flex-grow text-base leading-relaxed font-body">{desc}</p>
               </div>
             </motion.div>
           ))}
@@ -239,30 +288,35 @@ export default function TajStyleHome() {
       {/* Testimonials */}
       <motion.section
         id="testimonials"
-        className="max-w-5xl mx-auto px-4 py-20 bg-transparent"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h2
-          className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide relative inline-block pb-3"
+          className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 text-center tracking-tight relative inline-block pb-3"
           variants={textVariants}
         >
-          Voices of Delight
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-rose-500 rounded-full animate-pulse-line"></span>
+          Kind Words from Our Guests
         </motion.h2>
+        <motion.span
+          className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+          variants={headingLineVariants}
+        ></motion.span>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {testimonials.map(({ text, author }) => (
             <motion.div
               key={author}
               variants={itemVariants}
-              className="bg-rose-50 rounded-xl shadow-lg p-7 cursor-pointer hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-rose-100 relative overflow-hidden"
-              whileHover={{ scale: 1.02, backgroundColor: '#ffe4e6' }}
+              className="bg-secondary-dark rounded-xl shadow-soft-lg p-7 cursor-pointer hover:shadow-soft-xl transition-all duration-500 transform hover:-translate-y-3 border border-primary-dark hover:border-danger-red relative overflow-hidden group"
+              whileHover={{ scale: 1.01, boxShadow: "0 12px 35px rgba(229, 49, 112, 0.3)" }}
             >
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-rose-100 to-transparent opacity-30 pointer-events-none rounded-xl"></div>
-              <p className="text-gray-800 text-base italic mb-5 leading-relaxed relative z-10">"{text}"</p>
-              <p className="text-rose-700 font-bold text-right text-lg relative z-10">— {author}</p>
+              <div className="absolute top-4 left-4 text-8xl text-primary-dark/60 opacity-80 z-0 select-none transform translate-x-[-15px] translate-y-[-15px] group-hover:text-danger-red/20 transition-colors duration-300">
+                <FaQuoteRight />
+              </div>
+              <p className="text-text-muted text-lg italic mb-5 leading-relaxed relative z-10 font-body">"{text}"</p>
+              <p className="text-accent-gold font-heading font-bold text-right text-xl relative z-10">— {author}</p>
             </motion.div>
           ))}
         </div>
@@ -271,45 +325,45 @@ export default function TajStyleHome() {
       {/* Gallery */}
       <motion.section
         id="gallery"
-        className="bg-gray-900 px-4 sm:px-8 py-20"
+        className="bg-primary-dark px-4 sm:px-6 lg:px-8 py-20"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h2
-          className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide relative inline-block pb-3"
+          className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 text-center tracking-tight relative inline-block pb-3"
           variants={textVariants}
         >
-          Our Visual Chronicle
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-rose-500 rounded-full animate-pulse-line"></span>
+          Visual Diary of Splendor
         </motion.h2>
+        <motion.span
+          className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+          variants={headingLineVariants}
+        ></motion.span>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {galleryImages.map((src, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}
-              className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer border-2 border-transparent hover:border-yellow-400 transition-all duration-300"
+              className="relative group rounded-xl overflow-hidden shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-accent-gold transition-all duration-500"
               onClick={() => setSelectedImage(src)}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(251, 191, 36, 0.5)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255, 137, 6, 0.4)" }}
             >
               <img
                 src={src}
                 alt={`Gallery image ${idx + 1}`}
-                className="object-cover w-full h-64 sm:h-72 md:h-80 transition-transform duration-500 ease-in-out group-hover:scale-115"
+                className="object-cover w-full h-64 transition-transform duration-700 ease-in-out group-hover:scale-115"
               />
               <motion.div
-                className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-primary-dark/80 flex flex-col items-center justify-center text-text-light font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
               >
-                <svg className="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                View Details
+                <FaSearchPlus className="h-10 w-10 mb-2 text-accent-gold" />
+                <span className="font-heading text-xl">View Image</span>
               </motion.div>
             </motion.div>
           ))}
@@ -323,506 +377,31 @@ export default function TajStyleHome() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4 backdrop-blur-lg"
+            className="fixed inset-0 bg-overlay-dark z-50 flex items-center justify-center p-4 backdrop-blur-md"
             onClick={closeLightbox}
           >
             <motion.div
-              initial={{ scale: 0.8, rotateX: 90, opacity: 0 }}
-              animate={{ scale: 1, rotateX: 0, opacity: 1 }}
-              exit={{ scale: 0.8, rotateX: -90, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25, duration: 0.4 }} // Faster lightbox transition
-              className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-xl shadow-2xl border-4 border-yellow-400"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={lightboxImageVariants}
+              className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl shadow-soft-xl border-4 border-accent-gold"
               onClick={(e) => e.stopPropagation()}
             >
               <img src={selectedImage} alt="Enlarged" className="w-full h-full object-contain" />
-              <button
+              <motion.button
                 onClick={closeLightbox}
-                className="absolute top-5 right-5 text-white text-5xl font-bold bg-gray-800 bg-opacity-70 rounded-full w-14 h-14 flex items-center justify-center transition-all duration-300 z-10 shadow-lg"
+                className="absolute top-5 right-5 text-text-light text-5xl font-bold bg-danger-red bg-opacity-80 rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 z-10 shadow-soft-lg border-2 border-text-light"
                 aria-label="Close image"
-                whileHover={{ scale: 1.15, rotate: 180, backgroundColor: '#ef4444', color: '#fff', boxShadow: "0 10px 20px rgba(0,0,0,0.5)" }}
+                whileHover={{ scale: 1.15, rotate: 90, backgroundColor: '#c21e56', color: '#fff', boxShadow: "var(--tw-shadow-button-red)" }}
                 whileTap={{ scale: 0.9 }}
               >
                 &times;
-              </button>
+              </motion.button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 }
-
-// import React, { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
-
-// export default function TajStyleHome() {
-//   const [scrolled, setScrolled] = useState(false);
-
-//   useEffect(() => {
-//     function onScroll() {
-//       setScrolled(window.scrollY > 50);
-//     }
-//     window.addEventListener("scroll", onScroll);
-//     return () => window.removeEventListener("scroll", onScroll);
-//   }, []);
-
-//   const services = [
-//     { icon: "📶", title: "Free Wi-Fi", desc: "Stay connected with fast and reliable internet throughout the inn." },
-//     { icon: "🅿️", title: "Free Parking", desc: "Secure parking space available for guests at no extra cost." },
-//     { icon: "💆‍♀️", title: "Spa & Wellness", desc: "Relax and rejuvenate with our spa treatments and wellness programs." },
-//     { icon: "☕", title: "24/7 Coffee Bar", desc: "Enjoy your favorite beverages any time at our cozy coffee corner." },
-//   ];
-
-//   const highlights = [
-//     {
-//       img: "https://images.unsplash.com/photo-1501183638714-2f2f9899c6f5?auto=format&fit=crop&w=400&q=80",
-//       title: "Luxury Rooms",
-//       desc: "Experience the comfort of our beautifully designed rooms with premium furnishings and stunning views.",
-//     },
-//     {
-//       img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=400&q=80",
-//       title: "Delicious Cuisine",
-//       desc: "Enjoy gourmet meals prepared by our expert chefs, featuring local and international flavors.",
-//     },
-//     {
-//       img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
-//       title: "Relaxing Lawn",
-//       desc: "Spend peaceful moments in our lush green garden perfect for morning yoga, reading, or family gatherings.",
-//     },
-//   ];
-
-//   const testimonials = [
-//     { text: "Gouri Inn made our trip unforgettable with their warm hospitality and beautiful rooms!", author: "Anjali M." },
-//     { text: "Perfect getaway spot. Loved the garden and the food was amazing. Highly recommend!", author: "Rajesh K." },
-//     { text: "Clean, cozy, and super friendly staff. Can't wait to come back again!", author: "Neha S." },
-//   ];
-
-//   const [selectedImage, setSelectedImage] = useState(null);
-//   const closeLightbox = () => setSelectedImage(null);
-
-
-//   const galleryImages = [
-//     "/RoomImages/room1.jpg",
-//     "/RoomImages/room2.jpg",
-//     "/RoomImages/room3.jpg",
-//     "/LawnImages/lawn1.jpg",
-//     "/LawnImages/lawn2.jpg",
-//     "/LawnImages/lawn3.jpg",
-//   ];
-
-//   return (
-//     <div className="font-serif text-primary bg-gray-900 min-h-screen overflow-x-hidden scroll-smooth">
-//       {/* Hero Section */}
-//       <section
-//         className="relative h-screen flex items-center justify-center text-center px-6 sm:px-12"
-//         style={{
-//           backgroundImage:
-//             "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80')",
-//           backgroundPosition: "center",
-//           backgroundSize: "cover",
-//           backgroundAttachment: "fixed",
-//         }}
-//       >
-//         <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-10"></div>
-//         <motion.div
-//           initial={{ opacity: 0, y: 40 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 1 }}
-//           className="relative z-20 max-w-3xl md:max-w-4xl p-4"
-//         >
-//           <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-wide drop-shadow-lg mb-6 uppercase text-white">
-//             Experience Timeless Luxury
-//           </h1>
-//           <p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md text-white">
-//             Where elegance meets comfort in the heart of tranquility.
-//           </p>
-//           <motion.button
-//             whileHover={{ scale: 1.05 }}
-//             whileTap={{ scale: 0.95 }}
-//             onClick={() => alert("Redirecting to booking")}
-//             className="bg-yellow-400 text-gray-900 w-full sm:w-auto px-10 py-3 rounded-full font-semibold text-lg shadow-xl hover:bg-yellow-500 transition"
-//           >
-//             Book Your Stay
-//           </motion.button>
-//         </motion.div>
-//       </section>
-
-//       {/* Features Section */}
-//       <section className="py-24 bg-gray-800 px-4">
-//         <div className="max-w-6xl mx-auto text-center">
-//           <motion.h2
-//             initial={{ opacity: 0, y: 20 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8 }}
-//             className="text-yellow-400 text-3xl sm:text-4xl font-bold mb-14 tracking-wide"
-//           >
-//             What Makes Us Exceptional
-//           </motion.h2>
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-gray-300">
-//             {["Prime Location", "Luxurious Rooms", "Fine Dining"].map((title, idx) => (
-//               <motion.div
-//                 key={idx}
-//                 whileHover={{ scale: 1.05 }}
-//                 className="bg-gray-900 bg-opacity-50 rounded-xl p-8 shadow-lg hover:shadow-yellow-400/50 transition-shadow"
-//               >
-//                 <div className="mx-auto mb-6 h-14 w-14 text-yellow-400 text-3xl">⭐</div>
-//                 <h3 className="text-xl font-semibold mb-3">{title}</h3>
-//                 <p className="text-sm leading-relaxed">
-//                   {title === "Prime Location"
-//                     ? "Centrally located with breathtaking views and easy access to local attractions."
-//                     : title === "Luxurious Rooms"
-//                     ? "Elegantly furnished suites with modern amenities for ultimate relaxation."
-//                     : "World-class cuisine served in elegant settings to delight your palate."}
-//                 </p>
-//               </motion.div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Services Section */}
-//       <section id="services" className="max-w-6xl mx-auto px-4 sm:px-8 py-20 text-center">
-//         <h2 className="text-yellow-400 text-3xl sm:text-4xl font-bold mb-14 tracking-wide">
-//           Our Services
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-//           {services.map(({ icon, title, desc }) => (
-//             <motion.div
-//               key={title}
-//               whileHover={{ scale: 1.03 }}
-//               className="bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer transform transition hover:shadow-2xl"
-//             >
-//               <div className="text-pink-500 text-4xl mb-4">{icon}</div>
-//               <h3 className="text-xl font-semibold mb-2 text-gray-900">{title}</h3>
-//               <p className="text-gray-600 text-sm">{desc}</p>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* Highlights Section */}
-//       <section id="highlights" className="max-w-6xl mx-auto bg-gray-800 px-4 py-20">
-//         <h2 className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide">
-//           Our Highlights
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-//           {highlights.map(({ img, title, desc }) => (
-//             <motion.div
-//               key={title}
-//               whileHover={{ scale: 1.03 }}
-//               className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
-//             >
-//               <img src={img} alt={title} className="h-44 w-full object-cover" />
-//               <div className="p-5 flex flex-col flex-grow">
-//                 <h3 className="text-xl font-semibold mb-2 text-gray-900">{title}</h3>
-//                 <p className="text-gray-600 flex-grow text-sm">{desc}</p>
-//               </div>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* Testimonials */}
-//       <section id="testimonials" className="max-w-5xl mx-auto px-4 py-20">
-//         <h2 className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide">
-//           What Our Guests Say
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-//           {testimonials.map(({ text, author }) => (
-//             <motion.div
-//               key={author}
-//               whileHover={{ scale: 1.02 }}
-//               className="bg-pink-100 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-2xl"
-//             >
-//               <p className="text-gray-800 text-sm italic mb-4">"{text}"</p>
-//               <p className="text-pink-500 font-semibold text-right">— {author}</p>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </section>
-
-//       <section id="gallery" className="bg-gray-900 px-4 sm:px-8 py-20">
-//   <h2 className="text-3xl sm:text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide">
-//     Gallery
-//     <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//   </h2>
-
-//   <motion.div
-//     initial={{ opacity: 0, y: 30 }}
-//     whileInView={{ opacity: 1, y: 0 }}
-//     transition={{ duration: 0.8 }}
-//     viewport={{ once: true }}
-//     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-//   >
-//     {galleryImages.map((src, idx) => (
-//       <motion.div
-//         key={idx}
-//         whileHover={{ scale: 1.03 }}
-//         className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer"
-//         onClick={() => setSelectedImage(src)}
-//       >
-//         <img
-//           src={src}
-//           alt={`Gallery image ${idx + 1}`}
-//           className="object-cover w-full h-64 sm:h-72 md:h-80 transition-transform duration-300 ease-in-out group-hover:scale-110"
-//         />
-//         <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center text-white font-semibold text-lg">
-//           View Image
-//         </div>
-//       </motion.div>
-//     ))}
-//   </motion.div>
-// </section>
-
-// {selectedImage && (
-//   <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-//     <div className="relative max-w-3xl w-full max-h-[90vh] overflow-hidden rounded-xl shadow-lg">
-//       <img src={selectedImage} alt="Enlarged" className="w-full h-full object-contain" />
-//       <button
-//         onClick={closeLightbox}
-//         className="absolute top-2 right-2 text-white text-3xl font-bold hover:text-yellow-400 transition"
-//       >
-//         &times;
-//       </button>
-//     </div>
-//   </div>
-// )}
-
-
-//     </div>
-//   );
-// }
-
-
-
-// import React from "react";
-// import { useEffect, useState } from "react";
-
-// export default function TajStyleHome() {
-//   const [scrolled, setScrolled] = useState(false);
-
-//   useEffect(() => {
-//     function onScroll() {
-//       setScrolled(window.scrollY > 50);
-//     }
-//     window.addEventListener("scroll", onScroll);
-//     return () => window.removeEventListener("scroll", onScroll);
-//   }, []);
-
-//   return (
-//     <div className="font-serif text-primary bg-gray-900 min-h-screen overflow-x-hidden">
-
-
-//       {/* Hero Section */}
-//       <section
-//         className="relative h-screen flex items-center justify-center text-center px-6 sm:px-12"
-//         style={{
-//           backgroundImage:
-//             "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80')",
-//           backgroundPosition: "center",
-//           backgroundSize: "cover",
-//           backgroundAttachment: "fixed",
-//         }}
-//       >
-//         {/* Dark Overlay */}
-//         <div className="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
-
-//         {/* Hero Content */}
-//         <div className="relative z-20 max-w-4xl">
-//           <h1 className="text-5xl md:text-7xl font-extrabold tracking-wide drop-shadow-lg mb-6 uppercase">
-//             Experience Timeless Luxury
-//           </h1>
-//           <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-12 font-light tracking-wide drop-shadow-md">
-//             Where elegance meets comfort in the heart of tranquility.
-//           </p>
-//           <button
-//             onClick={() => alert("Redirecting to booking")}
-//             className="bg-yellow-400 text-gray-900 px-14 py-4 rounded-full font-semibold text-lg shadow-xl hover:bg-yellow-500 transition transform hover:scale-105"
-//           >
-//             Book Your Stay
-//           </button>
-//         </div>
-//       </section>
-
-//       {/* Features Section */}
-//       <section className="py-24  bg-gray-800">
-//         <div className="max-w-6xl mx-auto text-center px-6 sm:px-12">
-//           <h2 className="text-yellow-400 text-4xl font-bold mb-14 tracking-wide">
-//             What Makes Us Exceptional
-//           </h2>
-
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-gray-300">
-//             <div className="bg-gray-900 bg-opacity-50 rounded-xl p-8 shadow-lg hover:shadow-yellow-400/50 transition-shadow">
-//               <svg
-//                 className="mx-auto mb-6 h-14 w-14 text-yellow-400"
-//                 fill="none"
-//                 stroke="currentColor"
-//                 strokeWidth="2"
-//                 viewBox="0 0 24 24"
-//               >
-//                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" />
-//               </svg>
-//               <h3 className="text-xl font-semibold mb-3">Prime Location</h3>
-//               <p className="text-gray-300 text-sm leading-relaxed">
-//                 Centrally located with breathtaking views and easy access to local attractions.
-//               </p>
-//             </div>
-
-//             <div className="bg-gray-900 bg-opacity-50 rounded-xl p-8 shadow-lg hover:shadow-yellow-400/50 transition-shadow">
-//               <svg
-//                 className="mx-auto mb-6 h-14 w-14 text-yellow-400"
-//                 fill="none"
-//                 stroke="currentColor"
-//                 strokeWidth="2"
-//                 viewBox="0 0 24 24"
-//               >
-//                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M3 14h18M3 18h18" />
-//               </svg>
-//               <h3 className="text-xl font-semibold mb-3">Luxurious Rooms</h3>
-//               <p className="text-gray-300 text-sm leading-relaxed">
-//                 Elegantly furnished suites with modern amenities for ultimate relaxation.
-//               </p>
-//             </div>
-
-//             <div className="bg-gray-900 bg-opacity-50 rounded-xl p-8 shadow-lg hover:shadow-yellow-400/50 transition-shadow">
-//               <svg
-//                 className="mx-auto mb-6 h-14 w-14 text-yellow-400"
-//                 fill="none"
-//                 stroke="currentColor"
-//                 strokeWidth="2"
-//                 viewBox="0 0 24 24"
-//               >
-//                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-//               </svg>
-//               <h3 className="text-xl font-semibold mb-3">Fine Dining</h3>
-//               <p className="text-gray-300 text-sm leading-relaxed">
-//                 World-class cuisine served in elegant settings to delight your palate.
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* SERVICES */}
-//       <section id="services" className="max-w-4xl mx-auto px-5 py-16 text-center">
-//         <h2 className="text-yellow-400 text-4xl font-bold mb-14 tracking-wide">
-//           Our Services
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-//           {[
-//             { icon: "📶", title: "Free Wi-Fi", desc: "Stay connected with fast and reliable internet throughout the inn." },
-//             { icon: "🅿️", title: "Free Parking", desc: "Secure parking space available for guests at no extra cost." },
-//             { icon: "💆‍♀️", title: "Spa & Wellness", desc: "Relax and rejuvenate with our spa treatments and wellness programs." },
-//             { icon: "☕", title: "24/7 Coffee Bar", desc: "Enjoy your favorite beverages any time at our cozy coffee corner." },
-//           ].map(({ icon, title, desc }) => (
-//             <div
-//               key={title}
-//               className="bg-white rounded-xl shadow-lg p-8 text-center cursor-pointer transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
-//             >
-//               <div className="text-pink-500 text-5xl mb-5">{icon}</div>
-//               <h3 className="text-2xl font-semibold mb-3 text-gray-900">{title}</h3>
-//               <p className="text-gray-600">{desc}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* HIGHLIGHTS */}
-//       <section id="highlights" className="max-w-6xl mx-auto bg-gray-800 px-5 py-16">
-//         <h2 className="text-4xl font-extrabold mb-12 text-center  text-yellow-400 tracking-wide">
-//           Our Highlights
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="flex flex-wrap justify-center gap-8">
-//           {[
-//             {
-//               img: "https://images.unsplash.com/photo-1501183638714-2f2f9899c6f5?auto=format&fit=crop&w=400&q=80",
-//               title: "Luxury Rooms",
-//               desc:
-//                 "Experience the comfort of our beautifully designed rooms with premium furnishings and stunning views.",
-//             },
-//             {
-//               img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=400&q=80",
-//               title: "Delicious Cuisine",
-//               desc:
-//                 "Enjoy gourmet meals prepared by our expert chefs, featuring local and international flavors.",
-//             },
-//             {
-//               img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
-//               title: "Relaxing Lawn",
-//               desc:
-//                 "Spend peaceful moments in our lush green garden perfect for morning yoga, reading, or family gatherings.",
-//             },
-//           ].map(({ img, title, desc }) => (
-//             <div
-//               key={title}
-//               className="bg-white rounded-xl shadow-md overflow-hidden w-72 cursor-pointer transform transition duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col"
-//             >
-//               <img src={img} alt={title} className="h-44 w-full object-cover border-b border-gray-200" />
-//               <div className="p-5 flex flex-col flex-grow">
-//                 <h3 className="text-2xl font-semibold mb-2 text-gray-900">{title}</h3>
-//                 <p className="text-gray-600 flex-grow">{desc}</p>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* TESTIMONIALS */}
-//       <section id="testimonials" className="max-w-5xl mx-auto px-5 py-16">
-//         <h2 className="text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide">
-//           What Our Guests Say
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="flex flex-col sm:flex-row justify-center gap-8">
-//           {[
-//             { text: "Gouri Inn made our trip unforgettable with their warm hospitality and beautiful rooms!", author: "Anjali M." },
-//             { text: "Perfect getaway spot. Loved the garden and the food was amazing. Highly recommend!", author: "Rajesh K." },
-//             { text: "Clean, cozy, and super friendly staff. Can't wait to come back again!", author: "Neha S." },
-//           ].map(({ text, author }) => (
-//             <div
-//               key={author}
-//               className="bg-pink-100 rounded-xl shadow-lg p-8 max-w-md cursor-pointer hover:shadow-2xl transition transform hover:-translate-y-1"
-//             >
-//               <p className="text-gray-800 text-lg italic mb-6">"{text}"</p>
-//               <p className="text-pink-500 font-semibold text-right">— {author}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* GALLERY */}
-//       <section id="gallery" className=" bg-gray-800 container px-15 mb-6 rounded-xl w-screen mx-auto px-5 py-16">
-//         <h2 className="text-4xl font-extrabold mb-12 text-center text-yellow-400 tracking-wide">
-//           Gallery
-//           <span className="block w-20 h-1 bg-pink-500 rounded mx-auto mt-3"></span>
-//         </h2>
-//         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-//           {[
-//             "/RoomImages/room1.jpg",
-//             "/RoomImages/room2.jpg",
-//             "/RoomImages/room3.jpg",
-//             "/LawnImages/lawn1.jpg",
-//             "/LawnImages/lawn2.jpg",
-//             "/LawnImages/lawn3.jpg",
-//           ].map((src, idx) => (
-//             <img
-//               key={idx}
-//               src={src}
-//               alt={`Gallery image ${idx + 1}`}
-//               className="rounded-lg shadow-lg cursor-pointer object-cover w-full h-64 hover:scale-105 transition-transform"
-//               loading="lazy"
-//             />
-//           ))}
-//         </div>
-//       </section>
-
-      
-//     </div>
-//   );
-// }
