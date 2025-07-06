@@ -1,5 +1,6 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+// src/App.jsx
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import Navbar from './components/Navbar/Navbar';
@@ -13,14 +14,18 @@ import NotFound from './components/NotFound/NotFound';
 import BookingPage from './pages/BookingPage';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
-import Contacts from './admin/Contacts.jsx';
+import Contacts from './admin/Contacts';
 import GalleryAdmin from './admin/GalleryAdmin';
 
-const isAdminAuthenticated = () => {
-  return !!localStorage.getItem('adminToken');
-};
-
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken');
+    setIsAuthenticated(!!token);
+  }, [location.pathname]); // re-evaluate on route change
+
   return (
     <>
       <Toaster position="top-right" />
@@ -35,14 +40,14 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
 
         {/* Booking Routes */}
-        <Route path="/book" element={<Navigate to="/room-booking" replace />} /> {/* Optional redirect */}
-        <Route path="/room-booking" element={<BookingPage />} /> {/* ✅ Now accessible from email link */}
+        <Route path="/book" element={<Navigate to="/room-booking" replace />} />
+        <Route path="/room-booking" element={<BookingPage />} />
 
         {/* Admin Auth */}
         <Route path="/login" element={<AdminLogin />} />
 
-        {/* Admin Protected Routes */}
-        {isAdminAuthenticated() ? (
+        {/* Protected Admin Routes */}
+        {isAuthenticated ? (
           <>
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/admin/contacts" element={<Contacts />} />
@@ -64,6 +69,7 @@ export default function App() {
     </>
   );
 }
+
 
 
 // import { Routes, Route, Navigate } from 'react-router-dom';
