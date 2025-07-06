@@ -45,36 +45,3 @@ export const sendInvoiceEmail = async (booking) => {
 
   await transporter.sendMail(mailOptions);
 };
-
-
-// import nodemailer from 'nodemailer';
-
-// export const sendInvoiceEmail = async (booking) => {
-//   const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: process.env.EMAIL,
-//       pass: process.env.EMAIL_PASS,
-//     },
-//   });
-
-//   const mailOptions = {
-//     from: process.env.EMAIL,
-//     to: booking.email,
-//     subject: `Your ${booking.type} Booking Invoice`,
-//     html: `
-//       <h3>Booking Confirmed ✅</h3>
-//       <p>Thank you for booking with us!</p>
-//       <ul>
-//         <li><strong>Booking ID:</strong> ${booking.paymentId}</li>
-//         <li><strong>Booking Type:</strong> ${booking.type}</li>
-//         <li><strong>Amount Paid:</strong> ₹${booking.amount}</li>
-//         <li><strong>Check-in:</strong> ${booking.checkIn}</li>
-//         <li><strong>Check-out:</strong> ${booking.checkOut}</li>
-//       </ul>
-//       <p>We’ll see you soon! Your invoice has also been sent to WhatsApp if provided.</p>
-//     `
-//   };
-
-//   await transporter.sendMail(mailOptions);
-// };

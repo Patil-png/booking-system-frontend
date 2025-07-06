@@ -25,7 +25,7 @@ const AdminCustomLawnBooking = () => {
   useEffect(() => {
     const fetchLawnSlots = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
+        const res = await fetch('http://localhost:5000/api/options');
         if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
         const data = await res.json();
         const lawns = Array.isArray(data) ? data.filter(item => item.type === 'Lawn') : data.lawns || [];
@@ -157,7 +157,7 @@ const AdminCustomLawnBooking = () => {
       }
 
       try {
-        const orderRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
+        const orderRes = await fetch('http://localhost:5000/api/razorpay/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: totalAmount }),

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
+  baseURL: 'http://localhost:5000/api',
 });
 
 export const createBooking = async (bookingData) => {
@@ -15,13 +15,15 @@ export const fetchBookings = async () => {
 };
 
 export const fetchStats = async () => {
-  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/stats`);
-  if (!res.ok) throw new Error('Failed to fetch stats');
-  return res.json();
+  const res = await API.get('/bookings/stats');
+  return res.data;
 };
 
+export const approveBooking = async (bookingId) => {
+  const res = await API.put(`/bookings/approve/${bookingId}`);
+  return res.data;
+};
 
-// ✅ FIXED ROUTE HERE:
 export const fetchBlockedDates = async (type = 'Room') => {
   const res = await API.get(`/blocked-dates?type=${type}`);
   return res.data.map(b => ({
@@ -33,7 +35,6 @@ export const fetchBlockedDates = async (type = 'Room') => {
   }));
 };
 
-// ✅ FIXED ROUTE HERE:
 export const addBlockedDate = async (data) => {
   return await API.post('/blocked-dates', data);
 };
@@ -41,3 +42,19 @@ export const addBlockedDate = async (data) => {
 export const deleteBlockedDate = async (id) => {
   return await API.delete(`/blocked-dates/${id}`);
 };
+
+export const markBookingPaid = async ({ bookingId, paymentId, amount }) => {
+  const res = await API.put('/bookings/payment-success', {
+    bookingId,
+    paymentId,
+    amount,
+  });
+  return res.data;
+};
+
+export const sendInvoiceEmail = async (bookingData) => {
+  const res = await API.post('/bookings/send-confirmation-email', bookingData);
+  return res.data;
+};
+
+

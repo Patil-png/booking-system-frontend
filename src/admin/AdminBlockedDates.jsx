@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,7 +12,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
 
   const fetchBlockedDates = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=${type}`);
+      const res = await fetch(`http://localhost:5000/api/blocked-dates?type=${type}`);
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.error || `Server responded with status ${res.status}`);
@@ -28,7 +29,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
     if (!selectedDate) return;
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates`, {
+      const res = await fetch('http://localhost:5000/api/blocked-dates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type, date: selectedDate.toISOString() }),
@@ -48,7 +49,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
 
   const unblockDate = async (id) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/blocked-dates/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) fetchBlockedDates();

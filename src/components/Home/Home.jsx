@@ -23,17 +23,17 @@ export default function TajStyleHome() {
 
   const highlights = [
     {
-      img: "https://images.unsplash.com/photo-1578683010236-d7168578d523?auto=format&fit=crop&w=600&q=80", // Modern room
+      img: "/RoomImages/room1.jpg", // Modern room
       title: "Elegant Suites",
       desc: "Our meticulously designed suites offer a blend of traditional aesthetics and modern luxury.",
     },
     {
-      img: "https://images.unsplash.com/photo-1551632436-cbf8dd35ad77?auto=format&fit=crop&w=600&q=80", // Modern dining
+      img: "/RoomImages/room2.jpg", // Modern dining
       title: "Exquisite Dining",
       desc: "Savor a culinary journey with dishes crafted from fresh, local ingredients by our expert chefs.",
     },
     {
-      img: "https://images.unsplash.com/photo-1506477348981-d144ba90457b?auto=format&fit=crop&w=600&q=80", // Serene garden/outdoor
+      img: "/RoomImages/room3.jpg", // Serene garden/outdoor
       title: "Lush Gardens",
       desc: "Find tranquility in our sprawling, beautifully manicured gardens, perfect for peaceful strolls.",
     },
@@ -49,11 +49,11 @@ export default function TajStyleHome() {
     "/RoomImages/room1.jpg", // Ensure these paths are correct in your public folder
     "/RoomImages/room2.jpg",
     "/RoomImages/room3.jpg",
+    "/RoomImages/room4.jpg",
     "/LawnImages/lawn1.jpg",
     "/LawnImages/lawn2.jpg",
     "/LawnImages/lawn3.jpg",
-    "https://images.unsplash.com/photo-1549488349-f06b9703487c?auto=format&fit=crop&w=600&q=80", // Example: Pool or common area
-    "https://images.unsplash.com/photo-1521783988139-89394d761d71?auto=format&fit=crop&w=600&q=80", // Example: Interior detail
+    "/LawnImages/lawn4.jpg",
   ];
 
   const closeLightbox = () => setSelectedImage(null);
@@ -102,8 +102,7 @@ export default function TajStyleHome() {
         id="home"
         className="relative h-screen flex items-center justify-center text-center px-4 sm:px-6 lg:px-8"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1549488349-f06b9703487c?auto=format&fit=crop&w=1800&q=80')", // More modern, luxurious image
+          backgroundColor:"black", // More modern, luxurious image
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",

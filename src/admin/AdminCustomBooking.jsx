@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createBooking } from '../../src/utils/api';
 import { generateInvoice } from '../../src/utils/invoiceGenerator';
 import { useNavigate } from 'react-router-dom';
-
+import { sendInvoiceEmail } from '../utils/api';
 
 const AdminCustomBooking = () => {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const AdminCustomBooking = () => {
 
   const selectedRoom = availableRooms.find(r => r._id === formData.roomId);
   const selectedRoomPrice = selectedRoom?.price || 0;
+  const maxMembers = selectedRoom?.members || 5; // ✅ use actual room's max members
 
   const calculateDays = () => {
     const checkIn = new Date(formData.checkIn);
@@ -41,7 +42,7 @@ const AdminCustomBooking = () => {
   useEffect(() => {
     const fetchBlockedDates = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=Room`);
+        const res = await fetch('http://localhost:5000/api/blocked-dates?type=Room');
         if (!res.ok) throw new Error('Failed to fetch blocked dates');
         const data = await res.json();
         const converted = data.map(d => new Date(d.date).toISOString().split('T')[0]);
@@ -57,7 +58,7 @@ const AdminCustomBooking = () => {
   useEffect(() => {
     const fetchRoomOptions = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
+        const res = await fetch('http://localhost:5000/api/options');
         if (!res.ok) throw new Error('Failed to fetch room options');
         const data = await res.json();
         const rooms = Array.isArray(data) ? data.filter(item => item.type === 'Room') : data.rooms || [];
@@ -71,36 +72,41 @@ const AdminCustomBooking = () => {
       }
     };
     fetchRoomOptions();
-  }, [formData.roomId]); // Depend on formData.roomId to set default if rooms load later
+  }, [formData.roomId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === 'phone') {
       setFormData({ ...formData, [name]: value.replace(/\D/g, '').slice(0, 10) });
-    } else if (name === 'adults' || name === 'children') {
-      const n = parseInt(value) || 0;
-      const newAdults = name === 'adults' ? n : formData.adults;
-      const newChildren = name === 'children' ? n : formData.children;
+      return;
+    }
 
-      if (newAdults + newChildren > 5) {
-        setStatusMessage({ type: 'error', message: '⚠️ Max 5 guests allowed.' });
+    if (name === 'adults' || name === 'children') {
+      const newAdults = name === 'adults' ? parseInt(value) || 0 : formData.adults;
+      const newChildren = name === 'children' ? parseInt(value) || 0 : formData.children;
+      const total = newAdults + newChildren;
+
+      if (total > maxMembers) {
+        setStatusMessage({ type: 'error', message: `⚠️ Max ${maxMembers} guests allowed for this room.` });
         return;
       }
-      setFormData({ ...formData, [name]: n });
-      setStatusMessage({ type: '', message: '' }); // Clear message if valid
-    } else if (name === 'checkIn' || name === 'checkOut') {
+
+      setFormData({ ...formData, [name]: parseInt(value) || 0 });
+      setStatusMessage({ type: '', message: '' });
+      return;
+    }
+
+    if (name === 'checkIn' || name === 'checkOut') {
       if (blockedDates.includes(value)) {
         setStatusMessage({ type: 'error', message: `⚠️ ${value} is blocked.` });
-        // Optionally, prevent setting the blocked date
-        // return; 
+        return;
       } else {
-        setStatusMessage({ type: '', message: '' }); // Clear message if date is not blocked
+        setStatusMessage({ type: '', message: '' });
       }
-      setFormData({ ...formData, [name]: value });
-    } else {
-      setFormData({ ...formData, [name]: value });
     }
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const loadRazorpayScript = () => {
@@ -119,20 +125,32 @@ const AdminCustomBooking = () => {
 
     try {
       await createBooking({
-        ...formData,
-        checkIn: normalizedCheckIn,
-        checkOut: normalizedCheckOut,
-        type: 'Room',
-        amount: totalAmount,
-        paymentId: 'OFFLINE',
-      });
+  ...formData,
+  checkIn: normalizedCheckIn,
+  checkOut: normalizedCheckOut,
+  type: 'Room',
+  amount: totalAmount,
+  paymentId: 'OFFLINE',
+});
 
-      generateInvoice({
-        bookingType: 'Room',
-        formData: { ...formData, checkIn: normalizedCheckIn, checkOut: normalizedCheckOut },
-        price: totalAmount,
-        paymentId: 'OFFLINE',
-      });
+// Generate PDF invoice locally
+generateInvoice({
+  bookingType: 'Room',
+  formData: { ...formData, checkIn: normalizedCheckIn, checkOut: normalizedCheckOut },
+  price: totalAmount,
+  paymentId: 'OFFLINE',
+});
+
+// ✅ Send invoice as email attachment
+await sendInvoiceEmail({
+  ...formData,
+  checkIn: normalizedCheckIn,
+  checkOut: normalizedCheckOut,
+  amount: totalAmount,
+  paymentId: 'OFFLINE',
+  type: 'Room',
+});
+
 
       setStatusMessage({ type: 'success', message: '✅ Offline booking successful! Invoice generated.' });
       // Clear form after successful booking
@@ -162,7 +180,7 @@ const AdminCustomBooking = () => {
     const normalizedCheckOut = new Date(formData.checkOut).toISOString().split('T')[0];
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
+      const res = await fetch('http://localhost:5000/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalAmount }),
@@ -189,13 +207,15 @@ const AdminCustomBooking = () => {
         handler: async (response) => {
           try {
             await createBooking({
-              ...formData,
-              checkIn: normalizedCheckIn,
-              checkOut: normalizedCheckOut,
-              type: 'Room',
-              amount: totalAmount,
-              paymentId: response.razorpay_payment_id,
-            });
+  ...formData,
+  checkIn: normalizedCheckIn,
+  checkOut: normalizedCheckOut,
+  type: 'Room',
+  amount: totalAmount,
+  paymentId: 'OFFLINE', // or Razorpay ID
+  createdByAdmin: true, // ✅ Important!
+});
+
 
             generateInvoice({
               bookingType: 'Room',
@@ -470,3 +490,4 @@ const AdminCustomBooking = () => {
 };
 
 export default AdminCustomBooking;
+

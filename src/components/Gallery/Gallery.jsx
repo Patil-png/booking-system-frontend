@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const fallbackImage = "/fallback.jpg"; // Add this image to your public folder
+const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
 
 const Gallery = () => {
   const sliderRef = useRef(null);
@@ -21,7 +21,7 @@ const Gallery = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images`);
+        const response = await fetch("http://localhost:5000/api/gallery-images");
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         // Ensure data has necessary properties, or add fallbacks
@@ -117,9 +117,9 @@ const Gallery = () => {
   const openFullScreen = () => setFullScreenOpen(true);
   const closeFullScreen = () => setFullScreenOpen(false);
   const handleImageError = (e) => {
-  e.target.src = fallbackImage;
-  e.target.onerror = null;
-};
+    e.target.src = fallbackImage;
+    e.target.onerror = null; // Prevent endless loop if fallback also fails
+  };
 
   const staggerContainerVariants = {
     hidden: { opacity: 0 },
@@ -366,4 +366,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-

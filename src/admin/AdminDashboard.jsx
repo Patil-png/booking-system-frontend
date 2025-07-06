@@ -6,6 +6,9 @@ import ContactList from "./ContactList";
 import AdminCustomBooking from "./AdminCustomBooking";
 import AdminCustomLawnBooking from "./AdminCustomLawnBooking";
 import GalleryAdmin from "./GalleryAdmin";
+import AdminRoomManager from "./AdminRoomManager";
+
+
 
 export default function AdminDashboard() {
   const location = useLocation();
@@ -40,6 +43,7 @@ export default function AdminDashboard() {
             { to: "/admin/gallery", label: "Gallery" },
             { to: "/admin/custom-booking", label: "Manual Booking" },
             { to: "/admin/lawn-booking", label: "Lawn Booking" },
+              { to: "/admin/room-management", label: "Room Management" }, // ✅ Added
           ].map((link) => (
             <motion.div
               key={link.to}
@@ -74,6 +78,7 @@ export default function AdminDashboard() {
           <Route path="gallery" element={<GalleryAdmin />} />
           <Route path="custom-booking" element={<AdminCustomBooking />} />
           <Route path="lawn-booking" element={<AdminCustomLawnBooking />} />
+          <Route path="room-management" element={<AdminRoomManager />} />
         </Routes>
       </motion.main>
     </div>
@@ -130,4 +135,3 @@ function BlockedDatesPage() {
     </div>
   );
 }
-

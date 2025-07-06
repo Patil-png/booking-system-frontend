@@ -17,7 +17,7 @@ const Contacts = () => {
     setError(null);
     try {
       const token = localStorage.getItem("adminToken");
-      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/contacts`, {
+      const res = await axios.get("http://localhost:5000/api/admin/contacts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setContacts(res.data);
@@ -43,7 +43,7 @@ const Contacts = () => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/admin/contacts/${id}`, {
+      await axios.delete(`http://localhost:5000/api/admin/contacts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setContacts((prev) => prev.filter((c) => c._id !== id));
@@ -64,7 +64,7 @@ const Contacts = () => {
     try {
       const token = localStorage.getItem("adminToken");
       await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/admin/contacts/reply`,
+        "http://localhost:5000/api/admin/contacts/reply",
         {
           to: email,
           subject: "Reply from Gouri Inn",

@@ -8,7 +8,7 @@ const Notifications = () => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/notifications`);
+      const res = await fetch('http://localhost:5000/api/notifications');
       const data = await res.json();
       setNotifications(data);
     } catch (err) {
@@ -25,7 +25,7 @@ const Notifications = () => {
 
   const markAsSeen = async (id) => {
     try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/notifications/${id}/seen`, {
+      await fetch(`http://localhost:5000/api/notifications/${id}/seen`, {
         method: 'PUT',
       });
 
@@ -48,7 +48,7 @@ const Notifications = () => {
 
   const deleteNotification = async (id) => {
     try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/notifications/${id}`, {
+      await fetch(`http://localhost:5000/api/notifications/${id}`, {
         method: 'DELETE',
       });
       setNotifications((prev) => prev.filter((n) => n._id !== id));
@@ -102,3 +102,4 @@ const Notifications = () => {
 };
 
 export default Notifications;
+

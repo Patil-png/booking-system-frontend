@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 const OptionsPanel = () => {
   const [options, setOptions] = useState([]);
-  const [form, setForm] = useState({ type: 'Room', name: '', price: '' });
+  const [form, setForm] = useState({ type: 'Room', name: '', price: '', members: '' });
   const [editingId, setEditingId] = useState(null);
 
   const fetchOptions = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
+      const res = await fetch('http://localhost:5000/api/options');
       const data = await res.json();
+      console.log('Fetched options:', data); // ✅ Debug log
       setOptions(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to fetch options:', err);
@@ -17,34 +18,67 @@ const OptionsPanel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate inputs
+    if (!form.name || !form.price || !form.members) {
+      alert('Please fill all required fields');
+      return;
+    }
+
     const url = editingId
-      ? `${import.meta.env.VITE_API_BASE_URL}/api/options/${editingId}`
-      : `${import.meta.env.VITE_API_BASE_URL}/api/options`;
+      ? `http://localhost:5000/api/options/${editingId}`
+      : 'http://localhost:5000/api/options';
     const method = editingId ? 'PUT' : 'POST';
 
-    await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
+    // Convert to number
+    const payload = {
+      ...form,
+      price: Number(form.price),
+      members: Number(form.members),
+    };
 
-    setForm({ type: 'Room', name: '', price: '' });
-    setEditingId(null);
-    fetchOptions();
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to save option');
+      }
+
+      setForm({ type: 'Room', name: '', price: '', members: '' });
+      setEditingId(null);
+      fetchOptions();
+    } catch (err) {
+      console.error('Failed to save option:', err);
+      alert('❌ Failed to save option.');
+    }
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options/${id}`, { method: 'DELETE' });
-    fetchOptions();
+    try {
+      await fetch(`http://localhost:5000/api/options/${id}`, { method: 'DELETE' });
+      fetchOptions();
+    } catch (err) {
+      console.error('Delete failed:', err);
+    }
   };
 
   const handleEdit = (opt) => {
-    setForm({ type: opt.type, name: opt.name, price: opt.price });
+    setForm({
+      type: opt.type,
+      name: opt.name,
+      price: String(opt.price),
+      members: opt.members !== undefined ? String(opt.members) : '',
+    });
     setEditingId(opt._id);
   };
 
   const handleCancelEdit = () => {
-    setForm({ type: 'Room', name: '', price: '' });
+    setForm({ type: 'Room', name: '', price: '', members: '' });
     setEditingId(null);
   };
 
@@ -53,7 +87,7 @@ const OptionsPanel = () => {
   }, []);
 
   return (
-    <>
+    <div className="p-4">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">
         Manage Room & Lawn Pricing
       </h2>
@@ -89,6 +123,15 @@ const OptionsPanel = () => {
           required
         />
 
+        <input
+          type="number"
+          placeholder="Members"
+          value={form.members}
+          onChange={(e) => setForm({ ...form, members: e.target.value })}
+          className="border p-2 rounded min-w-[100px]"
+          required
+        />
+
         <button
           type="submit"
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
@@ -108,19 +151,20 @@ const OptionsPanel = () => {
       </form>
 
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[400px] border border-gray-300 text-left text-sm sm:text-base">
+        <table className="w-full min-w-[500px] border border-gray-300 text-left text-sm sm:text-base">
           <thead className="bg-gray-100">
             <tr>
               <th className="p-2">Type</th>
               <th className="p-2">Name</th>
               <th className="p-2">Price</th>
+              <th className="p-2">Members</th>
               <th className="p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {options.length === 0 ? (
               <tr>
-                <td colSpan="4" className="p-4 text-center text-gray-500">
+                <td colSpan="5" className="p-4 text-center text-gray-500">
                   No data available
                 </td>
               </tr>
@@ -133,6 +177,7 @@ const OptionsPanel = () => {
                   <td className="p-2">{opt.type}</td>
                   <td className="p-2">{opt.name}</td>
                   <td className="p-2">₹{opt.price}</td>
+                  <td className="p-2">{opt.members ?? '-'}</td> {/* ✅ fallback */}
                   <td className="p-2 flex flex-wrap gap-2">
                     <button
                       onClick={() => handleEdit(opt)}
@@ -153,7 +198,7 @@ const OptionsPanel = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

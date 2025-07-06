@@ -9,7 +9,7 @@ const GalleryAdmin = () => {
 
   const fetchImages = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images`, {
+      const res = await axios.get("http://localhost:5000/api/gallery-images", {
         withCredentials: true,
       });
       setImages(res.data);
@@ -26,7 +26,7 @@ const GalleryAdmin = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this image?")) {
       try {
-        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images/${id}`, {
+        await axios.delete(`http://localhost:5000/api/gallery-images/${id}`, {
           withCredentials: true,
         });
         alert("Image deleted successfully!");
@@ -51,7 +51,7 @@ const GalleryAdmin = () => {
     fd.append("image", formData.image);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images`, fd, {
+      await axios.post("http://localhost:5000/api/gallery-images", fd, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });

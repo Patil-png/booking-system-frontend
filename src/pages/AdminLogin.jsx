@@ -20,7 +20,7 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/admin/login`, form);
+      const res = await axios.post('http://localhost:5000/api/admin/login', form);
 
       if (res.data.token) {
         localStorage.setItem('adminToken', res.data.token);

@@ -3,16 +3,13 @@
 @tailwind utilities;
 
 body {
-  font-family: sans-serif;
-  background-color: #f9fafb;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f7f7;
   margin: 0;
   padding: 0;
+  color: black;
+  background-color: #f7f7f7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 input, button {
   font-size: 1rem;
 }
@@ -32,14 +29,6 @@ input, button {
 }
 
 
-/* src/index.css */
-body {
-  margin: 0;
-  font-family: sans-serif;
-  color: black;
-  /* background-color: white; */
-  /* bg-[#0f182e] */
-}
 img {
   width: 100%;
   height: auto;

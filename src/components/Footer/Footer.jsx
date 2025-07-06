@@ -120,7 +120,7 @@ const Footer = () => {
     height="100%"
     frameBorder="0"
     style={{ border: 0 }}
-    src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=Gourii+Inn+Hotel+YourCity"
+    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB1diwHUik-NSeUlgnXqhqOl_-i_2yJzoU&q=Gourii+Inn+Hotel+YourCity"
     allowFullScreen
   ></iframe>
           </div>

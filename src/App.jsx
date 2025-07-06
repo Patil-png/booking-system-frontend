@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -34,9 +33,13 @@ export default function App() {
         <Route path="/Seva/:subseva" element={<Seva />} />
         <Route path="/Rooms" element={<Rooms />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/book" element={<BookingPage />} />
+
+        {/* Booking Routes */}
+        <Route path="/book" element={<Navigate to="/room-booking" replace />} /> {/* Optional redirect */}
+        <Route path="/room-booking" element={<BookingPage />} /> {/* ✅ Now accessible from email link */}
+
+        {/* Admin Auth */}
         <Route path="/login" element={<AdminLogin />} />
-        <Route path="*" element={<NotFound />} />
 
         {/* Admin Protected Routes */}
         {isAdminAuthenticated() ? (
@@ -52,13 +55,15 @@ export default function App() {
             <Route path="/admin/gallery" element={<Navigate to="/login" replace />} />
           </>
         )}
+
+        {/* Fallback */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
     </>
   );
 }
-
 
 
 // import { Routes, Route, Navigate } from 'react-router-dom';
