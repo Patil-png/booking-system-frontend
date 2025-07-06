@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+const fallbackImage = "/fallback.jpg";
 
 const Gallery = () => {
   const sliderRef = useRef(null);
