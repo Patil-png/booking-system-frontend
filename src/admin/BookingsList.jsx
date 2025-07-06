@@ -31,7 +31,7 @@ const BookingsList = () => {
     if (!confirmDelete) return;
     try {
       setLoading(true);
-      await fetch(`http://localhost:5000/api/bookings/${id}`, { method: "DELETE" });
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, { method: "DELETE" });
       const updated = await fetchBookings();
       setBookings(updated);
       alert("Booking deleted successfully!");
@@ -49,7 +49,7 @@ const BookingsList = () => {
     if (!confirm) return;
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/api/bookings/approve/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/approve/${id}`, {
         method: "PUT",
       });
       const result = await res.json();
@@ -69,7 +69,7 @@ const BookingsList = () => {
   };
 
   const handleDownloadInvoice = (id) => {
-    window.open(`http://localhost:5000/api/bookings/invoice/${id}`, "_blank");
+    window.open(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
   };
 
   const filtered = bookings.filter((b) => {

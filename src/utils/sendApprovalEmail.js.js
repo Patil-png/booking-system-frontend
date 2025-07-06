@@ -9,7 +9,7 @@ export const sendApprovalEmail = async (booking) => {
     },
   });
 
-  const bookingLink = `http://localhost:5000/room-booking?bookingId=${booking._id}`;
+  const bookingLink = `${import.meta.env.VITE_API_BASE_URL}/room-booking?bookingId=${booking._id}`;
 
   const mailOptions = {
     from: process.env.SMTP_EMAIL,

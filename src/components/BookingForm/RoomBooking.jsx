@@ -41,7 +41,7 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchBlockedDates = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/blocked-dates?type=Room');
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blocked-dates?type=Room`);
         const data = await res.json();
         setBlockedDates(data.map(d => new Date(d.date).toISOString().split('T')[0]));
       } catch {
@@ -54,7 +54,7 @@ const RoomBooking = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/options');
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
         const data = await res.json();
         const rooms = data.filter(opt => opt.type === 'Room');
         setAvailableRooms(rooms);
@@ -74,7 +74,7 @@ const RoomBooking = () => {
 
     const fetchBooking = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${bookingId}`);
         const booking = await res.json();
 
         setFormData({
@@ -199,7 +199,7 @@ const RoomBooking = () => {
     }
 
     try {
-      const orderRes = await fetch('http://localhost:5000/api/razorpay/create-order', {
+      const orderRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/razorpay/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalAmount }),
@@ -232,7 +232,7 @@ const RoomBooking = () => {
           a.remove();
 
           // 2. Mark as paid
-          await fetch(`http://localhost:5000/api/bookings/payment-success`, {
+          await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/payment-success`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -243,7 +243,7 @@ const RoomBooking = () => {
           });
 
           // 3. Send confirmation email
-          await fetch('http://localhost:5000/api/bookings/send-confirmation-email', {
+          await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/send-confirmation-email`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -21,7 +21,7 @@ const Gallery = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://localhost:5000/api/gallery-images");
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gallery-images`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         // Ensure data has necessary properties, or add fallbacks
