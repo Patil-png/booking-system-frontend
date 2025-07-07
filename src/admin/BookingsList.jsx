@@ -105,8 +105,9 @@ const BookingsList = () => {
   };
 
   const handleDownloadInvoice = (id) => {
-    window.open(${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
-  };
+  window.open(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
+};
+
 
   const filtered = bookings.filter((b) => {
     const q = search.toLowerCase();
