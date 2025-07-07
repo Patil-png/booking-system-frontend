@@ -57,4 +57,3 @@ export const sendInvoiceEmail = async (bookingData) => {
   return res.data;
 };
 
-

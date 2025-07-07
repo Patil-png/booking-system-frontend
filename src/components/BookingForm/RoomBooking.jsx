@@ -16,6 +16,8 @@ const RoomBooking = () => {
     phone: '',
   });
 
+  const [paymentDone, setPaymentDone] = useState(false);
+  const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [availableRooms, setAvailableRooms] = useState([]);
   const [blockedDates, setBlockedDates] = useState([]);
   const [statusMessage, setStatusMessage] = useState({ type: '', message: '' }); // Changed to object for type
@@ -141,31 +143,41 @@ const RoomBooking = () => {
   };
 
   const handleSubmitBooking = async () => {
-    if (!captchaVerified) {
-      setStatusMessage({ type: 'error', message: 'Please verify reCAPTCHA before booking.' });
-      return;
-    }
-    setStatusMessage({ type: 'info', message: 'Submitting booking request...' });
+  if (!captchaVerified) {
+    setStatusMessage({ type: 'error', message: 'Please verify reCAPTCHA before booking.' });
+    return;
+  }
 
-    try {
-      const normalizedCheckIn = new Date(formData.checkIn).toISOString().split('T')[0];
-      const normalizedCheckOut = new Date(formData.checkOut).toISOString().split('T')[0];
+  setStatusMessage({ type: 'info', message: 'Submitting booking request...' });
 
-      await createBooking({
-        ...formData,
-        checkIn: normalizedCheckIn,
-        checkOut: normalizedCheckOut,
-        type: 'Room',
-        amount: totalAmount,
-        isApproved: false,
-      });
+  try {
+    const normalizedCheckIn = new Date(formData.checkIn).toISOString().split('T')[0];
+    const normalizedCheckOut = new Date(formData.checkOut).toISOString().split('T')[0];
 
-      setStatusMessage({ type: 'success', message: '✅ Booking request submitted! Admin will approve it shortly.' });
-    } catch (err) {
-      console.error(err);
-      setStatusMessage({ type: 'error', message: 'Booking submission failed.' });
-    }
-  };
+    await createBooking({
+      ...formData,
+      checkIn: normalizedCheckIn,
+      checkOut: normalizedCheckOut,
+      type: 'Room',
+      amount: totalAmount,
+      isApproved: false,
+    });
+
+    setStatusMessage({
+      type: 'success',
+      message: '✅ Booking request submitted! Admin will approve it and you will get the email for Payment.',
+    });
+
+    setBookingSubmitted(true); // 🔒 Prevent resubmission
+
+    // ✅ Scroll to top smoothly so user sees the message
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    console.error(err);
+    setStatusMessage({ type: 'error', message: 'Booking submission failed.' });
+  }
+};
+
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -243,7 +255,7 @@ const RoomBooking = () => {
           });
 
           // 3. Send confirmation email
-          await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/send-confirmation-email`, {
+          await fetch('${import.meta.env.VITE_API_BASE_URL}/api/bookings/send-confirmation-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -261,6 +273,8 @@ const RoomBooking = () => {
           });
 
           setStatusMessage({ type: 'success', message: '✅ Payment successful! Invoice downloaded and sent.' });
+          setPaymentDone(true);
+
         },
         prefill: {
           name: formData.email,
@@ -362,17 +376,20 @@ const RoomBooking = () => {
             <p className="mt-2 text-xl sm:text-2xl font-extrabold text-teal-900 text-right">
               Total: ₹{totalAmount}
             </p>
-            <motion.button
-              type="button"
-              onClick={handlePayment}
-              disabled={!captchaVerified && !bookingApproved}
-              className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-bold text-lg shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover="hover"
-              whileTap="tap"
-              variants={buttonVariants}
-            >
-              Pay Now
-            </motion.button>
+            {!paymentDone && (
+  <motion.button
+    type="button"
+    onClick={handlePayment}
+    disabled={!captchaVerified && !bookingApproved}
+    className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-bold text-lg shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    whileHover="hover"
+    whileTap="tap"
+    variants={buttonVariants}
+  >
+    Pay Now
+  </motion.button>
+)}
+
           </motion.div>
         ) : (
           isReadOnly && <p className="text-center text-gray-600 italic py-4">Loading booking summary...</p>
@@ -549,16 +566,25 @@ const RoomBooking = () => {
 
             {/* Submit Button */}
             <motion.button
-              type="button"
-              onClick={handleSubmitBooking}
-              disabled={!captchaVerified || !formData.roomId || !formData.checkIn || !formData.checkOut || !formData.email || !formData.phone}
-              className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-bold text-lg shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover="hover"
-              whileTap="tap"
-              variants={buttonVariants}
-            >
-              Submit Booking for Approval
-            </motion.button>
+  type="button"
+  onClick={handleSubmitBooking}
+  disabled={
+    bookingSubmitted || 
+    !captchaVerified || 
+    !formData.roomId || 
+    !formData.checkIn || 
+    !formData.checkOut || 
+    !formData.email || 
+    !formData.phone
+  }
+  className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-bold text-lg shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+  whileHover="hover"
+  whileTap="tap"
+  variants={buttonVariants}
+>
+  {bookingSubmitted ? 'Booking Submitted ✅' : 'Submit Booking for Approval'}
+</motion.button>
+
           </form>
         )}
       </motion.div>
