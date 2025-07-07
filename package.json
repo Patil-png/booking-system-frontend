@@ -50,7 +50,8 @@
     "react-slick": "^0.30.3",
     "recharts": "^2.15.4",
     "slick-carousel": "^1.8.1",
-    "twilio": "^5.7.2"
+    "twilio": "^5.7.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
