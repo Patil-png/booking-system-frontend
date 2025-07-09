@@ -323,84 +323,87 @@ export default function TajStyleHome() {
 
       {/* Gallery */}
       <motion.section
-        id="gallery"
-        className="bg-primary-dark px-4 sm:px-6 lg:px-8 py-20"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+  id="gallery"
+  className="bg-primary-dark px-4 sm:px-6 lg:px-8 py-20"
+  variants={sectionVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.1 }}
+>
+  <motion.h2
+    className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 text-center tracking-tight relative inline-block pb-3"
+    variants={textVariants}
+  >
+    Visual Diary of Splendor
+  </motion.h2>
+  <motion.span
+    className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
+    variants={headingLineVariants}
+  ></motion.span>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {galleryImages.map((src, idx) => (
+      <motion.div
+        key={idx}
+        variants={itemVariants}
+        className="relative group rounded-xl overflow-hidden shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-accent-gold transition-all duration-500"
+        onClick={() => setSelectedImage(src)}
+        whileHover={{ scale: 1.05 }}
       >
-        <motion.h2
-          className="text-accent-gold text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold mb-4 text-center tracking-tight relative inline-block pb-3"
-          variants={textVariants}
+        <img
+          src={src}
+          alt={`Gallery image ${idx + 1}`}
+          className="object-cover w-full h-64 transition-transform duration-700 ease-in-out group-hover:scale-110"
+        />
+        <div
+          className="absolute inset-0 bg-primary-dark/80 flex flex-col items-center justify-center text-text-light font-bold text-lg opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-400"
         >
-          Visual Diary of Splendor
-        </motion.h2>
-        <motion.span
-          className="block h-1.5 bg-danger-red rounded-full mx-auto mb-16"
-          variants={headingLineVariants}
-        ></motion.span>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {galleryImages.map((src, idx) => (
-            <motion.div
-              key={idx}
-              variants={itemVariants}
-              className="relative group rounded-xl overflow-hidden shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-accent-gold transition-all duration-500"
-              onClick={() => setSelectedImage(src)}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255, 137, 6, 0.4)" }}
-            >
-              <img
-                src={src}
-                alt={`Gallery image ${idx + 1}`}
-                className="object-cover w-full h-64 transition-transform duration-700 ease-in-out group-hover:scale-115"
-              />
-              <motion.div
-                className="absolute inset-0 bg-primary-dark/80 flex flex-col items-center justify-center text-text-light font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
-              >
-                <FaSearchPlus className="h-10 w-10 mb-2 text-accent-gold" />
-                <span className="font-heading text-xl">View Image</span>
-              </motion.div>
-            </motion.div>
-          ))}
+          <FaSearchPlus className="h-10 w-10 mb-2 text-accent-gold" />
+          <span className="font-heading text-xl">View Image</span>
         </div>
-      </motion.section>
+      </motion.div>
+    ))}
+  </div>
+</motion.section>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-overlay-dark z-50 flex items-center justify-center p-4 backdrop-blur-md"
-            onClick={closeLightbox}
-          >
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={lightboxImageVariants}
-              className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl shadow-soft-xl border-4 border-accent-gold"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img src={selectedImage} alt="Enlarged" className="w-full h-full object-contain" />
-              <motion.button
-                onClick={closeLightbox}
-                className="absolute top-5 right-5 text-text-light text-5xl font-bold bg-danger-red bg-opacity-80 rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 z-10 shadow-soft-lg border-2 border-text-light"
-                aria-label="Close image"
-                whileHover={{ scale: 1.15, rotate: 90, backgroundColor: '#c21e56', color: '#fff', boxShadow: "var(--tw-shadow-button-red)" }}
-                whileTap={{ scale: 0.9 }}
-              >
-                &times;
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+{/* Lightbox Viewer */}
+<AnimatePresence>
+  {selectedImage && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-overlay-dark z-50 flex items-center justify-center p-4 backdrop-blur-md"
+      onClick={closeLightbox}
+    >
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={lightboxImageVariants}
+        className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl shadow-soft-xl border-4 border-accent-gold"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img src={selectedImage} alt="Enlarged" className="w-full h-full object-contain" />
+        <motion.button
+          onClick={closeLightbox}
+          className="absolute top-5 right-5 text-text-light text-5xl font-bold bg-danger-red bg-opacity-80 rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 z-10 shadow-soft-lg border-2 border-text-light"
+          aria-label="Close image"
+          whileHover={{
+            scale: 1.15,
+            rotate: 90,
+            backgroundColor: "#c21e56",
+            color: "#fff",
+            boxShadow: "var(--tw-shadow-button-red)",
+          }}
+          whileTap={{ scale: 0.9 }}
+        >
+          &times;
+        </motion.button>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </div>
   );
 }
