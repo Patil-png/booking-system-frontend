@@ -253,7 +253,7 @@ const BookingsList = () => {
 
       <motion.div variants={itemVariants} className="mb-4">
         <input
-          type="text"
+          type="text"      
           placeholder="Search by email, phone, ID, type, room or slot..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
