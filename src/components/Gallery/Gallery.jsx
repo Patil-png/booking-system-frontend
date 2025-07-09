@@ -26,11 +26,14 @@ const Gallery = () => {
         const data = await response.json();
         // Ensure data has necessary properties, or add fallbacks
         const processedData = data.map(item => ({
-          ...item,
-          image: item.image || fallbackImage, // Ensure image URL exists
-          category: item.category || 'uncategorized', // Ensure category exists
-          alt: item.alt || 'Gallery image', // Ensure alt text exists
-        }));
+  ...item,
+  image: item.image
+    ? `${import.meta.env.VITE_API_BASE_URL}/uploads/gallery/${item.image}`
+    : fallbackImage,
+  category: item.category || 'uncategorized',
+  alt: item.alt || 'Gallery image',
+}));
+
         setAllFetchedImages(processedData);
         setImages(processedData);
       } catch (err) {
