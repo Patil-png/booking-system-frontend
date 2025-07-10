@@ -15,7 +15,7 @@ export default function ContactList() {
   const fetchContacts = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const { data } = await axios.get('http://localhost:5000/api/admin/contacts', {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/contacts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("📥 Contacts received:", data);

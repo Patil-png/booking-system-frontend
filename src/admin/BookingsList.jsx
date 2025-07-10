@@ -44,7 +44,7 @@ const BookingsList = () => {
     if (!window.confirm("Approve this booking and send payment link?")) return;
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/api/bookings/approve/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/approve/${id}`, {
         method: "PUT",
       });
       const result = await res.json();
@@ -68,7 +68,7 @@ const BookingsList = () => {
     try {
       setLoading(true);
       const booking = bookings.find((b) => b._id === id);
-      await fetch(`http://localhost:5000/api/bookings/${id}`, { method: "DELETE" });
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, { method: "DELETE" });
       exportDeletedBookingsToExcel([booking]);
       const updated = await fetchBookings();
       setBookings(updated);
@@ -89,7 +89,7 @@ const BookingsList = () => {
       for (const id of selectedBookings) {
         const booking = bookings.find((b) => b._id === id);
         if (booking) deleted.push(booking);
-        await fetch(`http://localhost:5000/api/bookings/${id}`, { method: "DELETE" });
+        await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, { method: "DELETE" });
       }
       exportDeletedBookingsToExcel(deleted);
       const updated = await fetchBookings();
@@ -106,7 +106,7 @@ const BookingsList = () => {
   };
 
   const handleDownloadInvoice = (id) => {
-    window.open(`http://localhost:5000/api/bookings/invoice/${id}`, "_blank");
+    window.open(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
   };
 
   const filtered = bookings.filter((b) => {

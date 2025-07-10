@@ -42,7 +42,7 @@ const AdminRoomManager = () => {
   const fetchRoomTypes = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/room-types");
+      const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/room-types`);
       setRoomTypes(data);
       const edits = {};
       data.forEach((type) =>
@@ -103,7 +103,7 @@ const AdminRoomManager = () => {
         formData.append("photos", form.photos[i]);
       }
 
-      await axios.post("http://localhost:5000/api/room-types", formData, {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/room-types`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -131,7 +131,7 @@ const AdminRoomManager = () => {
     if (!window.confirm("Are you sure you want to delete this room type?"))
       return;
     try {
-      await axios.delete(`http://localhost:5000/api/room-types/${roomTypeId}`);
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/room-types/${roomTypeId}`);
       fetchRoomTypes();
       showAlertMessage("Room type deleted successfully", "success");
     } catch (err) {
@@ -151,7 +151,7 @@ const AdminRoomManager = () => {
     try {
       const maintenanceStatus = updatedRoom.maintenanceStatus || null;
       await axios.put(
-        `http://localhost:5000/api/room-types/${roomTypeId}/room-status/${roomNumber}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/room-types/${roomTypeId}/room-status/${roomNumber}`,
         {
           isBooked: updatedRoom.isBooked,
           bookedFrom: updatedRoom.bookedFrom,
@@ -595,7 +595,7 @@ const AdminRoomManager = () => {
                               {type.photos.map((photo, idx) => (
                                 <motion.img
                                   key={idx}
-                                  src={`http://localhost:5000/${photo}`}
+                                  src={`${import.meta.env.VITE_API_BASE_URL}/${photo}`}
                                   alt={`Room ${type.name}`}
                                   className="h-20 sm:h-24 w-full object-cover rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                                   initial={{ opacity: 0, scale: 0.9 }}
@@ -636,7 +636,7 @@ const AdminRoomManager = () => {
 
                                 try {
                                   await axios.put(
-                                    `http://localhost:5000/api/room-types/${type._id}/add-room`,
+                                    `${import.meta.env.VITE_API_BASE_URL}/api/room-types/${type._id}/add-room`,
                                     { number }
                                   );
                                   setNewRoomNumbers((prev) => ({

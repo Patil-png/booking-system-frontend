@@ -27,7 +27,7 @@ const DashboardHome = () => {
 
   const handleExportAll = () => {
     const link = document.createElement('a');
-    link.href = 'http://localhost:5000/api/bookings/export-all';
+    link.href = `${import.meta.env.VITE_API_BASE_URL}/api/bookings/export-all`;
     link.setAttribute('download', 'all-bookings.csv');
     document.body.appendChild(link);
     link.click();
@@ -36,7 +36,7 @@ const DashboardHome = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/bookings');
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings`);
       const data = await res.json();
       setBookings(data);
     } catch (err) {
@@ -46,7 +46,7 @@ const DashboardHome = () => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/notifications');
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/notifications`);
       const data = await res.json();
       setNotifications(data);
     } catch (err) {
@@ -58,7 +58,7 @@ const DashboardHome = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this booking?')) {
-      await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, {
         method: 'DELETE',
       });
       fetchBookings();

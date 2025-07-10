@@ -32,7 +32,7 @@ const OptionsPanel = () => {
   const fetchOptions = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/options');
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options`);
       const data = await res.json();
       console.log('Fetched options:', data); // ✅ Debug log
       setOptions(Array.isArray(data) ? data : []);
@@ -54,8 +54,8 @@ const OptionsPanel = () => {
     }
 
     const url = editingId
-      ? `http://localhost:5000/api/options/${editingId}`
-      : 'http://localhost:5000/api/options';
+      ? `${import.meta.env.VITE_API_BASE_URL}/api/options/${editingId}`
+      : `${import.meta.env.VITE_API_BASE_URL}/api/options`;
     const method = editingId ? 'PUT' : 'POST';
 
     // Convert to number
@@ -94,7 +94,7 @@ const OptionsPanel = () => {
     if (!window.confirm('Are you sure you want to delete this option?')) return;
     
     try {
-      await fetch(`http://localhost:5000/api/options/${id}`, { method: 'DELETE' });
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/options/${id}`, { method: 'DELETE' });
       fetchOptions();
       showAlertMessage('Option deleted successfully!', 'success');
     } catch (err) {
