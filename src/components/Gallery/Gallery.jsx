@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-<img src={imageURL || "/fallback.jpg"} />
+const fallbackImage = "/fallback.jpg"; // if you have a local fallback image
 
 const Gallery = () => {
   const sliderRef = useRef(null);
