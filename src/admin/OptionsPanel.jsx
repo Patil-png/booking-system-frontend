@@ -307,7 +307,7 @@ const OptionsPanel = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
                 {/* Type Selection */}
                 <div className="space-y-1 sm:space-y-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
+                  <label htmlFor="optionType" className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
                     <TableCellsIcon className="w-4 h-4" />
                     <span>Type</span>
                   </label>
@@ -345,49 +345,58 @@ const OptionsPanel = () => {
 
                 {/* Option Name */}
                 <div className="space-y-1 sm:space-y-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
+                  <label htmlFor="optionName" className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
                     <PencilSquareIcon className="w-4 h-4" />
                     <span>Option Name</span>
                   </label>
                   <input
                     type="text"
+                    id="optionName"
+                    name="optionName"
                     placeholder="Option Name"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base"
                     required
+                    autoComplete="off"
                   />
                 </div>
 
                 {/* Price */}
                 <div className="space-y-1 sm:space-y-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
+                  <label htmlFor="optionPrice" className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
                     <CurrencyRupeeIcon className="w-4 h-4" />
                     <span>Price (₹)</span>
                   </label>
                   <input
                     type="number"
+                    id="optionPrice"
+                    name="optionPrice"
                     placeholder="Price"
                     value={form.price}
                     onChange={(e) => setForm({ ...form, price: e.target.value })}
                     className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base"
                     required
+                    autoComplete="off"
                   />
                 </div>
 
                 {/* Members */}
                 <div className="space-y-1 sm:space-y-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
+                  <label htmlFor="optionMembers" className="block text-xs sm:text-sm font-semibold text-teal-100 flex items-center space-x-2">
                     <UserGroupIcon className="w-4 h-4" />
                     <span>Members</span>
                   </label>
                   <input
                     type="number"
+                    id="optionMembers"
+                    name="optionMembers"
                     placeholder="Members"
                     value={form.members}
                     onChange={(e) => setForm({ ...form, members: e.target.value })}
                     className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base"
                     required
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -396,34 +405,43 @@ const OptionsPanel = () => {
               {form.type === 'Room' && editingId && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 bg-white/10 p-2 sm:p-4 rounded-xl mt-2 sm:mt-4">
                   <div>
-                    <label className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">Owner Email</label>
+                    <label htmlFor="ownerEmail" className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">Owner Email</label>
                     <input
                       type="email"
+                      id="ownerEmail"
+                      name="ownerEmail"
                       value={ownerEmail}
                       onChange={e => setOwnerEmail(e.target.value)}
                       className="w-full px-2 sm:px-4 py-2 rounded bg-white/20 text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 text-xs sm:text-base"
                       required
+                      autoComplete="email"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">Owner Password</label>
+                    <label htmlFor="ownerPassword" className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">Owner Password</label>
                     <input
                       type="password"
+                      id="ownerPassword"
+                      name="ownerPassword"
                       value={ownerPassword}
                       onChange={e => setOwnerPassword(e.target.value)}
                       className="w-full px-2 sm:px-4 py-2 rounded bg-white/20 text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 text-xs sm:text-base"
                       required
+                      autoComplete="current-password"
                     />
                   </div>
                   <div className="flex flex-col gap-1 sm:gap-2">
-                    <label className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">OTP</label>
+                    <label htmlFor="otp" className="block text-xs sm:text-sm font-semibold text-teal-100 mb-1">OTP</label>
                     <div className="flex gap-1 sm:gap-2">
                       <input
                         type="text"
+                        id="otp"
+                        name="otp"
                         value={otp}
                         onChange={e => setOtp(e.target.value)}
                         className="w-full px-2 sm:px-4 py-2 rounded bg-white/20 text-white placeholder-teal-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 text-xs sm:text-base"
                         required
+                        autoComplete="one-time-code"
                       />
                       <button
                         type="button"

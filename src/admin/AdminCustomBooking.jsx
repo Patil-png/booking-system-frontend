@@ -357,7 +357,7 @@ const AdminCustomBooking = () => {
           <div className="space-y-4 sm:space-y-6">
             {/* Room Selection */}
             <motion.div variants={itemVariants} className="space-y-2 sm:space-y-3">
-              <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+              <label htmlFor="roomId" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 Room Type
               </label>
@@ -382,7 +382,7 @@ const AdminCustomBooking = () => {
             {/* Guest Count */}
             <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6" variants={itemVariants}>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="adults" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                   Adults
                 </label>
@@ -394,10 +394,11 @@ const AdminCustomBooking = () => {
                   onChange={handleChange}
                   min="1"
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
+                  autoComplete="off"
                 />
               </div>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="children" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
                   Children
                 </label>
@@ -409,13 +410,14 @@ const AdminCustomBooking = () => {
                   onChange={handleChange}
                   min="0"
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
+                  autoComplete="off"
                 />
               </div>
             </motion.div>
             {/* Dates */}
             <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6" variants={itemVariants}>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="checkIn" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                   Check-In Date
                 </label>
@@ -427,10 +429,11 @@ const AdminCustomBooking = () => {
                   min={today}
                   onChange={handleChange}
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
+                  autoComplete="off"
                 />
               </div>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="checkOut" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-pink-500 rounded-full"></span>
                   Check-Out Date
                 </label>
@@ -442,13 +445,14 @@ const AdminCustomBooking = () => {
                   min={formData.checkIn || today}
                   onChange={handleChange}
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
+                  autoComplete="off"
                 />
               </div>
             </motion.div>
             {/* Contact Information */}
             <motion.div className="space-y-4 sm:space-y-6" variants={itemVariants}>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="email" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
                   Guest Email
                 </label>
@@ -460,10 +464,11 @@ const AdminCustomBooking = () => {
                   onChange={handleChange}
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
                   placeholder="e.g., guest@email.com"
+                  autoComplete="email"
                 />
               </div>
               <div className="space-y-2 sm:space-y-3">
-                <label className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
+                <label htmlFor="phone" className="block text-gray-800 text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2">
                   <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
                   Guest Phone Number
                 </label>
@@ -476,6 +481,7 @@ const AdminCustomBooking = () => {
                   className="w-full p-2 sm:p-4 border-2 border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-xs sm:text-sm bg-white hover:shadow-md"
                   maxLength="10"
                   placeholder="e.g., 9876543210"
+                  autoComplete="tel"
                 />
               </div>
             </motion.div>

@@ -285,32 +285,36 @@ const AdminCustomLawnBooking = () => {
               {/* Plates and Price */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                 <motion.div variants={itemVariants}>
-                  <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                  <label htmlFor="plates" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                     <UserGroupIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                     <span>Number of Plates</span>
                   </label>
                   <input
                     type="number"
+                    id="plates"
                     name="plates"
                     value={formData.plates}
                     onChange={handleChange}
                     className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                     placeholder="e.g., 100"
+                    autoComplete="off"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                  <label htmlFor="pricePerPlate" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                     <CurrencyRupeeIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                     <span>Price per Plate (₹)</span>
                   </label>
                   <input
                     type="number"
+                    id="pricePerPlate"
                     name="pricePerPlate"
                     value={formData.pricePerPlate}
                     onChange={handleChange}
                     className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                     placeholder="e.g., 500"
+                    autoComplete="off"
                   />
                 </motion.div>
               </div>
@@ -318,65 +322,73 @@ const AdminCustomLawnBooking = () => {
               {/* Date Selection */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                 <motion.div variants={itemVariants}>
-                  <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                  <label htmlFor="checkIn" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                     <CalendarDaysIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                     <span>Check-In Date</span>
                   </label>
                   <input
                     type="date"
+                    id="checkIn"
                     name="checkIn"
                     value={formData.checkIn}
                     onChange={handleChange}
                     className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                     min={new Date().toISOString().split("T")[0]}
+                    autoComplete="off"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                  <label htmlFor="checkOut" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                     <ClockIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                     <span>Check-Out Date</span>
                   </label>
                   <input
                     type="date"
+                    id="checkOut"
                     name="checkOut"
                     value={formData.checkOut}
                     onChange={handleChange}
                     className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                     min={formData.checkIn || new Date().toISOString().split("T")[0]}
+                    autoComplete="off"
                   />
                 </motion.div>
               </div>
 
               {/* Guest Information */}
               <motion.div variants={itemVariants}>
-                <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                <label htmlFor="email" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                   <EnvelopeIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                   <span>Guest Email</span>
                 </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                   placeholder="guest@example.com"
+                  autoComplete="email"
                 />
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <label className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
+                <label htmlFor="phone" className="block text-xs sm:text-base font-semibold text-gray-700 mb-1 sm:mb-2 flex items-center space-x-2">
                   <PhoneIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                   <span>Phone Number</span>
                 </label>
                 <input
                   type="text"
+                  id="phone"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-2 py-2 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-xs sm:text-lg bg-white hover:shadow-md"
                   placeholder="10-digit number"
                   maxLength={10}
+                  autoComplete="tel"
                 />
               </motion.div>
 
@@ -757,7 +769,6 @@ export default AdminCustomLawnBooking;
 //                       <XCircleIcon className="h-5 w-5 text-red-600" />
 //                     )}
 //                     <span>{statusMessage}</span>
-//                   </div>
 //                 </motion.div>
 //               )}
 //             </AnimatePresence>

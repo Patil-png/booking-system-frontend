@@ -312,6 +312,7 @@ const LawnBooking = () => {
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 appearance-none bg-white pr-10 text-gray-800 text-base"
                 required
+                autoComplete="off"
               >
                 <option value="" disabled>Choose a Lawn Slot</option>
                 {lawnSlots.length > 0 ? (
@@ -344,6 +345,7 @@ const LawnBooking = () => {
               min={today}
               className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-gray-800 text-base"
               required
+              autoComplete="off"
             />
           </motion.div>
 
@@ -361,6 +363,7 @@ const LawnBooking = () => {
               min={formData.checkIn || today}
               className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-gray-800 text-base"
               required
+              autoComplete="off"
             />
           </motion.div>
 
@@ -378,6 +381,7 @@ const LawnBooking = () => {
               className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500 text-base"
               placeholder="your.email@example.com"
               required
+              autoComplete="email"
             />
           </motion.div>
 
@@ -398,6 +402,7 @@ const LawnBooking = () => {
               pattern="[6-9]{1}[0-9]{9}"
               title="Please enter a valid 10-digit Indian phone number (starts with 6-9)"
               required
+              autoComplete="tel"
             />
           </motion.div>
 

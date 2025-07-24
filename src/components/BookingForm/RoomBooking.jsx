@@ -431,15 +431,17 @@ const RoomBooking = () => {
                 <div className="space-y-3 xs:space-y-4 sm:space-y-6">
                   {/* Room Selection - Ultra Mobile Optimized */}
                   <div>
-                    <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                    <label htmlFor="roomId" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                       Choose Your Room
                     </label>
                     <select
                       name="roomId"
+                      id="roomId"
                       value={formData.roomId}
                       onChange={handleChange}
                       className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                       required
+                      autoComplete="off"
                     >
                       {availableRooms.length === 0 ? (
                         <option value="">Loading rooms...</option>
@@ -456,35 +458,39 @@ const RoomBooking = () => {
                   {/* Guest Count - Ultra Mobile Grid */}
                   <div className="grid grid-cols-2 gap-2 xs:gap-3 sm:gap-4 min-w-0">
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="adults" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Users className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Adults</span>
                       </label>
                       <input
                         type="number"
                         name="adults"
+                        id="adults"
                         min="1"
                         max="10"
                         value={formData.adults}
                         onChange={handleChange}
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="off"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="children" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Users className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Children</span>
                       </label>
                       <input
                         type="number"
                         name="children"
+                        id="children"
                         min="0"
                         max="5"
                         value={formData.children}
                         onChange={handleChange}
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -492,33 +498,37 @@ const RoomBooking = () => {
                   {/* Dates - Ultra Mobile Stack */}
                   <div className="grid grid-cols-1 gap-2 xs:gap-3 sm:gap-4 min-w-0">
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="checkIn" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Calendar className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Check-in Date</span>
                       </label>
                       <input
                         type="date"
                         name="checkIn"
+                        id="checkIn"
                         min={today}
                         value={formData.checkIn}
                         onChange={handleChange}
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="off"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="checkOut" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Calendar className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Check-out Date</span>
                       </label>
                       <input
                         type="date"
                         name="checkOut"
+                        id="checkOut"
                         min={formData.checkIn || today}
                         value={formData.checkOut}
                         onChange={handleChange}
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -526,34 +536,38 @@ const RoomBooking = () => {
                   {/* Contact Information - Ultra Mobile Stack */}
                   <div className="grid grid-cols-1 gap-2 xs:gap-3 sm:gap-4 min-w-0">
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="email" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Mail className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Email Address</span>
                       </label>
                       <input
                         type="email"
                         name="email"
+                        id="email"
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="your.email@example.com"
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="email"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                      <label htmlFor="phone" className="block text-xs xs:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
                         <Phone className="inline h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 mr-1" />
                         <span className="text-xs xs:text-sm">Phone Number</span>
                       </label>
                       <input
                         type="tel"
                         name="phone"
+                        id="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="9876543210"
                         maxLength="10"
                         className="w-full p-2 xs:p-3 sm:p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-xs xs:text-sm sm:text-base"
                         required
+                        autoComplete="tel"
                       />
                     </div>
                   </div>

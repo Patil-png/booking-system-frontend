@@ -182,11 +182,11 @@ function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 {[
-                  { field: 'name', label: 'Name', type: 'text', placeholder: 'Enter your name' },
-                  { field: 'email', label: 'Email Address', type: 'email', placeholder: 'your.email@example.com' },
-                ].map(({ field, label, type, placeholder }) => (
+                  { field: 'name', label: 'Name', type: 'text', placeholder: 'Enter your name', autocomplete: 'name' },
+                  { field: 'email', label: 'Email Address', type: 'email', placeholder: 'your.email@example.com', autocomplete: 'email' },
+                ].map(({ field, label, type, placeholder, autocomplete }) => (
                   <div key={field}>
-                    <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">{label} *</label>
+                    <label htmlFor={field} className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">{label} *</label>
                     <input
                       type={type}
                       name={field}
@@ -195,6 +195,7 @@ function Contact() {
                       value={formData[field]}
                       onChange={handleChange}
                       placeholder={placeholder}
+                      autoComplete={autocomplete}
                       className="w-full px-3 xs:px-4 py-2 xs:py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 bg-gray-50 text-gray-900 text-xs xs:text-sm sm:text-base font-medium"
                     />
                   </div>
@@ -202,7 +203,7 @@ function Contact() {
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Phone Number *</label>
+                  <label htmlFor="phone" className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Phone Number *</label>
                   <input
                     type="tel"
                     name="phone"
@@ -213,17 +214,19 @@ function Contact() {
                     pattern="[6-9]{1}[0-9]{9}"
                     maxLength="10"
                     placeholder="10-digit phone number"
+                    autoComplete="tel"
                     className="w-full px-3 xs:px-4 py-2 xs:py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 bg-gray-50 text-gray-900 text-xs xs:text-sm sm:text-base font-medium"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Inquiry Type *</label>
+                  <label htmlFor="inquiryType" className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Inquiry Type *</label>
                   <select
                     name="inquiryType"
                     id="inquiryType"
                     required
                     value={formData.inquiryType}
                     onChange={handleChange}
+                    autoComplete="off"
                     className="w-full px-3 xs:px-4 py-2 xs:py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 bg-gray-50 text-gray-900 text-xs xs:text-sm sm:text-base font-medium"
                   >
                     <option value="">Select inquiry type</option>
@@ -235,7 +238,7 @@ function Contact() {
                 </div>
               </div>
               <div>
-                <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Your Message *</label>
+                <label htmlFor="message" className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Your Message *</label>
                 <textarea
                   name="message"
                   id="message"
@@ -244,6 +247,7 @@ function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us about your requirements or questions..."
+                  autoComplete="off"
                   className="w-full px-3 xs:px-4 py-2 xs:py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 bg-gray-50 text-gray-900 text-xs xs:text-sm sm:text-base font-medium resize-y"
                 />
               </div>
