@@ -190,6 +190,7 @@ function Contact() {
                     <input
                       type={type}
                       name={field}
+                      id={field}
                       required
                       value={formData[field]}
                       onChange={handleChange}
@@ -205,6 +206,7 @@ function Contact() {
                   <input
                     type="tel"
                     name="phone"
+                    id="phone"
                     required
                     value={formData.phone}
                     onChange={handleChange}
@@ -218,6 +220,7 @@ function Contact() {
                   <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Inquiry Type *</label>
                   <select
                     name="inquiryType"
+                    id="inquiryType"
                     required
                     value={formData.inquiryType}
                     onChange={handleChange}
@@ -235,6 +238,7 @@ function Contact() {
                 <label className="block mb-2 text-xs xs:text-sm font-semibold text-gray-700">Your Message *</label>
                 <textarea
                   name="message"
+                  id="message"
                   rows="5"
                   required
                   value={formData.message}

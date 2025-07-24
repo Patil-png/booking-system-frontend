@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const fallbackImage = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+const fallbackImage = "/fallback.jpg";
 
 const Gallery = () => {
   const sliderRef = useRef(null);
@@ -413,8 +413,8 @@ const Gallery = () => {
                   <img
                     src={img.image}
                     alt={img.alt || `Thumb ${idx + 1}`}
-                    className="w-full h-20 sm:h-24 lg:h-28 object-cover transition-transform duration-300 group-hover:scale-110"
                     onError={handleImageError}
+                    className="w-full h-20 sm:h-24 lg:h-28 object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   {selectedIndex === idx && (
@@ -458,8 +458,8 @@ const Gallery = () => {
               <img
                 src={images[selectedIndex].image}
                 alt={images[selectedIndex].alt || "Full Image"}
-                className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border-4 border-white/20"
                 onError={handleImageError}
+                className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border-4 border-white/20"
               />
               
               <motion.button
@@ -931,8 +931,8 @@ export default Gallery;
 //                   <img
 //                     src={img.image}
 //                     alt={img.alt || `Thumb ${idx + 1}`}
-//                     className="w-full h-20 sm:h-24 lg:h-28 object-cover transition-transform duration-300 group-hover:scale-110"
 //                     onError={handleImageError}
+//                     className="w-full h-20 sm:h-24 lg:h-28 object-cover transition-transform duration-300 group-hover:scale-110"
 //                   />
 //                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 //                   {selectedIndex === idx && (
@@ -977,8 +977,8 @@ export default Gallery;
 //               <img
 //                 src={images[selectedIndex].image}
 //                 alt={images[selectedIndex].alt || "Full Image"}
-//                 className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border-4 border-white/20"
 //                 onError={handleImageError}
+//                 className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border-4 border-white/20"
 //               />
               
 //               {/* Close button */}

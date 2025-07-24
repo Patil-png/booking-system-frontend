@@ -103,6 +103,8 @@ const GalleryAdmin = () => {
               className="flex flex-col sm:flex-row items-center gap-4 w-full"
             >
               <select
+                id="category"
+                name="category"
                 className="p-3 rounded text-black font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -113,6 +115,8 @@ const GalleryAdmin = () => {
 
               <input
                 type="text"
+                id="alt"
+                name="alt"
                 placeholder="Alt text"
                 className="p-3 rounded text-black w-full sm:max-w-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={formData.alt}
@@ -121,6 +125,8 @@ const GalleryAdmin = () => {
 
               <input
                 type="file"
+                id="imageFile"
+                name="imageFile"
                 accept="image/*"
                 className="p-3 rounded text-black cursor-pointer font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/80"
                 onChange={handleFileChange}
