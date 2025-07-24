@@ -198,24 +198,24 @@ const BookingsList = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="p-4 sm:p-6 md:p-8 bg-white rounded-xl shadow-lg mx-auto max-w-7xl"
+      className="p-2 sm:p-4 md:p-6 bg-white rounded-xl shadow-lg mx-auto max-w-7xl"
     >
       <motion.h2
         variants={itemVariants}
-        className="text-3xl sm:text-4xl font-bold text-center text-green-700 mb-6 border-b-2 pb-3"
+        className="text-xl sm:text-3xl font-bold text-center text-green-700 mb-4 sm:mb-6 border-b-2 pb-2 sm:pb-3"
       >
         Manage Bookings
       </motion.h2>
 
       <motion.div
         variants={itemVariants}
-        className="flex justify-center gap-3 mb-4 flex-wrap"
+        className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap"
       >
         {["All", "Room", "Lawn"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-full font-medium text-sm border transition ${
+            className={`px-3 py-1.5 rounded-full font-medium text-xs sm:text-sm border transition ${
               activeTab === tab
                 ? "bg-green-600 text-white border-green-600 shadow"
                 : "bg-white text-gray-700 border-gray-300 hover:bg-green-50"
@@ -228,7 +228,7 @@ const BookingsList = () => {
 
       <motion.div
         variants={itemVariants}
-        className="flex justify-center gap-3 mb-6 flex-wrap"
+        className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap"
       >
         {[
           "All",
@@ -240,7 +240,7 @@ const BookingsList = () => {
           <button
             key={status}
             onClick={() => setStatusFilter(status)}
-            className={`px-3 py-1 rounded-md text-sm font-medium border ${
+            className={`px-2.5 py-1 rounded-md text-xs sm:text-sm font-medium border ${
               statusFilter === status
                 ? "bg-green-600 text-white border-green-600"
                 : "bg-white text-gray-700 border-gray-300 hover:bg-green-50"
@@ -251,21 +251,21 @@ const BookingsList = () => {
         ))}
       </motion.div>
 
-      <motion.div variants={itemVariants} className="mb-4">
+      <motion.div variants={itemVariants} className="mb-3 sm:mb-4">
         <input
           type="text"
           placeholder="Search by email, phone, ID, type, room or slot..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-400 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-400 focus:border-transparent text-xs sm:text-sm"
         />
       </motion.div>
 
       {!deleteMode ? (
-        <motion.div variants={itemVariants} className="mb-4 text-right">
+        <motion.div variants={itemVariants} className="mb-3 sm:mb-4 text-right">
           <button
             onClick={() => setDeleteMode(true)}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow-md"
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md text-xs sm:text-sm"
           >
             Enable Delete Mode
           </button>
@@ -273,11 +273,11 @@ const BookingsList = () => {
       ) : (
         <motion.div
           variants={itemVariants}
-          className="mb-4 text-right flex flex-col sm:flex-row justify-end items-center gap-2"
+          className="mb-3 sm:mb-4 text-right flex flex-col sm:flex-row justify-end items-center gap-2"
         >
           <button
             onClick={handleBulkDelete}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow-md"
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md text-xs sm:text-sm"
           >
             Delete Selected ({selectedBookings.length})
           </button>
@@ -286,7 +286,7 @@ const BookingsList = () => {
               setDeleteMode(false);
               setSelectedBookings([]);
             }}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded shadow"
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1.5 rounded shadow text-xs sm:text-sm"
           >
             Cancel
           </button>
@@ -294,7 +294,7 @@ const BookingsList = () => {
       )}
 
       <motion.div variants={itemVariants} className="relative shadow-md rounded-lg">
-        <div className="overflow-x-auto max-h-[600px] rounded-lg">
+        <div className="overflow-x-auto max-h-[600px] rounded-lg text-xs sm:text-sm">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-green-100 sticky top-0 z-10">
               <tr>
@@ -545,9 +545,8 @@ export default BookingsList;
 //   };
 
 //   const handleDownloadInvoice = (id) => {
-//   window.open(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
-// };
-
+//     window.open(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/invoice/${id}`, "_blank");
+//   };
 
 //   const filtered = bookings.filter((b) => {
 //     const q = search.toLowerCase();
@@ -693,7 +692,7 @@ export default BookingsList;
 
 //       <motion.div variants={itemVariants} className="mb-4">
 //         <input
-//           type="text"      
+//           type="text"
 //           placeholder="Search by email, phone, ID, type, room or slot..."
 //           value={search}
 //           onChange={(e) => setSearch(e.target.value)}
@@ -875,3 +874,5 @@ export default BookingsList;
 // };
 
 // export default BookingsList;
+
+

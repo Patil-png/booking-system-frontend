@@ -67,6 +67,7 @@ export default function BlockedDatesPage() {
 }
 
 
+
 // // 📁 src/pages/admin/BlockedDatesPage.jsx
 // import { motion } from "framer-motion"; // Import motion for animations
 // import AdminBlockedDates from "./AdminBlockedDates";
@@ -134,3 +135,4 @@ export default function BlockedDatesPage() {
 //     </div>
 //   );
 // }
+

@@ -104,28 +104,3 @@ img {
   transform: scale(1.05);
   transition: transform 0.5s ease-in-out;
 }
-
-.gradient-gold {
-  color: #000; /* Black by default */
-  transition: color 0.3s, background-position 0.5s;
-}
-
-.gradient-gold-hover:hover {
-  background: linear-gradient(90deg, #FFD700, #FFB300, #FFD700, #FFFACD);
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  background-position: 100% 0;
-  animation: gold-move 1s linear infinite;
-}
-
-@keyframes gold-move {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}

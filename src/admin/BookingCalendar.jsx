@@ -50,7 +50,7 @@ const DashboardHome = () => {
   return (
     <>
       <motion.h1
-        className="text-4xl font-extrabold text-center text-gray-800 mb-8 mt-4"
+        className="text-2xl sm:text-4xl font-extrabold text-center text-gray-800 mb-4 sm:mb-8 mt-2 sm:mt-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ const DashboardHome = () => {
       </motion.h1>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-6"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 px-1 sm:px-4"
         initial="hidden"
         animate="visible"
         variants={{
@@ -71,36 +71,36 @@ const DashboardHome = () => {
         }}
       >
         <motion.div
-          className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
+          className="bg-white p-2 sm:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
           variants={sectionVariants}
         >
-          <span className="text-5xl mb-3 text-blue-500">📊</span>
-          <h2 className="text-xl font-semibold mb-2">Total Bookings</h2>
-          <p className="text-3xl font-bold text-gray-700">125</p>
+          <span className="text-2xl sm:text-5xl mb-1 sm:mb-3 text-blue-500">📊</span>
+          <h2 className="text-xs sm:text-xl font-semibold mb-0.5 sm:mb-2">Total Bookings</h2>
+          <p className="text-base sm:text-3xl font-bold text-gray-700">125</p>
         </motion.div>
 
         <motion.div
-          className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
+          className="bg-white p-2 sm:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
           variants={sectionVariants}
         >
-          <span className="text-5xl mb-3 text-purple-500">✉️</span>
-          <h2 className="text-xl font-semibold mb-2">New Contacts</h2>
-          <p className="text-3xl font-bold text-gray-700">15</p>
+          <span className="text-2xl sm:text-5xl mb-1 sm:mb-3 text-purple-500">✉️</span>
+          <h2 className="text-xs sm:text-xl font-semibold mb-0.5 sm:mb-2">New Contacts</h2>
+          <p className="text-base sm:text-3xl font-bold text-gray-700">15</p>
         </motion.div>
 
         <motion.div
-          className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
+          className="bg-white p-2 sm:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center"
           variants={sectionVariants}
         >
-          <span className="text-5xl mb-3 text-yellow-500">🗓️</span>
-          <h2 className="text-xl font-semibold mb-2">Upcoming Events</h2>
-          <p className="text-3xl font-bold text-gray-700">7</p>
+          <span className="text-2xl sm:text-5xl mb-1 sm:mb-3 text-yellow-500">🗓️</span>
+          <h2 className="text-xs sm:text-xl font-semibold mb-0.5 sm:mb-2">Upcoming Events</h2>
+          <p className="text-base sm:text-3xl font-bold text-gray-700">7</p>
         </motion.div>
       </motion.div>
 
       {showCalendar ? (
         <motion.div
-          className="mt-10 px-4 sm:px-6"
+          className="mt-6 px-1 sm:px-4"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -109,12 +109,12 @@ const DashboardHome = () => {
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             events={events}
-            height="auto"
+            height={window.innerWidth < 700 ? 400 : 'auto'}
           />
         </motion.div>
       ) : (
         <motion.div
-          className="text-center p-8 mt-10 mx-4 sm:mx-6 bg-blue-100 rounded-xl shadow-md text-blue-800 font-semibold"
+          className="text-center p-4 sm:p-8 mt-6 mx-2 sm:mx-6 bg-blue-100 rounded-xl shadow-md text-blue-800 font-semibold text-sm sm:text-base"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -264,3 +264,4 @@ export default DashboardHome;
 // };
 
 // export default DashboardHome;
+

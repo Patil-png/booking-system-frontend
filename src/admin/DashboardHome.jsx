@@ -71,9 +71,9 @@ const DashboardHome = () => {
   }, []);
 
   return (
-    <div className="p-1 sm:p-6 max-w-7xl mx-auto animate-fade-in-down">
+    <div className="p-2 sm:p-6 w-full max-w-full mx-auto animate-fade-in-down">
       {/* Top Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4 sm:mb-6 w-full">
         <div
           className="relative cursor-pointer"
           onClick={() => setShowNotifications(!showNotifications)}
@@ -96,36 +96,36 @@ const DashboardHome = () => {
 
       {/* Notifications */}
       {showNotifications && (
-        <div className="mb-6 bg-white p-4 rounded shadow max-h-72 overflow-y-auto">
+        <div className="mb-4 sm:mb-6 bg-white p-2 sm:p-4 rounded shadow max-h-72 overflow-y-auto w-full">
           <Notifications />
         </div>
       )}
 
       {/* Stats Charts */}
-      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
+      <div className="mb-4 sm:mb-6 bg-white p-2 sm:p-6 rounded-xl shadow-md w-full overflow-x-auto">
         <StatsCharts />
       </div>
 
       {/* Options Panel */}
-      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
+      <div className="mb-4 sm:mb-6 bg-white p-2 sm:p-6 rounded-xl shadow-md w-full overflow-x-auto">
         <OptionsPanel />
       </div>
 
       {/* Calendar View */}
-      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
+      <div className="mb-4 sm:mb-6 bg-white p-2 sm:p-6 rounded-xl shadow-md w-full overflow-x-auto">
         <CalendarView />
       </div>
 
       {/* Bookings List */}
-      <div className="mb-6 bg-white p-4 sm:p-6 rounded-xl shadow-md overflow-x-auto">
+      <div className="mb-4 sm:mb-6 bg-white p-2 sm:p-6 rounded-xl shadow-md w-full overflow-x-auto">
         <BookingsList bookings={bookings} onDelete={handleDelete} />
       </div>
 
       {/* Export Button */}
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full">
         <button
           onClick={handleExportAll}
-          className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
+          className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
         >
           Export All Bookings (Room + Lawn)
         </button>
@@ -275,3 +275,4 @@ export default DashboardHome;
 // };
 
 // export default DashboardHome;
+

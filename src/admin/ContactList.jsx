@@ -84,6 +84,8 @@ export default function ContactList() {
 }
 
 
+
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import { motion, AnimatePresence } from 'framer-motion';
@@ -168,4 +170,3 @@ export default function ContactList() {
 //     </div>
 //   );
 // }
-

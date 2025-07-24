@@ -199,7 +199,7 @@ const CalendarView = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`fixed top-4 left-4 right-4 sm:top-6 sm:right-6 sm:left-auto z-50 p-4 sm:p-5 rounded-2xl shadow-2xl flex items-center space-x-3 sm:space-x-4 backdrop-blur-md border-2 max-w-md mx-auto sm:mx-0 ${
+            className={`fixed top-2 left-2 right-2 sm:top-6 sm:right-6 sm:left-auto z-50 p-2 sm:p-5 rounded-2xl shadow-2xl flex items-center space-x-2 sm:space-x-4 backdrop-blur-md border-2 max-w-md mx-auto sm:mx-0 text-xs sm:text-base ${
               alertMessage.type === "success"
                 ? "bg-emerald-500/90 text-white border-emerald-300"
                 : "bg-red-500/90 text-white border-red-300"
@@ -224,52 +224,52 @@ const CalendarView = () => {
       </AnimatePresence>
 
       <motion.div
-        className="max-w-7xl mx-auto"
+        className="max-w-7xl mx-auto text-xs sm:text-base"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Header */}
         <motion.div
-          className="text-center mb-8 sm:mb-12"
+          className="text-center mb-4 sm:mb-12"
           variants={itemVariants}
         >
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl mb-6 shadow-xl">
-            <CalendarDaysIcon className="w-10 h-10 text-white" />
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl mb-3 sm:mb-6 shadow-xl">
+            <CalendarDaysIcon className="w-6 h-6 sm:w-10 sm:h-10 text-white" />
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-lg sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2 sm:mb-4">
             Booking Calendar Overview
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Manage your bookings and blocked dates with our interactive calendar
           </p>
         </motion.div>
 
         {/* Main Content Card */}
         <motion.div
-          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20"
+          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20 text-xs sm:text-base"
           variants={itemVariants}
         >
           {/* Filters Section */}
-          <div className="p-6 sm:p-8 bg-gradient-to-r from-blue-600 to-indigo-700">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                <FunnelIcon className="w-5 h-5 text-white" />
+          <div className="p-3 sm:p-8 bg-gradient-to-r from-blue-600 to-indigo-700">
+            <div className="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-6">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white">Filter & Search</h2>
+              <h2 className="text-base sm:text-2xl font-bold text-white">Filter & Search</h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
               {/* Type Filter */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
-                  <Squares2X2Icon className="w-4 h-4" />
+              <div className="space-y-1 sm:space-y-2">
+                <label className="block text-xs sm:text-sm font-semibold text-blue-100 flex items-center space-x-2">
+                  <Squares2X2Icon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>Filter by Type</span>
                 </label>
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base"
+                  className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base"
                 >
                   <option value="All" className="text-gray-900">All Bookings</option>
                   <option value="Room" className="text-gray-900">Room Bookings</option>
@@ -278,65 +278,65 @@ const CalendarView = () => {
               </div>
 
               {/* Start Date */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
-                  <ClockIcon className="w-4 h-4" />
+              <div className="space-y-1 sm:space-y-2">
+                <label className="block text-xs sm:text-sm font-semibold text-blue-100 flex items-center space-x-2">
+                  <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>From Date</span>
                 </label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base [color-scheme:dark]"
+                  className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base [color-scheme:dark]"
                 />
               </div>
 
               {/* End Date */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
-                  <CalendarDaysIcon className="w-4 h-4" />
+              <div className="space-y-1 sm:space-y-2">
+                <label className="block text-xs sm:text-sm font-semibold text-blue-100 flex items-center space-x-2">
+                  <CalendarDaysIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>To Date</span>
                 </label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base [color-scheme:dark]"
+                  className="w-full px-2 sm:px-4 py-2 sm:py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-xs sm:text-base [color-scheme:dark]"
                 />
               </div>
             </div>
 
             {/* Legend */}
-            <div className="mt-6 pt-6 border-t border-white/20">
-              <h3 className="text-sm font-semibold text-blue-100 mb-3 flex items-center space-x-2">
-                <ListBulletIcon className="w-4 h-4" />
+            <div className="mt-3 sm:mt-6 pt-3 sm:pt-6 border-t border-white/20">
+              <h3 className="text-xs sm:text-sm font-semibold text-blue-100 mb-2 sm:mb-3 flex items-center space-x-2">
+                <ListBulletIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Calendar Legend</span>
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                  <span className="text-sm text-blue-100">Room Bookings</span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded"></div>
+                  <span className="text-xs sm:text-sm text-blue-100">Room Bookings</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                  <span className="text-sm text-blue-100">Lawn Bookings</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-orange-500 rounded"></div>
+                  <span className="text-xs sm:text-sm text-blue-100">Lawn Bookings</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-red-500 rounded"></div>
-                  <span className="text-sm text-blue-100">Blocked Dates</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded"></div>
+                  <span className="text-xs sm:text-sm text-blue-100">Blocked Dates</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Calendar Section */}
-          <div className="p-6 sm:p-8">
+          <div className="p-2 sm:p-8">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <CalendarDaysIcon className="w-5 h-5 text-white" />
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <CalendarDaysIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-800">Interactive Calendar</h3>
+                <h3 className="text-base sm:text-2xl font-bold text-gray-800">Interactive Calendar</h3>
               </div>
               <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-600">
                 <PlusCircleIcon className="w-4 h-4 text-blue-500" />
@@ -345,16 +345,16 @@ const CalendarView = () => {
             </div>
 
             {/* Mobile Instructions */}
-            <div className="sm:hidden mb-4 p-3 bg-blue-50 rounded-xl border border-blue-200">
-              <div className="flex items-center space-x-2 text-sm text-blue-700">
-                <PlusCircleIcon className="w-4 h-4" />
+            <div className="sm:hidden mb-2 p-2 bg-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-1 text-xs text-blue-700">
+                <PlusCircleIcon className="w-3 h-3" />
                 <span>Tap any date to block it for booking</span>
               </div>
             </div>
 
             {/* Calendar Container */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-              <div className="calendar-container" style={{ height: '600px' }}>
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 text-xs sm:text-base">
+              <div className="calendar-container" style={{ height: '400px', minHeight: '300px' }}>
                 <Calendar
                   localizer={localizer}
                   events={[...filteredEvents, ...blockedEvents]}
@@ -372,12 +372,12 @@ const CalendarView = () => {
                   showAllEvents
                   components={{
                     toolbar: (props) => (
-                      <div className="rbc-toolbar bg-gradient-to-r from-gray-50 to-blue-50 p-4 border-b border-gray-200">
-                        <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
-                          <div className="flex items-center space-x-2">
+                      <div className="rbc-toolbar bg-gradient-to-r from-gray-50 to-blue-50 p-2 sm:p-4 border-b border-gray-200 text-xs sm:text-base">
+                        <div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+                          <div className="flex items-center space-x-1 sm:space-x-2">
                             <motion.button
                               onClick={() => props.onNavigate('PREV')}
-                              className="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm font-medium"
+                              className="px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-xs sm:text-sm font-medium"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -385,7 +385,7 @@ const CalendarView = () => {
                             </motion.button>
                             <motion.button
                               onClick={() => props.onNavigate('TODAY')}
-                              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+                              className="px-2 sm:px-4 py-1 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-xs sm:text-sm font-medium"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -393,24 +393,22 @@ const CalendarView = () => {
                             </motion.button>
                             <motion.button
                               onClick={() => props.onNavigate('NEXT')}
-                              className="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm font-medium"
+                              className="px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-xs sm:text-sm font-medium"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
                               →
                             </motion.button>
                           </div>
-                          
-                          <div className="text-lg sm:text-xl font-bold text-gray-800">
+                          <div className="text-xs sm:text-xl font-bold text-gray-800">
                             {props.label}
                           </div>
-                          
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-1 sm:space-x-2">
                             {['month', 'week', 'day'].map((view) => (
                               <motion.button
                                 key={view}
                                 onClick={() => props.onView(view)}
-                                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                className={`px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
                                   props.view === view
                                     ? 'bg-blue-600 text-white shadow-md'
                                     : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
@@ -431,39 +429,39 @@ const CalendarView = () => {
             </div>
 
             {/* Summary Stats */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
-                <div className="flex items-center space-x-3">
-                  <BuildingOfficeIcon className="w-8 h-8 text-blue-600" />
+            <div className="mt-3 sm:mt-6 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-2 sm:p-4 rounded-xl border border-blue-200">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <BuildingOfficeIcon className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600" />
                   <div>
-                    <div className="text-2xl font-bold text-blue-700">
+                    <div className="text-base sm:text-2xl font-bold text-blue-700">
                       {filteredEvents.filter(e => e.resource?.type === 'Room').length}
                     </div>
-                    <div className="text-sm text-blue-600">Room Bookings</div>
+                    <div className="text-xs sm:text-sm text-blue-600">Room Bookings</div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
-                <div className="flex items-center space-x-3">
-                  <HomeIcon className="w-8 h-8 text-orange-600" />
+              <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-2 sm:p-4 rounded-xl border border-orange-200">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <HomeIcon className="w-5 h-5 sm:w-8 sm:h-8 text-orange-600" />
                   <div>
-                    <div className="text-2xl font-bold text-orange-700">
+                    <div className="text-base sm:text-2xl font-bold text-orange-700">
                       {filteredEvents.filter(e => e.resource?.type === 'Lawn').length}
                     </div>
-                    <div className="text-sm text-orange-600">Lawn Bookings</div>
+                    <div className="text-xs sm:text-sm text-orange-600">Lawn Bookings</div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-xl border border-red-200">
-                <div className="flex items-center space-x-3">
-                  <ExclamationTriangleIcon className="w-8 h-8 text-red-600" />
+              <div className="bg-gradient-to-r from-red-50 to-red-100 p-2 sm:p-4 rounded-xl border border-red-200">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <ExclamationTriangleIcon className="w-5 h-5 sm:w-8 sm:h-8 text-red-600" />
                   <div>
-                    <div className="text-2xl font-bold text-red-700">
+                    <div className="text-base sm:text-2xl font-bold text-red-700">
                       {blockedEvents.length}
                     </div>
-                    <div className="text-sm text-red-600">Blocked Dates</div>
+                    <div className="text-xs sm:text-sm text-red-600">Blocked Dates</div>
                   </div>
                 </div>
               </div>
@@ -473,7 +471,7 @@ const CalendarView = () => {
       </motion.div>
 
       {/* Custom Calendar Styles */}
-      <style jsx>{`
+      <style>{`
         .calendar-container .rbc-calendar {
           font-family: inherit;
         }
@@ -541,6 +539,21 @@ export default CalendarView;
 // import { format, parse, startOfWeek, getDay, isWithinInterval } from 'date-fns';
 // import { fetchBookings, fetchBlockedDates, addBlockedDate } from '../utils/api';
 // import enUS from 'date-fns/locale/en-US';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import {
+//   CalendarDaysIcon,
+//   FunnelIcon,
+//   ClockIcon,
+//   BuildingOfficeIcon,
+//   HomeIcon,
+//   ExclamationTriangleIcon,
+//   CheckCircleIcon,
+//   XCircleIcon,
+//   PlusCircleIcon,
+//   MagnifyingGlassIcon,
+//   Squares2X2Icon,
+//   ListBulletIcon,
+// } from '@heroicons/react/24/solid';
 
 // const locales = { 'en-US': enUS };
 
@@ -559,8 +572,19 @@ export default CalendarView;
 //   const [startDate, setStartDate] = useState('');
 //   const [endDate, setEndDate] = useState('');
 //   const [blockedEvents, setBlocked] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [alertMessage, setAlertMessage] = useState(null);
+//   const [showAlert, setShowAlert] = useState(false);
+
+//   const showAlertMessage = (message, type) => {
+//     setAlertMessage({ message, type });
+//     setShowAlert(true);
+//     setTimeout(() => setShowAlert(false), 3000);
+//   };
 
 //   useEffect(() => {
+//     setLoading(true);
 //     fetchBookings().then(bookings => {
 //       const mapped = bookings.map(b => ({
 //         title: `${b.type} - ₹${b.amount}`,
@@ -571,11 +595,18 @@ export default CalendarView;
 //       }));
 //       setAllBookings(mapped);
 //       setFilteredEvents(mapped);
-//     }).catch(error => console.error("Error fetching bookings:", error)); // Add error handling
+//     }).catch(error => {
+//       console.error("Error fetching bookings:", error);
+//       setError("Failed to load bookings");
+//       showAlertMessage("Failed to load bookings", "error");
+//     }).finally(() => setLoading(false));
 //   }, []);
 
 //   useEffect(() => {
-//     fetchBlockedDates().then(setBlocked).catch(error => console.error("Error fetching blocked dates:", error)); // Add error handling
+//     fetchBlockedDates().then(setBlocked).catch(error => {
+//       console.error("Error fetching blocked dates:", error);
+//       showAlertMessage("Failed to load blocked dates", "error");
+//     });
 //   }, []);
 
 //   useEffect(() => {
@@ -600,18 +631,18 @@ export default CalendarView;
 //     const date = slotInfo.start;
 //     const type = prompt('Block for Room or Lawn? (Type "Room" or "Lawn")');
 //     if (!type || !['Room', 'Lawn'].includes(type.trim())) {
-//       alert('Invalid type. Please type "Room" or "Lawn".');
+//       showAlertMessage('Invalid type. Please type "Room" or "Lawn".', 'error');
 //       return;
 //     }
 //     const reason = prompt('Reason (optional)');
     
 //     try {
 //       await addBlockedDate({ date, type: type.trim(), reason });
-//       alert('Date blocked successfully!');
+//       showAlertMessage('Date blocked successfully!', 'success');
 //       fetchBlockedDates().then(setBlocked); // Re-fetch blocked dates to update calendar
 //     } catch (error) {
 //       console.error("Error adding blocked date:", error);
-//       alert('Failed to block date. Please try again.');
+//       showAlertMessage('Failed to block date. Please try again.', 'error');
 //     }
 //   };
 
@@ -650,75 +681,388 @@ export default CalendarView;
 //     };
 //   };
 
+//   const containerVariants = {
+//     hidden: { opacity: 0, y: 50 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       transition: {
+//         duration: 0.8,
+//         ease: [0.25, 0.46, 0.45, 0.94],
+//         when: "beforeChildren",
+//         staggerChildren: 0.1
+//       }
+//     }
+//   };
+
+//   const itemVariants = {
+//     hidden: { opacity: 0, y: 20, scale: 0.95 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       scale: 1,
+//       transition: {
+//         duration: 0.6,
+//         ease: [0.25, 0.46, 0.45, 0.94]
+//       }
+//     }
+//   };
+
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex justify-center items-center">
+//         <div className="text-center">
+//           <div className="relative">
+//             <div className="w-20 h-20 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
+//             <div className="absolute inset-0 flex items-center justify-center">
+//               <CalendarDaysIcon className="w-8 h-8 text-blue-600" />
+//             </div>
+//           </div>
+//           <p className="mt-4 text-lg font-medium text-gray-600">Loading calendar...</p>
+//         </div>
+//       </div>
+//     );
+//   }
+
 //   return (
-//     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 bg-white mt-6 rounded-xl shadow-lg animate-fade-in-down">
-//       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-center text-green-600 mb-6 sm:mb-8">
-//         Booking Calendar Overview
-//       </h2>
-
-//       {/* Filters */}
-//       <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-stretch md:items-end mb-6 sm:mb-8">
-//         <div className="w-full md:w-auto"> {/* Take full width on small screens */}
-//           <label htmlFor="type-filter" className="block font-semibold text-gray-600 mb-1 text-sm sm:text-base">Filter by Type:</label>
-//           <select
-//             id="type-filter"
-//             value={typeFilter}
-//             onChange={(e) => setTypeFilter(e.target.value)}
-//             className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 text-sm sm:text-base transition duration-200 ease-in-out hover:border-green-400"
+//     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-6 px-4 sm:px-6 lg:px-8">
+//       {/* Alert System */}
+//       <AnimatePresence>
+//         {showAlert && alertMessage && (
+//           <motion.div
+//             initial={{ opacity: 0, y: -50, scale: 0.95 }}
+//             animate={{ opacity: 1, y: 0, scale: 1 }}
+//             exit={{ opacity: 0, y: -50, scale: 0.95 }}
+//             transition={{ duration: 0.3 }}
+//             className={`fixed top-4 left-4 right-4 sm:top-6 sm:right-6 sm:left-auto z-50 p-4 sm:p-5 rounded-2xl shadow-2xl flex items-center space-x-3 sm:space-x-4 backdrop-blur-md border-2 max-w-md mx-auto sm:mx-0 ${
+//               alertMessage.type === "success"
+//                 ? "bg-emerald-500/90 text-white border-emerald-300"
+//                 : "bg-red-500/90 text-white border-red-300"
+//             }`}
 //           >
-//             <option value="All">All</option>
-//             <option value="Room">Room</option>
-//             <option value="Lawn">Lawn</option>
-//           </select>
-//         </div>
+//             <div className="flex-shrink-0">
+//               {alertMessage.type === "success" ? (
+//                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+//                   <CheckCircleIcon className="h-5 w-5" />
+//                 </div>
+//               ) : (
+//                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+//                   <XCircleIcon className="h-5 w-5" />
+//                 </div>
+//               )}
+//             </div>
+//             <div className="flex-1">
+//               <p className="font-semibold text-sm sm:text-base">{alertMessage.message}</p>
+//             </div>
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
 
-//         <div className="w-full md:w-auto"> {/* Take full width on small screens */}
-//           <label htmlFor="start-date" className="block font-semibold text-gray-600 mb-1 text-sm sm:text-base">From:</label>
-//           <input
-//             id="start-date"
-//             type="date"
-//             value={startDate}
-//             onChange={(e) => setStartDate(e.target.value)}
-//             className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 text-sm sm:text-base transition duration-200 ease-in-out hover:border-green-400"
-//           />
-//         </div>
+//       <motion.div
+//         className="max-w-7xl mx-auto"
+//         variants={containerVariants}
+//         initial="hidden"
+//         animate="visible"
+//       >
+//         {/* Header */}
+//         <motion.div
+//           className="text-center mb-8 sm:mb-12"
+//           variants={itemVariants}
+//         >
+//           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl mb-6 shadow-xl">
+//             <CalendarDaysIcon className="w-10 h-10 text-white" />
+//           </div>
+//           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+//             Booking Calendar Overview
+//           </h1>
+//           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+//             Manage your bookings and blocked dates with our interactive calendar
+//           </p>
+//         </motion.div>
 
-//         <div className="w-full md:w-auto"> {/* Take full width on small screens */}
-//           <label htmlFor="end-date" className="block font-semibold text-gray-600 mb-1 text-sm sm:text-base">To:</label>
-//           <input
-//             id="end-date"
-//             type="date"
-//             value={endDate}
-//             onChange={(e) => setEndDate(e.target.value)}
-//             className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 text-sm sm:text-base transition duration-200 ease-in-out hover:border-green-400"
-//           />
-//         </div>
-//       </div>
+//         {/* Main Content Card */}
+//         <motion.div
+//           className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20"
+//           variants={itemVariants}
+//         >
+//           {/* Filters Section */}
+//           <div className="p-6 sm:p-8 bg-gradient-to-r from-blue-600 to-indigo-700">
+//             <div className="flex items-center space-x-3 mb-6">
+//               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+//                 <FunnelIcon className="w-5 h-5 text-white" />
+//               </div>
+//               <h2 className="text-xl sm:text-2xl font-bold text-white">Filter & Search</h2>
+//             </div>
 
-//       {/* Calendar */}
-//       <div className="overflow-hidden rounded-md shadow-md border border-gray-200"> {/* Added border */}
-//         <Calendar
-//          localizer={localizer}
-//           events={[...filteredEvents, ...blockedEvents]}
-//           startAccessor="start"
-//           endAccessor="end"
-//           style={{ height: 600 }}
-//           selectable
-//           onSelectSlot={handleBlockDate}
-//           eventPropGetter={(event) => ({
-//             style: {
-//               backgroundColor: event.resource?.blocked
-//                 ? 'red'
-//                 : event.resource?.type === 'Room'
-//                 ? '#00aaff'
-//                 : '#ff9900',
-//               color: 'white',
-//               borderRadius: '6px',
-//               border: 'none',
-//             },
-//           })}
-//         />
-//       </div>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+//               {/* Type Filter */}
+//               <div className="space-y-2">
+//                 <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
+//                   <Squares2X2Icon className="w-4 h-4" />
+//                   <span>Filter by Type</span>
+//                 </label>
+//                 <select
+//                   value={typeFilter}
+//                   onChange={(e) => setTypeFilter(e.target.value)}
+//                   className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base"
+//                 >
+//                   <option value="All" className="text-gray-900">All Bookings</option>
+//                   <option value="Room" className="text-gray-900">Room Bookings</option>
+//                   <option value="Lawn" className="text-gray-900">Lawn Bookings</option>
+//                 </select>
+//               </div>
+
+//               {/* Start Date */}
+//               <div className="space-y-2">
+//                 <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
+//                   <ClockIcon className="w-4 h-4" />
+//                   <span>From Date</span>
+//                 </label>
+//                 <input
+//                   type="date"
+//                   value={startDate}
+//                   onChange={(e) => setStartDate(e.target.value)}
+//                   className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base [color-scheme:dark]"
+//                 />
+//               </div>
+
+//               {/* End Date */}
+//               <div className="space-y-2">
+//                 <label className="block text-sm font-semibold text-blue-100 flex items-center space-x-2">
+//                   <CalendarDaysIcon className="w-4 h-4" />
+//                   <span>To Date</span>
+//                 </label>
+//                 <input
+//                   type="date"
+//                   value={endDate}
+//                   onChange={(e) => setEndDate(e.target.value)}
+//                   className="w-full px-4 py-3 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all duration-300 text-base [color-scheme:dark]"
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Legend */}
+//             <div className="mt-6 pt-6 border-t border-white/20">
+//               <h3 className="text-sm font-semibold text-blue-100 mb-3 flex items-center space-x-2">
+//                 <ListBulletIcon className="w-4 h-4" />
+//                 <span>Calendar Legend</span>
+//               </h3>
+//               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+//                 <div className="flex items-center space-x-3">
+//                   <div className="w-4 h-4 bg-blue-500 rounded"></div>
+//                   <span className="text-sm text-blue-100">Room Bookings</span>
+//                 </div>
+//                 <div className="flex items-center space-x-3">
+//                   <div className="w-4 h-4 bg-orange-500 rounded"></div>
+//                   <span className="text-sm text-blue-100">Lawn Bookings</span>
+//                 </div>
+//                 <div className="flex items-center space-x-3">
+//                   <div className="w-4 h-4 bg-red-500 rounded"></div>
+//                   <span className="text-sm text-blue-100">Blocked Dates</span>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Calendar Section */}
+//           <div className="p-6 sm:p-8">
+//             <div className="flex items-center justify-between mb-6">
+//               <div className="flex items-center space-x-3">
+//                 <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+//                   <CalendarDaysIcon className="w-5 h-5 text-white" />
+//                 </div>
+//                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800">Interactive Calendar</h3>
+//               </div>
+//               <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-600">
+//                 <PlusCircleIcon className="w-4 h-4 text-blue-500" />
+//                 <span>Click any date to block it</span>
+//               </div>
+//             </div>
+
+//             {/* Mobile Instructions */}
+//             <div className="sm:hidden mb-4 p-3 bg-blue-50 rounded-xl border border-blue-200">
+//               <div className="flex items-center space-x-2 text-sm text-blue-700">
+//                 <PlusCircleIcon className="w-4 h-4" />
+//                 <span>Tap any date to block it for booking</span>
+//               </div>
+//             </div>
+
+//             {/* Calendar Container */}
+//             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+//               <div className="calendar-container" style={{ height: '600px' }}>
+//                 <Calendar
+//                   localizer={localizer}
+//                   events={[...filteredEvents, ...blockedEvents]}
+//                   startAccessor="start"
+//                   endAccessor="end"
+//                   style={{ height: '100%' }}
+//                   selectable
+//                   onSelectSlot={handleBlockDate}
+//                   eventPropGetter={eventPropGetter}
+//                   views={['month', 'week', 'day']}
+//                   defaultView="month"
+//                   popup
+//                   showMultiDayTimes
+//                   step={60}
+//                   showAllEvents
+//                   components={{
+//                     toolbar: (props) => (
+//                       <div className="rbc-toolbar bg-gradient-to-r from-gray-50 to-blue-50 p-4 border-b border-gray-200">
+//                         <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
+//                           <div className="flex items-center space-x-2">
+//                             <motion.button
+//                               onClick={() => props.onNavigate('PREV')}
+//                               className="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm font-medium"
+//                               whileHover={{ scale: 1.05 }}
+//                               whileTap={{ scale: 0.95 }}
+//                             >
+//                               ←
+//                             </motion.button>
+//                             <motion.button
+//                               onClick={() => props.onNavigate('TODAY')}
+//                               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+//                               whileHover={{ scale: 1.05 }}
+//                               whileTap={{ scale: 0.95 }}
+//                             >
+//                               Today
+//                             </motion.button>
+//                             <motion.button
+//                               onClick={() => props.onNavigate('NEXT')}
+//                               className="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm font-medium"
+//                               whileHover={{ scale: 1.05 }}
+//                               whileTap={{ scale: 0.95 }}
+//                             >
+//                               →
+//                             </motion.button>
+//                           </div>
+                          
+//                           <div className="text-lg sm:text-xl font-bold text-gray-800">
+//                             {props.label}
+//                           </div>
+                          
+//                           <div className="flex items-center space-x-2">
+//                             {['month', 'week', 'day'].map((view) => (
+//                               <motion.button
+//                                 key={view}
+//                                 onClick={() => props.onView(view)}
+//                                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+//                                   props.view === view
+//                                     ? 'bg-blue-600 text-white shadow-md'
+//                                     : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+//                                 }`}
+//                                 whileHover={{ scale: 1.05 }}
+//                                 whileTap={{ scale: 0.95 }}
+//                               >
+//                                 {view.charAt(0).toUpperCase() + view.slice(1)}
+//                               </motion.button>
+//                             ))}
+//                           </div>
+//                         </div>
+//                       </div>
+//                     ),
+//                   }}
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Summary Stats */}
+//             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+//               <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+//                 <div className="flex items-center space-x-3">
+//                   <BuildingOfficeIcon className="w-8 h-8 text-blue-600" />
+//                   <div>
+//                     <div className="text-2xl font-bold text-blue-700">
+//                       {filteredEvents.filter(e => e.resource?.type === 'Room').length}
+//                     </div>
+//                     <div className="text-sm text-blue-600">Room Bookings</div>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
+//                 <div className="flex items-center space-x-3">
+//                   <HomeIcon className="w-8 h-8 text-orange-600" />
+//                   <div>
+//                     <div className="text-2xl font-bold text-orange-700">
+//                       {filteredEvents.filter(e => e.resource?.type === 'Lawn').length}
+//                     </div>
+//                     <div className="text-sm text-orange-600">Lawn Bookings</div>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-xl border border-red-200">
+//                 <div className="flex items-center space-x-3">
+//                   <ExclamationTriangleIcon className="w-8 h-8 text-red-600" />
+//                   <div>
+//                     <div className="text-2xl font-bold text-red-700">
+//                       {blockedEvents.length}
+//                     </div>
+//                     <div className="text-sm text-red-600">Blocked Dates</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </motion.div>
+//       </motion.div>
+
+//       {/* Custom Calendar Styles */}
+//       <style jsx>{`
+//         .calendar-container .rbc-calendar {
+//           font-family: inherit;
+//         }
+        
+//         .calendar-container .rbc-event {
+//           border-radius: 8px;
+//           font-weight: 500;
+//           font-size: 0.75rem;
+//           padding: 2px 6px;
+//           border: none;
+//           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+//         }
+        
+//         .calendar-container .rbc-day-bg:hover {
+//           background-color: rgba(59, 130, 246, 0.05);
+//         }
+        
+//         .calendar-container .rbc-selected {
+//           background-color: rgba(59, 130, 246, 0.1);
+//         }
+        
+//         .calendar-container .rbc-today {
+//           background-color: rgba(59, 130, 246, 0.05);
+//         }
+        
+//         .calendar-container .rbc-month-view,
+//         .calendar-container .rbc-time-view {
+//           border: none;
+//         }
+        
+//         .calendar-container .rbc-header {
+//           background-color: #f8fafc;
+//           border-bottom: 1px solid #e2e8f0;
+//           padding: 12px 8px;
+//           font-weight: 600;
+//           color: #475569;
+//         }
+        
+//         @media (max-width: 640px) {
+//           .calendar-container .rbc-toolbar {
+//             flex-direction: column;
+//             gap: 12px;
+//           }
+          
+//           .calendar-container .rbc-toolbar-label {
+//             font-size: 1rem;
+//           }
+          
+//           .calendar-container .rbc-event {
+//             font-size: 0.6rem;
+//             padding: 1px 3px;
+//           }
+//         }
+//       `}</style>
 //     </div>
 //   );
 // };

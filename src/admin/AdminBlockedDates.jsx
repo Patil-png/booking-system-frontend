@@ -1,7 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { CalendarDaysIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 
 const AdminBlockedDates = ({ type = 'Room' }) => {
@@ -67,7 +67,7 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
   }, [type]);
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl animate-fade-in-down transition-all duration-500 ease-in-out md:p-10">
+    <div className="max-w-md mx-auto mt-8 p-4 sm:p-6 bg-gradient-to-br from-green-50 via-white to-blue-50 rounded-3xl shadow-2xl border border-green-100 animate-fade-in-down transition-all duration-500 ease-in-out">
       <style>
         {`
           @keyframes fadeInDown {
@@ -90,48 +90,58 @@ const AdminBlockedDates = ({ type = 'Room' }) => {
         `}
       </style>
 
-
-      <h2 className="text-2xl font-bold mb-4 text-center text-green-600">
+      <h2 className="text-xl sm:text-2xl font-extrabold mb-4 text-center text-green-700 tracking-tight flex items-center justify-center gap-2">
+        <CalendarDaysIcon className="h-6 w-6 text-green-500" />
         Manage Blocked Dates for {type}
       </h2>
 
-      <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
-        <DatePicker
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          excludeDates={blockedList.map(item => new Date(item.date))}
-          placeholderText="Select booking date"
-          minDate={new Date()}
-          className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transform transition-transform duration-200 hover:scale-105"
-        />
+      <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-6">
+        <div className="relative w-full sm:w-auto flex-1">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            excludeDates={blockedList.map(item => new Date(item.date))}
+            placeholderText="Select booking date"
+            minDate={new Date()}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white shadow-sm text-sm"
+          />
+          <CalendarDaysIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-5 w-5 text-green-400 pointer-events-none" />
+        </div>
         <button
           onClick={blockDate}
           disabled={loading || !selectedDate}
-          className={`px-4 py-2 rounded-lg text-white transition-all duration-300 transform hover:scale-105 ${
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 text-sm ${
             loading || !selectedDate
               ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-green-500 hover:bg-green-600 active:scale-95'
+              : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 active:scale-95'
           }`}
         >
+          <CalendarDaysIcon className="h-5 w-5 text-white" />
           {loading ? 'Blocking...' : 'Block Date'}
         </button>
       </div>
 
-      <h4 className="text-lg font-semibold mb-2">Blocked Dates:</h4>
+      <h4 className="text-base sm:text-lg font-semibold mb-2 text-green-700">Blocked Dates</h4>
       <ul className="space-y-3">
         {blockedList.length === 0 ? (
-          <li className="text-gray-500 text-center py-4">No blocked dates yet.</li>
+          <li className="text-gray-400 text-center py-4 italic">No blocked dates yet.</li>
         ) : (
           blockedList.map((item) => (
             <li
               key={item._id}
-              className="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm animate-fade-in-left transition-all duration-300 ease-out transform hover:scale-[1.02]"
+              className="flex justify-between items-center p-3 bg-gradient-to-r from-green-100 via-white to-blue-100 rounded-xl shadow-md animate-fade-in-left transition-all duration-300 ease-out transform hover:scale-[1.03] border border-green-100"
             >
-              <span className="font-medium text-gray-700">{new Date(item.date).toDateString()}</span>
+              <span className="flex items-center gap-2 font-medium text-gray-700">
+                <CalendarDaysIcon className="h-5 w-5 text-green-500" />
+                <span className="bg-green-200 text-green-800 px-2 py-0.5 rounded-lg text-xs font-semibold tracking-wide">
+                  {new Date(item.date).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}
+                </span>
+              </span>
               <button
                 onClick={() => unblockDate(item._id)}
-                className="text-red-600 font-medium hover:underline transition-colors duration-200 hover:text-red-800"
+                className="flex items-center gap-1 text-red-600 font-semibold hover:underline hover:text-red-800 transition-colors duration-200 text-xs px-2 py-1 rounded-lg hover:bg-red-50"
               >
+                <XCircleIcon className="h-4 w-4" />
                 Unblock
               </button>
             </li>

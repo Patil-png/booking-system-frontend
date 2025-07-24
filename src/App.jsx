@@ -1,5 +1,4 @@
-// src/App.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
@@ -14,22 +13,21 @@ import NotFound from './components/NotFound/NotFound';
 import BookingPage from './pages/BookingPage';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
-import Contacts from './admin/Contacts';
+import Contacts from './admin/Contacts.jsx';
 import GalleryAdmin from './admin/GalleryAdmin';
 
-export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const location = useLocation();
+const isAdminAuthenticated = () => {
+  return !!localStorage.getItem('adminToken');
+};
 
-  useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    setIsAuthenticated(!!token);
-  }, [location.pathname]); // re-evaluate on route change
+function AppLayout() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/executive-assistant');
 
   return (
     <>
       <Toaster position="top-right" />
-      <Navbar />
+      {!isAdminRoute && <Navbar />}
 
       <Routes>
         {/* Public Routes */}
@@ -46,18 +44,18 @@ export default function App() {
         {/* Admin Auth */}
         <Route path="/login" element={<AdminLogin />} />
 
-        {/* Protected Admin Routes */}
-        {isAuthenticated ? (
+        {/* Executive Assistant Protected Routes */}
+        {isAdminAuthenticated() ? (
           <>
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="/admin/contacts" element={<Contacts />} />
-            <Route path="/admin/gallery" element={<GalleryAdmin />} />
+            <Route path="/executive-assistant/*" element={<AdminDashboard />} />
+            <Route path="/executive-assistant/contacts" element={<Contacts />} />
+            <Route path="/executive-assistant/gallery" element={<GalleryAdmin />} />
           </>
         ) : (
           <>
-            <Route path="/admin/*" element={<Navigate to="/login" replace />} />
-            <Route path="/admin/contacts" element={<Navigate to="/login" replace />} />
-            <Route path="/admin/gallery" element={<Navigate to="/login" replace />} />
+            <Route path="/executive-assistant/*" element={<Navigate to="/login" replace />} />
+            <Route path="/executive-assistant/contacts" element={<Navigate to="/login" replace />} />
+            <Route path="/executive-assistant/gallery" element={<Navigate to="/login" replace />} />
           </>
         )}
 
@@ -65,12 +63,14 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   );
 }
 
-
+export default function App() {
+  return <AppLayout />;
+}
 
 // import { Routes, Route, Navigate } from 'react-router-dom';
 // import BookingPage from './pages/BookingPage';
