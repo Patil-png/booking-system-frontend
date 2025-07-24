@@ -388,8 +388,8 @@ const AdminRoomManager = () => {
                           className="flex items-center gap-3"
                         >
                           <input
-                            id="roomNumber"
-                            name="roomNumber"
+                            id={`roomNumber-${i}`}
+                            name={`roomNumber-${i}`}
                             className="flex-1 p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white text-base"
                             placeholder="Room Number"
                             value={num}
@@ -628,6 +628,8 @@ const AdminRoomManager = () => {
                           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                             <input
                               type="text"
+                              id={`newRoomNumber-${type._id}`}
+                              name={`newRoomNumber-${type._id}`}
                               placeholder="New room number"
                               value={newRoomNumbers[type._id] || ""}
                               onChange={(e) =>
@@ -688,6 +690,8 @@ const AdminRoomManager = () => {
                             <div className="relative">
                               <input
                                 type="text"
+                                id={`search-room-${type._id}`}
+                                name={`search-room-${type._id}`}
                                 value={searchTerms[type._id] || ""}
                                 onChange={(e) =>
                                   setSearchTerms((prev) => ({
