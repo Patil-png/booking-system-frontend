@@ -275,14 +275,14 @@ const Gallery = () => {
       </header>
 
       <motion.nav
-        className="flex justify-center gap-3 sm:gap-6 mt-8 sm:mt-12 mb-8 sm:mb-16 flex-wrap px-4"
+        className="flex flex-nowrap justify-center gap-2 sm:gap-6 mt-8 sm:mt-12 mb-8 sm:mb-16 flex-wrap px-2"
         variants={staggerContainerVariants}
       >
         {["all", "room", "lawn"].map((tab) => (
           <motion.button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-bold rounded-full border-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50 backdrop-blur-sm
+            className={`px-3 sm:px-6 py-2 sm:py-3 text-xs sm:text-base lg:text-lg font-bold rounded-full border-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50 backdrop-blur-sm whitespace-nowrap
               ${activeTab === tab
                 ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-xl shadow-blue-500/25 scale-105"
                 : "text-blue-300 border-blue-400/50 bg-white/5 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:text-white hover:shadow-lg hover:border-blue-300"
