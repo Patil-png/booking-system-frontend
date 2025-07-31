@@ -2,16 +2,236 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Booking</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>StayLuxe - Luxury Hotel Booking | Premium Accommodations & 5-Star Experience</title>
+    <meta name="title" content="StayLuxe - Luxury Hotel Booking | Premium Accommodations & 5-Star Experience" />
+    <meta name="description" content="Experience luxury redefined at StayLuxe Hotel. Book premium accommodations with 5-star amenities, fine dining, spa services, and exceptional hospitality. Best rates guaranteed." />
+    <meta name="keywords" content="luxury hotel, hotel booking, premium accommodation, 5-star hotel, luxury stay, hotel rooms, presidential suite, deluxe rooms, spa hotel, fine dining, hotel amenities, luxury accommodation" />
+    <meta name="author" content="StayLuxe Hotel" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-domain.com/" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#7a5a2f" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.com/" />
+    <meta property="og:title" content="StayLuxe - Luxury Hotel Booking | Premium Accommodations & 5-Star Experience" />
+    <meta property="og:description" content="Experience luxury redefined at StayLuxe Hotel. Book premium accommodations with 5-star amenities, fine dining, spa services, and exceptional hospitality." />
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="StayLuxe Hotel" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://your-domain.com/" />
+    <meta property="twitter:title" content="StayLuxe - Luxury Hotel Booking | Premium Accommodations & 5-Star Experience" />
+    <meta property="twitter:description" content="Experience luxury redefined at StayLuxe Hotel. Book premium accommodations with 5-star amenities, fine dining, spa services, and exceptional hospitality." />
+    <meta property="twitter:image" content="https://your-domain.com/twitter-image.jpg" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="Your City" />
+    <meta name="geo.position" content="latitude;longitude" />
+    <meta name="ICBM" content="latitude,longitude" />
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://checkout.razorpay.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hotel",
+      "name": "StayLuxe Hotel",
+      "description": "Experience luxury redefined at StayLuxe Hotel with premium accommodations, 5-star amenities, fine dining, and exceptional hospitality.",
+      "url": "https://your-domain.com",
+      "logo": "https://your-domain.com/logo.png",
+      "image": "https://your-domain.com/hotel-image.jpg",
+      "telephone": "+91-XXXXXXXXXX",
+      "email": "info@stayluxe.com",
+      "priceRange": "₹₹₹",
+      "starRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Your Street Address",
+        "addressLocality": "Your City",
+        "addressRegion": "Your State",
+        "postalCode": "Your Postal Code",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "YOUR_LATITUDE",
+        "longitude": "YOUR_LONGITUDE"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "WiFi",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Spa",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Restaurant",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Parking",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Room Service",
+          "value": true
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Room Types",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Presidential Suite",
+              "description": "Ultimate luxury with panoramic city views"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Deluxe Room",
+              "description": "Elegant comfort with modern amenities"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Executive Suite",
+              "description": "Business luxury with premium services"
+            }
+          }
+        ]
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Sarah Mitchell"
+          },
+          "reviewBody": "Absolutely exceptional service! The attention to detail and luxury amenities exceeded all my expectations."
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1000",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "StayLuxe Hotel",
+      "url": "https://your-domain.com",
+      "logo": "https://your-domain.com/logo.png",
+      "sameAs": [
+        "https://facebook.com/stayluxe",
+        "https://instagram.com/stayluxe",
+        "https://linkedin.com/company/stayluxe"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-XXXXXXXXXX",
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      }
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://your-domain.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Rooms",
+          "item": "https://your-domain.com/Rooms"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Booking",
+          "item": "https://your-domain.com/room-booking"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Google Analytics (replace with your GA4 ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
   </body>
 </html>

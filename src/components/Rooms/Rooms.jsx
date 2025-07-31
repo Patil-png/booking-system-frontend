@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { GiBowlOfRice } from "react-icons/gi";
+import SEOHead from "../SEO/SEOHead";
 
 const rooms = [
   {
@@ -23,6 +24,65 @@ const rooms = [
     image: "/RoomImages/family.jpg",
   },
 ];
+
+// SEO structured data for rooms page
+const roomsStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Luxury Hotel Rooms & Suites",
+  "description": "Explore our premium accommodations including Deluxe Rooms, Executive Suites, and Family Suites at StayLuxe Hotel",
+  "url": "https://your-domain.com/Rooms",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Deluxe Room",
+        "description": "Spacious room with king-sized bed, free Wi-Fi, and city view",
+        "image": "https://your-domain.com/RoomImages/deluxe.jpg",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "INR",
+          "price": "5000"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Executive Suite",
+        "description": "Includes a private lounge, workspace, and complimentary minibar",
+        "image": "https://your-domain.com/RoomImages/executive.jpg",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "INR",
+          "price": "8000"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Family Suite",
+        "description": "Perfect for families, includes 2 bedrooms, kids area, and dining table",
+        "image": "https://your-domain.com/RoomImages/family.jpg",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "INR",
+          "price": "12000"
+        }
+      }
+    }
+  ]
+};
 
 const wavePath1 = [
   "M0,80 C360,160 1080,0 1440,80 L1440,160 L0,160 Z",
@@ -133,6 +193,12 @@ const Rooms = () => {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#181c2b] via-[#232946] to-[#1a1a2e] pt-16 pb-24 px-4 md:px-12 overflow-x-hidden text-white">
+      <SEOHead
+        title="Guest Rooms | StayLuxe Hotel"
+        description="Experience comfort and elegance with our luxurious room options, designed for your ultimate relaxation and memorable stay."
+        keywords="luxury hotel rooms, executive suites, family suites, hotel accommodations, hotel rooms, hotel stay"
+        structuredData={roomsStructuredData}
+      />
       {/* Animated Heading */}
       <motion.div
         className="text-center mb-12"

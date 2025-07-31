@@ -1,20 +1,20 @@
-import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import Home from './components/Home/Home';
-import Gallery from './components/Gallery/Gallery';
-import Seva from './components/Seva/Seva';
-import Rooms from './components/Rooms/Rooms';
-import Contact from './components/Contactus/Contact';
-import NotFound from './components/NotFound/NotFound';
-import BookingPage from './pages/BookingPage';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './admin/AdminDashboard';
-import Contacts from './admin/Contacts.jsx';
-import GalleryAdmin from './admin/GalleryAdmin';
+import React from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+import Gallery from "./components/Gallery/Gallery";
+import Seva from "./components/Seva/Seva";
+import Rooms from "./components/Rooms/Rooms";
+import Contact from "./components/Contactus/Contact";
+import BookingPage from "./pages/BookingPage";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./admin/AdminDashboard";
+import Contacts from "./admin/Contacts";
+import GalleryAdmin from "./admin/GalleryAdmin";
+import NotFound from "./components/NotFound/NotFound";
+import Breadcrumbs from "./components/SEO/Breadcrumbs";
 
 const isAdminAuthenticated = () => {
   return !!localStorage.getItem('adminToken');
@@ -28,6 +28,7 @@ function AppLayout() {
     <>
       <Toaster position="top-right" />
       {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <Breadcrumbs />}
 
       <Routes>
         {/* Public Routes */}
@@ -71,31 +72,3 @@ function AppLayout() {
 export default function App() {
   return <AppLayout />;
 }
-
-// import { Routes, Route, Navigate } from 'react-router-dom';
-// import BookingPage from './pages/BookingPage';
-// import AdminLogin from './pages/AdminLogin';
-// import AdminDashboard from './admin/AdminDashboard';
-
-// const isAdminAuthenticated = () => {
-//   return !!localStorage.getItem('adminToken');
-// };
-
-// export default function App() {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<BookingPage />} />
-//       <Route path="/login" element={<AdminLogin />} />
-//       <Route
-//         path="/admin/*"
-//         element={
-//           isAdminAuthenticated() ? (
-//             <AdminDashboard />
-//           ) : (
-//             <Navigate to="/login" replace />
-//           )
-//         }
-//       />
-//     </Routes>
-//   );
-// }
