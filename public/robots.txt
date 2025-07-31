@@ -1,21 +1,18 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://your-domain.com/sitemap.xml
+# Sitemap
+Sitemap: https://gouriinn.com/sitemap.xml
 
-# Disallow admin and private areas
+# Disallow admin areas
+Disallow: /admin/
 Disallow: /executive-assistant/
-Disallow: /login
 Disallow: /api/
 
 # Allow important pages
 Allow: /
-Allow: /gallery
-Allow: /Rooms
-Allow: /contact
-Allow: /room-booking
-Allow: /Seva/
-
-# Crawl delay for better server performance
-Crawl-delay: 1 
+Allow: /rooms/
+Allow: /gallery/
+Allow: /contact/
+Allow: /about/
+Allow: /booking/ 

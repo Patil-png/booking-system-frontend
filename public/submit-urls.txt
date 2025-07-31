@@ -1,0 +1,33 @@
+# Submit your website to these search engines for better indexing:
+
+## Google
+https://www.google.com/ping?sitemap=https://gouri-inn.vercel.app/sitemap.xml
+
+## Bing
+https://www.bing.com/ping?sitemap=https://gouri-inn.vercel.app/sitemap.xml
+
+## Yandex
+https://blogs.yandex.com/pings/?status=success&url=https://gouri-inn.vercel.app
+
+## Direct Submissions:
+- Google: https://search.google.com/search-console
+- Bing: https://www.bing.com/webmasters
+- Yandex: https://webmaster.yandex.com/
+
+## Local Business Listings:
+- Google My Business: https://business.google.com/
+- TripAdvisor: https://www.tripadvisor.com/
+- Booking.com: https://www.booking.com/
+- Hotels.com: https://www.hotels.com/
+
+## Social Media:
+- Facebook: https://www.facebook.com/
+- Instagram: https://www.instagram.com/
+- Twitter: https://twitter.com/
+- LinkedIn: https://www.linkedin.com/
+
+## Local Directories:
+- JustDial
+- Sulekha
+- IndiaMART
+- Yellow Pages 

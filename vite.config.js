@@ -1,19 +1,27 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react({
-    jsxRuntime: 'automatic', // This enables the modern transform
-  })],
-  server: {
-    proxy: {
-      '/api': {
-        target: process.env.VITE_API_BASE_URL || 'https://booking-system-cnly.onrender.com',
-        changeOrigin: true,
-        secure: false,
-      },
+  plugins: [react()],
+  base: '/booking-system/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@headlessui/react', '@heroicons/react'],
+          utils: ['axios', 'dayjs']
+        }
+      }
     },
-    open: '/', // ✅ Not /admin
+    chunkSizeWarningLimit: 1000
+  },
+  server: {
+    port: 3000
+  },
+  preview: {
+    port: 4173
   }
 })
