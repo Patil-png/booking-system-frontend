@@ -6,6 +6,8 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom'; 
 
 // Register service worker for PWA features
+// Temporarily disabled to fix deployment issues
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
@@ -17,6 +19,7 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+*/
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <HelmetProvider>

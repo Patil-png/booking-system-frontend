@@ -1,21 +1,16 @@
 {
-  "name": "StayLuxe Hotel - Luxury Accommodations",
-  "short_name": "StayLuxe",
-  "description": "Experience luxury redefined at StayLuxe Hotel with premium accommodations and 5-star amenities",
+  "name": "Gouri Inn - Luxury Hotel & Resort",
+  "short_name": "Gouri Inn",
+  "description": "Experience luxury and comfort at Gouri Inn. Book your stay at our premium hotel with modern amenities and excellent service.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f5f0",
+  "background_color": "#ffffff",
   "theme_color": "#7a5a2f",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "/favicon.png",
+      "sizes": "32x32",
       "type": "image/png"
     }
   ],

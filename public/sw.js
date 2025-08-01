@@ -1,8 +1,6 @@
-const CACHE_NAME = 'stayluxe-v1';
+const CACHE_NAME = 'gouri-inn-v1';
 const urlsToCache = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
   '/favicon.png',
   '/fallback.jpg',
   '/RoomImages/deluxe.jpg',
