@@ -9,14 +9,25 @@ Disallow: /admin/
 Disallow: /executive-assistant/
 Disallow: /api/
 
-# Allow important pages
+# Allow important pages with high priority
 Allow: /
 Allow: /rooms/
 Allow: /gallery/
 Allow: /contact/
 Allow: /about/
-Allow: /booking/
+Allow: /room-booking/
 Allow: /seva/
+Allow: /family-rooms/
+Allow: /wedding-venue/
+Allow: /banquet-hall/
+Allow: /restaurant/
+Allow: /business-hotel/
+Allow: /budget-hotel/
+Allow: /amenities/
+Allow: /location/
 
 # Crawl delay for better server performance
-Crawl-delay: 1 
+Crawl-delay: 1
+
+# Additional sitemaps for better indexing
+Sitemap: https://gouri-inn.vercel.app/sitemap.xml 
