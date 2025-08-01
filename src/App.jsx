@@ -40,6 +40,7 @@ function AppLayout() {
 
         {/* Booking Routes */}
         <Route path="/book" element={<Navigate to="/room-booking" replace />} />
+        <Route path="/booking" element={<Navigate to="/room-booking" replace />} />
         <Route path="/room-booking" element={<BookingPage />} />
 
         {/* Admin Auth */}
