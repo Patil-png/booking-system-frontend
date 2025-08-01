@@ -28,6 +28,3 @@ Allow: /location/
 
 # Crawl delay for better server performance
 Crawl-delay: 1
-
-# Additional sitemaps for better indexing
-Sitemap: https://gouri-inn.vercel.app/sitemap.xml 
