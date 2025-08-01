@@ -8,32 +8,37 @@ const rooms = [
   {
     id: 1,
     title: "President Suite",
-    description: "Two-Bed or One-bed Suites are sanctuaries of contemporary style and comfort, affording plenty of privacy for the most restful, relaxed and productive stay. With plush furnishings in the living area and upscale features such as modern washroom hot water cold water shower, Home docking stations plus dramatic views.",
-    image: "/RoomImages/deluxe.jpg",
+    description:
+      "Two-Bed or One-bed Suites are sanctuaries of contemporary style and comfort, affording plenty of privacy for the most restful, relaxed and productive stay. With plush furnishings in the living area and upscale features such as modern washroom hot water cold water shower, Home docking stations plus dramatic views.",
+    image: "/RoomImages/President-suite.jpg",
   },
   {
     id: 2,
     title: "Maharaja Suite",
-    description: "Suite designed keeping in view with the modern day Business Traveler providing them with a complementary tea / coffee. All Rooms are WI-FI enabled to keep in touch with business world. Colored TVs for news channels & other entertainment Cable channels too are provided in the Rooms..",
-    image: "/RoomImages/executive.jpg",
+    description:
+      "Suite designed keeping in view with the modern day Business Traveler providing them with a complementary tea / coffee. All Rooms are WI-FI enabled to keep in touch with business world. Colored TVs for news channels & other entertainment Cable channels too are provided in the Rooms..",
+    image: "/RoomImages/maharaja-suites.jpg",
   },
   {
     id: 3,
     title: "Family Suite",
-    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
-    image: "/RoomImages/family.jpg",
+    description:
+      "Multiple beds for maximum comfort (ideal for 3–5 guests ,A separate seating area for family gatherings or relaxation Modern amenities including air-conditioning, flat-screen TV, free Wi-Fi, and a mini-fridge Attached private bathroom with hot & cold water, premium toiletries, and 24/7 room service Elegant interiors and ample natural light to make you feel at home..",
+    image: "/RoomImages/Family-suite.jpg",
   },
   {
     id: 4,
     title: "Super Deluxe",
-    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
+    description:
+      "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
     image: "/RoomImages/super-delux.jpg",
   },
   {
     id: 5,
     title: "Executive Suite",
-    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
-    image: "/RoomImages/family.jpg",
+    description:
+      "The Executive Suite at Gouri Inn, Amravati offers a refined stay for guests who seek luxury, privacy, and superior comfort. Thoughtfully designed for business travelers and discerning guests, this suite features a spacious layout with a king-sized bed, dedicated work desk, complimentary toiletries. Whether you're here for business or leisure, the Executive Suite provides a peaceful, upscale environment for both work and relaxation...",
+    image: "/RoomImages/executive-suite.jpg",
   },
 ];
 
@@ -41,59 +46,63 @@ const rooms = [
 const roomsStructuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Luxury Hotel Rooms & Suites",
-  "description": "Explore our premium accommodations including Deluxe Rooms, Executive Suites, and Family Suites at StayLuxe Hotel",
-  "url": "https://your-domain.com/Rooms",
-  "itemListElement": [
+  name: "Luxury Hotel Rooms & Suites",
+  description:
+    "Explore our premium accommodations including Deluxe Rooms, Executive Suites, and Family Suites at StayLuxe Hotel",
+  url: "https://your-domain.com/Rooms",
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "item": {
+      position: 1,
+      item: {
         "@type": "Product",
-        "name": "Deluxe Room",
-        "description": "Spacious room with king-sized bed, free Wi-Fi, and city view",
-        "image": "https://your-domain.com/RoomImages/deluxe.jpg",
-        "offers": {
+        name: "Deluxe Room",
+        description:
+          "Spacious room with king-sized bed, free Wi-Fi, and city view",
+        image: "https://your-domain.com/RoomImages/deluxe.jpg",
+        offers: {
           "@type": "Offer",
-          "availability": "https://schema.org/InStock",
-          "priceCurrency": "INR",
-          "price": "5000"
-        }
-      }
+          availability: "https://schema.org/InStock",
+          priceCurrency: "INR",
+          price: "5000",
+        },
+      },
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "item": {
+      position: 2,
+      item: {
         "@type": "Product",
-        "name": "Executive Suite",
-        "description": "Includes a private lounge, workspace, and complimentary minibar",
-        "image": "https://your-domain.com/RoomImages/executive.jpg",
-        "offers": {
+        name: "Executive Suite",
+        description:
+          "Includes a private lounge, workspace, and complimentary minibar",
+        image: "https://your-domain.com/RoomImages/executive.jpg",
+        offers: {
           "@type": "Offer",
-          "availability": "https://schema.org/InStock",
-          "priceCurrency": "INR",
-          "price": "8000"
-        }
-      }
+          availability: "https://schema.org/InStock",
+          priceCurrency: "INR",
+          price: "8000",
+        },
+      },
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "item": {
+      position: 3,
+      item: {
         "@type": "Product",
-        "name": "Family Suite",
-        "description": "Perfect for families, includes 2 bedrooms, kids area, and dining table",
-        "image": "https://your-domain.com/RoomImages/family.jpg",
-        "offers": {
+        name: "Family Suite",
+        description:
+          "Perfect for families, includes 2 bedrooms, kids area, and dining table",
+        image: "https://your-domain.com/RoomImages/family.jpg",
+        offers: {
           "@type": "Offer",
-          "availability": "https://schema.org/InStock",
-          "priceCurrency": "INR",
-          "price": "12000"
-        }
-      }
-    }
-  ]
+          availability: "https://schema.org/InStock",
+          priceCurrency: "INR",
+          price: "12000",
+        },
+      },
+    },
+  ],
 };
 
 const wavePath1 = [
@@ -101,21 +110,21 @@ const wavePath1 = [
   "M0,90 C360,140 1080,20 1440,90 L1440,160 L0,160 Z",
   "M0,80 C360,160 1080,0 1440,80 L1440,160 L0,160 Z",
   "M0,70 C360,180 1080,-20 1440,70 L1440,160 L0,160 Z",
-  "M0,80 C360,160 1080,0 1440,80 L1440,160 L0,160 Z"
+  "M0,80 C360,160 1080,0 1440,80 L1440,160 L0,160 Z",
 ];
 const wavePath2 = [
   "M0,120 C480,40 960,200 1440,120 L1440,160 L0,160 Z",
   "M0,130 C480,60 960,180 1440,130 L1440,160 L0,160 Z",
   "M0,120 C480,40 960,200 1440,120 L1440,160 L0,160 Z",
   "M0,110 C480,20 960,220 1440,110 L1440,160 L0,160 Z",
-  "M0,120 C480,40 960,200 1440,120 L1440,160 L0,160 Z"
+  "M0,120 C480,40 960,200 1440,120 L1440,160 L0,160 Z",
 ];
 const wavePath3 = [
   "M0,100 Q720,180 1440,100 L1440,160 L0,160 Z",
   "M0,110 Q720,170 1440,110 L1440,160 L0,160 Z",
   "M0,100 Q720,180 1440,100 L1440,160 L0,160 Z",
   "M0,90 Q720,190 1440,90 L1440,160 L0,160 Z",
-  "M0,100 Q720,180 1440,100 L1440,160 L0,160 Z"
+  "M0,100 Q720,180 1440,100 L1440,160 L0,160 Z",
 ];
 
 const waveAnim = {
@@ -124,9 +133,9 @@ const waveAnim = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
+      ease: "easeInOut",
+    },
+  },
 };
 const waveAnim2 = {
   animate: {
@@ -134,9 +143,9 @@ const waveAnim2 = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
+      ease: "easeInOut",
+    },
+  },
 };
 const waveAnim3 = {
   animate: {
@@ -144,9 +153,9 @@ const waveAnim3 = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
+      ease: "easeInOut",
+    },
+  },
 };
 
 const waveDivider = (
@@ -158,11 +167,25 @@ const waveDivider = (
       className="absolute inset-0 w-full h-full"
     >
       <defs>
-        <linearGradient id="waveGradient1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="waveGradient1"
+          x1="0"
+          y1="0"
+          x2="1440"
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#3b82f6" />
           <stop offset="1" stopColor="#8b5cf6" />
         </linearGradient>
-        <linearGradient id="waveGradient2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="waveGradient2"
+          x1="0"
+          y1="0"
+          x2="1440"
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#6366f1" />
           <stop offset="1" stopColor="#a5b4fc" />
         </linearGradient>
@@ -182,10 +205,10 @@ const waveDivider = (
         animate="animate"
       />
       <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+        <feGaussianBlur stdDeviation="12" result="coloredBlur" />
         <feMerge>
-          <feMergeNode in="coloredBlur"/>
-          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="coloredBlur" />
+          <feMergeNode in="SourceGraphic" />
         </feMerge>
       </filter>
       <motion.path
@@ -221,7 +244,12 @@ const Rooms = () => {
         <motion.div
           initial={{ scale: 0.7, rotate: -10 }}
           animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.2 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 10,
+            delay: 0.2,
+          }}
           className="flex justify-center mb-2"
         >
           <GiBowlOfRice className="text-5xl text-blue-400 animate-pulse" />
@@ -240,7 +268,8 @@ const Rooms = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
         >
-          Experience comfort and elegance with our luxurious room options, designed for your ultimate relaxation and memorable stay.
+          Experience comfort and elegance with our luxurious room options,
+          designed for your ultimate relaxation and memorable stay.
         </motion.p>
       </motion.div>
 
@@ -263,8 +292,15 @@ const Rooms = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.2 + 0.3, duration: 0.7, type: "spring" }}
-            whileHover={{ scale: 1.05, boxShadow: "0 8px 32px 0 rgba(59, 130, 246, 0.15)" }}
+            transition={{
+              delay: index * 0.2 + 0.3,
+              duration: 0.7,
+              type: "spring",
+            }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 32px 0 rgba(59, 130, 246, 0.15)",
+            }}
           >
             <div className="relative">
               <img
@@ -309,9 +345,12 @@ const Rooms = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold text-blue-200 mb-4">Need help choosing the perfect room for your stay?</h2>
+        <h2 className="text-3xl font-bold text-blue-200 mb-4">
+          Need help choosing the perfect room for your stay?
+        </h2>
         <p className="text-gray-300 max-w-xl mx-auto mb-6">
-          Contact us today and let our experts help you find the best option for your needs.
+          Contact us today and let our experts help you find the best option for
+          your needs.
         </p>
         <motion.button
           onClick={() => navigate("/contact")}
@@ -383,7 +422,7 @@ export default Rooms;
 //               Guest Rooms
 //             </h1>
 //           </motion.div>
-          
+
 //           <motion.p
 //             className="text-gray-300 text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto"
 //             initial={{ opacity: 0, y: 20 }}
@@ -412,12 +451,12 @@ export default Rooms;
 //                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
 //                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
 //                 viewport={{ once: true, margin: "-50px" }}
-//                 transition={{ 
-//                   delay: index * 0.2, 
+//                 transition={{
+//                   delay: index * 0.2,
 //                   duration: 0.7,
 //                   ease: "easeOut"
 //                 }}
-//                 whileHover={{ 
+//                 whileHover={{
 //                   y: -10,
 //                   scale: 1.02,
 //                   transition: { duration: 0.3 }
@@ -434,7 +473,7 @@ export default Rooms;
 //                   />
 //                   {/* Overlay Gradient */}
 //                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
 //                   {/* Floating Badge */}
 //                   <motion.div
 //                     className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg"
@@ -456,7 +495,7 @@ export default Rooms;
 //                   >
 //                     {room.title}
 //                   </motion.h3>
-                  
+
 //                   <motion.p
 //                     className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3"
 //                     initial={{ opacity: 0, x: -20 }}
@@ -465,7 +504,7 @@ export default Rooms;
 //                   >
 //                     {room.description}
 //                   </motion.p>
-                  
+
 //                   {/* Book Now Button */}
 //                   <motion.button
 //                     onClick={() => navigate("/book")}
@@ -473,7 +512,7 @@ export default Rooms;
 //                     initial={{ opacity: 0, y: 20 }}
 //                     whileInView={{ opacity: 1, y: 0 }}
 //                     transition={{ delay: index * 0.2 + 0.5, duration: 0.5 }}
-//                     whileHover={{ 
+//                     whileHover={{
 //                       scale: 1.05,
 //                       boxShadow: "0 12px 32px rgba(59, 130, 246, 0.4)"
 //                     }}
@@ -506,11 +545,11 @@ export default Rooms;
 //           >
 //             Need help choosing the perfect room for your stay?
 //           </motion.p>
-          
+
 //           <motion.button
 //             onClick={() => navigate("/contact")}
 //             className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 px-8 py-3 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/20"
-//             whileHover={{ 
+//             whileHover={{
 //               scale: 1.05,
 //               y: -2,
 //               boxShadow: "0 8px 25px rgba(255, 255, 255, 0.1)"
