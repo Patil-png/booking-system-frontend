@@ -1,33 +1,22 @@
-# Submit your website to these search engines for better indexing:
+# URLs to submit to search engines for Gouri Inn website
+# Submit these URLs to Google Search Console and other search engines
 
-## Google
-https://www.google.com/ping?sitemap=https://gouri-inn.vercel.app/sitemap.xml
+https://gouri-inn.vercel.app/
+https://gouri-inn.vercel.app/rooms
+https://gouri-inn.vercel.app/gallery
+https://gouri-inn.vercel.app/contact
+https://gouri-inn.vercel.app/about
+https://gouri-inn.vercel.app/booking
+https://gouri-inn.vercel.app/seva
 
-## Bing
-https://www.bing.com/ping?sitemap=https://gouri-inn.vercel.app/sitemap.xml
+# Additional important pages
+https://gouri-inn.vercel.app/sitemap.xml
+https://gouri-inn.vercel.app/robots.txt
 
-## Yandex
-https://blogs.yandex.com/pings/?status=success&url=https://gouri-inn.vercel.app
-
-## Direct Submissions:
-- Google: https://search.google.com/search-console
-- Bing: https://www.bing.com/webmasters
-- Yandex: https://webmaster.yandex.com/
-
-## Local Business Listings:
-- Google My Business: https://business.google.com/
-- TripAdvisor: https://www.tripadvisor.com/
-- Booking.com: https://www.booking.com/
-- Hotels.com: https://www.hotels.com/
-
-## Social Media:
-- Facebook: https://www.facebook.com/
-- Instagram: https://www.instagram.com/
-- Twitter: https://twitter.com/
-- LinkedIn: https://www.linkedin.com/
-
-## Local Directories:
-- JustDial
-- Sulekha
-- IndiaMART
-- Yellow Pages 
+# Instructions:
+# 1. Go to Google Search Console (https://search.google.com/search-console)
+# 2. Add your property: https://gouri-inn.vercel.app
+# 3. Verify ownership using the meta tag in index.html
+# 4. Submit sitemap: https://gouri-inn.vercel.app/sitemap.xml
+# 5. Use "URL Inspection" tool to submit individual URLs
+# 6. Monitor indexing status and performance 

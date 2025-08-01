@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://gouriinn.com/sitemap.xml
+Sitemap: https://gouri-inn.vercel.app/sitemap.xml
 
 # Disallow admin areas
 Disallow: /admin/
@@ -15,4 +15,8 @@ Allow: /rooms/
 Allow: /gallery/
 Allow: /contact/
 Allow: /about/
-Allow: /booking/ 
+Allow: /booking/
+Allow: /seva/
+
+# Crawl delay for better server performance
+Crawl-delay: 1 
