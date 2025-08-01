@@ -27,7 +27,7 @@ const rooms = [
     id: 4,
     title: "Super Deluxe",
     description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
-    image: "/RoomImages/family.jpg",
+    image: "/RoomImages/super-delux.jpg",
   },
   {
     id: 5,
