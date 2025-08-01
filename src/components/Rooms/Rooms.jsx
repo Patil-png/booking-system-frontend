@@ -7,20 +7,32 @@ import SEOHead from "../SEO/SEOHead";
 const rooms = [
   {
     id: 1,
-    title: "Deluxe Room",
-    description: "Spacious room with king-sized bed, free Wi-Fi, and city view.",
+    title: "President Suite",
+    description: "Two-Bed or One-bed Suites are sanctuaries of contemporary style and comfort, affording plenty of privacy for the most restful, relaxed and productive stay. With plush furnishings in the living area and upscale features such as modern washroom hot water cold water shower, Home docking stations plus dramatic views.",
     image: "/RoomImages/deluxe.jpg",
   },
   {
     id: 2,
-    title: "Executive Suite",
-    description: "Includes a private lounge, workspace, and complimentary minibar.",
+    title: "Maharaja Suite",
+    description: "Suite designed keeping in view with the modern day Business Traveler providing them with a complementary tea / coffee. All Rooms are WI-FI enabled to keep in touch with business world. Colored TVs for news channels & other entertainment Cable channels too are provided in the Rooms..",
     image: "/RoomImages/executive.jpg",
   },
   {
     id: 3,
     title: "Family Suite",
-    description: "Perfect for families, includes 2 bedrooms, kids area, and dining table.",
+    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
+    image: "/RoomImages/family.jpg",
+  },
+  {
+    id: 4,
+    title: "Super Deluxe",
+    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
+    image: "/RoomImages/family.jpg",
+  },
+  {
+    id: 5,
+    title: "Executive Suite",
+    description: "The Super Deluxe rooms are designed for comfort and economical stay in Amravati. Premium Rooms are ideal for the business travelers who are looking for Budget. what it takes to be like a world class living destination, besides peaceful stay we provide bed and breakfast and wifi to ensure..",
     image: "/RoomImages/family.jpg",
   },
 ];
